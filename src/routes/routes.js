@@ -12,10 +12,10 @@ export default function AppRoutes() {
       <Routes>
         <Route path="" element={<Navigate to="/home" />} />
         <Route path="login" element={<Login />} />
+        <Route path="register" element={<Register />} />
         <Route element={<PrivateRoutes />}>
           <Route path="matchmaking" element={<Matchmaking />} />
           <Route path="home" element={<Home />} />
-          <Route path="register" element={<Register />} />
         </Route>
         <Route path="*" element={<Navigate to="/home" />} />
       </Routes>
