@@ -6,7 +6,7 @@ export default function PrivateRoutes() {
   const { signed, loading } = useContext(AuthContext);
 
   if (loading) {
-    return <div>loading</div>;
+    return <div>loading123</div>;
   }
 
   return signed ? <Outlet /> : <Navigate to="/login" />;
