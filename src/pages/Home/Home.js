@@ -1,0 +1,38 @@
+import React, { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../../contexts/authContext";
+import { getPlayer } from "../../services/firebaseDatabase";
+import { useNavigate } from "react-router-dom";
+import PlayerDisplay from "./PlayerDisplay";
+
+export default function Home() {
+  const { signOut, signed } = useContext(AuthContext);
+  const [players, setPlayers] = useState(null);
+  const navigate = useNavigate();
+
+  console.log(signed);
+
+  useEffect(() => {
+    if (signed) {
+      (async () => {
+        const players_ = await getPlayer("");
+        setPlayers(players_);
+      })();
+    }
+  }, [signed]);
+  console.log(players);
+
+  return (
+    <div style={{ width: "100%" }}>
+      <div style={{ display: "flex", flexWrap: "wrap", marginBottom: "10px" }}>
+        {players &&
+          Object.keys(players).map((player) => (
+            <PlayerDisplay name={player} ranks={players[player]} />
+          ))}
+      </div>
+      <button onClick={signOut}>Sair</button>
+      <div style={{ margin: "10px" }}>
+        <a href="/matchmaking">Matchmaking</a>
+      </div>
+    </div>
+  );
+}
