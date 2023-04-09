@@ -12,7 +12,7 @@ export default function AppRoutes() {
     <BrowserRouter>
       <Routes>
         <Route path="" element={<Navigate to="/home" />} />
-        <Route path="login" element={<Login />} />
+        <Route path="login" element={<LoginApp />} />
         <Route path="register" element={<Register />} />
         <Route path="test" element={<LoginApp />} />
         <Route element={<PrivateRoutes />}>
