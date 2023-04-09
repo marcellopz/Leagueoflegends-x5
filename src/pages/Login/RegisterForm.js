@@ -50,25 +50,25 @@ function RegisterForm() {
         label="Email"
         onChange={handleEmailChange}
         type="email"
-        sx={{ marginBottom: "1.5rem" }}
+        sx={{ marginBottom: "1.5rem", maxWidth: "90%" }}
       />
       <CustomTextfield
         width="350px"
         label="Password"
         onChange={handlePasswordChange}
         type="password"
-        sx={{ marginBottom: "1.5rem" }}
+        sx={{ marginBottom: "1.5rem", maxWidth: "90%" }}
       />
       <CustomTextfield
         width="350px"
         label="Repeat Password"
         onChange={handleRepeatPasswordChange}
         type="password"
-        sx={{ marginBottom: "1.5rem" }}
+        sx={{ marginBottom: "1.5rem", maxWidth: "90%" }}
       />
       <Button
         variant="outlined"
-        sx={{ width: "350px", marginBottom: "1rem" }}
+        sx={{ width: "350px", marginBottom: "1rem", maxWidth: "90%" }}
         type="submit"
       >
         Register

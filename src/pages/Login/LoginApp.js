@@ -37,8 +37,8 @@ export default function LoginApp() {
         sx={{
           borderRadius: 0,
           height: "100%",
-          minWidth: "400px",
-          width: "30%",
+          maxWidth: "90%",
+          width: "400px",
           boxShadow: "10",
           marginLeft: "8%",
           backgroundColor: "#f9f9f9",

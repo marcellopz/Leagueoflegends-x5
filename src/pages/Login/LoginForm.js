@@ -48,18 +48,18 @@ export default function LoginForm() {
         label="Email"
         onChange={handleEmailChange}
         type="email"
-        sx={{ marginBottom: "1.5rem" }}
+        sx={{ marginBottom: "1.5rem", maxWidth: "90%" }}
       />
       <CustomTextfield
         width="350px"
         label="Password"
         onChange={handlePasswordChange}
         type="password"
-        sx={{ marginBottom: "1.5rem" }}
+        sx={{ marginBottom: "1.5rem", maxWidth: "90%" }}
       />
       <Button
         variant="outlined"
-        sx={{ width: "350px", marginBottom: "0.5rem" }}
+        sx={{ width: "350px", marginBottom: "0.5rem", maxWidth: "90%" }}
         type="submit"
       >
         Log In
@@ -72,7 +72,7 @@ export default function LoginForm() {
             alt="google icon"
           />
         }
-        sx={{ width: "350px", marginBottom: "0.5rem" }}
+        sx={{ width: "350px", marginBottom: "0.5rem", maxWidth: "90%" }}
         onClick={handleGoogleLogin}
       >
         <Typography>Log in with Google</Typography>
@@ -80,7 +80,7 @@ export default function LoginForm() {
       <Button
         variant="outlined"
         startIcon={<Person />}
-        sx={{ width: "350px", marginBottom: "2rem" }}
+        sx={{ width: "350px", marginBottom: "2rem", maxWidth: "90%" }}
         onClick={signInAsGuest}
       >
         <Typography>Sign in as guest</Typography>
