@@ -63,9 +63,9 @@ export default function CustomTextfield({ onChange, type, width, label, sx }) {
           style={{
             fontFamily: "'FF Mark W05', sans-serif",
             position: "absolute",
-            top: "37%",
+            top: "32%",
             left: "1.6em",
-            fontSize: "0.63rem",
+            fontSize: "0.8rem",
             fontWeight: "800",
             letterSpacing: "0.1em",
             pointerEvents: "none",

@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Home from "../pages/Home/Home";
-import Login from "../pages/Login/Login";
+import LoginForm from "../pages/Login/LoginForm";
 import PrivateRoutes from ".";
 import Register from "../pages/Login/Register";
 import Matchmaking from "../pages/Matchmaking/Matchmaking";
@@ -12,8 +12,7 @@ export default function AppRoutes() {
     <BrowserRouter>
       <Routes>
         <Route path="" element={<Navigate to="/home" />} />
-        <Route path="login" element={<LoginApp />} />
-        <Route path="register" element={<Register />} />
+        <Route path="auth/:login" element={<LoginApp />} />
         <Route path="test" element={<LoginApp />} />
         <Route element={<PrivateRoutes />}>
           <Route path="matchmaking" element={<Matchmaking />} />

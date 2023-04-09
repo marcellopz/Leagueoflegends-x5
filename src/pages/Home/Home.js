@@ -15,7 +15,6 @@ export default function Home() {
       })();
     }
   }, [signed]);
-  console.log(players);
 
   return (
     <div style={{ width: "100%" }}>

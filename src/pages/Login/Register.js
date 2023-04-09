@@ -22,10 +22,6 @@ function Register() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(event);
-    console.log(email);
-    console.log(password);
-    console.log(repeatPassword);
     signUpUsernamePwd(email, password);
     // Handle form submission here
   };

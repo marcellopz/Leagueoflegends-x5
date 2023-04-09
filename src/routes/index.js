@@ -9,5 +9,5 @@ export default function PrivateRoutes() {
     return <div>loading123</div>;
   }
 
-  return signed ? <Outlet /> : <Navigate to="/login" />;
+  return signed ? <Outlet /> : <Navigate to="auth/login" />;
 }
