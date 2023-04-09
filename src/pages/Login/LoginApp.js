@@ -1,4 +1,4 @@
-import { Box, Paper } from "@mui/material";
+import { Box, Grid, Paper } from "@mui/material";
 import { Navigate, useParams } from "react-router-dom";
 import LoginForm from "./LoginForm";
 import { AuthContext } from "../../contexts/authContext";
@@ -15,7 +15,8 @@ export default function LoginApp() {
   }
 
   return (
-    <Box
+    <Grid
+      container
       sx={{
         backgroundImage: `url("https://i.imgur.com/oI1K47k.jpg")`,
         backgroundRepeat: "no-repeat",
@@ -29,20 +30,23 @@ export default function LoginApp() {
         zIndex: -1,
       }}
     >
-      <Paper
+      <Grid
+        item
+        xs={10}
+        sm={3}
         sx={{
           borderRadius: 0,
           height: "100%",
           minWidth: "400px",
           width: "30%",
           boxShadow: "10",
-          marginLeft: "50px",
+          marginLeft: "8%",
           backgroundColor: "#f9f9f9",
         }}
       >
         {routerParams.login == "register" && <RegisterForm />}
         {routerParams.login == "login" && <LoginForm />}
-      </Paper>
-    </Box>
+      </Grid>
+    </Grid>
   );
 }
