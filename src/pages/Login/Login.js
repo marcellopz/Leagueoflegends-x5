@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import { AuthContext } from "../../contexts/authContext";
 import { Navigate } from "react-router-dom";
+import { Button } from "@mui/material";
 
 export default function Login() {
   const { signInGoogle, signed, signInUsernamePwd, signInAsGuest } =
@@ -53,11 +54,11 @@ export default function Login() {
         </div>
         <button type="submit">Sign In</button>
       </form>
-      <button onClick={loginGoogle}>Login with Google</button>
+      <Button onClick={loginGoogle}>Login with Google</Button>
       <div>
         <a href="/register">Register</a>
       </div>
-      <button onClick={signInAsGuest}>Login as guest</button>
+      <Button onClick={signInAsGuest}>Login as guest</Button>
     </div>
   );
 }

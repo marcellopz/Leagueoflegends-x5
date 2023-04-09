@@ -1,15 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../contexts/authContext";
 import { getPlayer } from "../../services/firebaseDatabase";
-import { useNavigate } from "react-router-dom";
 import PlayerDisplay from "./PlayerDisplay";
 
 export default function Home() {
   const { signOut, signed } = useContext(AuthContext);
   const [players, setPlayers] = useState(null);
-  const navigate = useNavigate();
-
-  console.log(signed);
 
   useEffect(() => {
     if (signed) {

@@ -17,7 +17,7 @@ export default function BalanceMatch({ players }) {
     if (state[n].diff !== null) return;
 
     // every player has a role, no more players to choose from
-    if (n == 0) {
+    if (n === 0) {
       state[0] = {
         diff: 0,
         pairings: [],
