@@ -33,7 +33,7 @@ export default function LoginApp() {
       <Grid
         item
         xs={10}
-        sm={3}
+        md={3}
         sx={{
           borderRadius: 0,
           height: "100%",
