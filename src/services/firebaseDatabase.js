@@ -7,3 +7,9 @@ export async function getPlayer(name) {
   const playerValues = await player.val();
   return playerValues;
 }
+
+export async function getPlayerData(name) {
+  const playerData = await get(child(dbRef, `player-data/${name}`));
+  const playerValues = await playerData.val();
+  return playerValues;
+}

@@ -21,7 +21,12 @@ export default function Home() {
       <div style={{ display: "flex", flexWrap: "wrap", marginBottom: "10px" }}>
         {players &&
           Object.keys(players).map((player) => (
-            <PlayerDisplay name={player} ranks={players[player]} key={player} />
+            <PlayerDisplay
+              name={player}
+              ranks={players[player]}
+              key={player}
+              sx={{ margin: "4px", height: "300px" }}
+            />
           ))}
       </div>
       <button onClick={signOut}>Sair</button>

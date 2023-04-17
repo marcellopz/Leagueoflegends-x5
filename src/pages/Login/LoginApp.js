@@ -8,7 +8,6 @@ import RegisterForm from "./RegisterForm";
 export default function LoginApp() {
   const { signed } = useContext(AuthContext);
   const routerParams = useParams();
-  console.log(routerParams);
 
   if (signed) {
     return <Navigate to="/home" />;
