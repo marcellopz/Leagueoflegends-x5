@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState } from "react";
 import imageSrc from "./img";
 import { getPlayerData } from "../../services/firebaseDatabase";
 
-function PlayerDisplay({ name, ranks, sx }) {
+function PlayerDisplay({ name, ranks, sx, label }) {
   const canvasRef = useRef(null);
   const [photoSrc, setPhotoSrc] = useState("");
 
@@ -35,9 +35,9 @@ function PlayerDisplay({ name, ranks, sx }) {
       // area de texto do nome é de ~360 x 60
       // tamanho ideal de foto é de ~250 x 180
 
-      let startString = (350 - context.measureText(name).width) / 2;
+      let startString = (350 - context.measureText(label).width) / 2;
 
-      context.fillText(name, startString, 50);
+      context.fillText(label, startString, 50);
 
       context.font = "bold italic 23px Courier New";
       context.fillStyle = "black";
@@ -47,7 +47,7 @@ function PlayerDisplay({ name, ranks, sx }) {
       context.fillText(ranks.adc, 255, 351);
       context.fillText(ranks.support, 255, 379);
     };
-  }, [name, photoSrc, ranks, imageSrc]);
+  }, [label, photoSrc, ranks, imageSrc]);
 
   return (
     <canvas
