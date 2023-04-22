@@ -10,6 +10,7 @@ import {
 } from "firebase/auth";
 import { app } from "../services/firebaseConfig";
 import { Navigate } from "react-router-dom";
+import { getUserByUid } from "../services/firebaseDatabase";
 
 const provider = new GoogleAuthProvider();
 
@@ -17,7 +18,14 @@ export const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [userObj, setUserObj] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [permissions, setPermissions] = useState({
+    admin: false,
+    moderator: false,
+    nerd: false,
+    name: "",
+  });
   const auth = getAuth(app);
 
   useEffect(() => {
@@ -32,11 +40,24 @@ export const AuthProvider = ({ children }) => {
       }
     };
     loadStoreAuth();
-  });
+  }, []);
 
   useEffect(() => {
     setLoading(user === null);
+    try {
+      setUserObj(JSON.parse(user));
+    } catch (e) {}
   }, [user]);
+
+  useEffect(() => {
+    if (!!userObj) {
+      getUserByUid(userObj.uid).then((r) => {
+        if (r) {
+          setPermissions(r);
+        }
+      });
+    }
+  }, [userObj]);
 
   const signInAsGuest = () => {
     signInAnonymously(auth)
@@ -111,13 +132,17 @@ export const AuthProvider = ({ children }) => {
     <AuthContext.Provider
       value={{
         user,
+        userObj,
         loading,
         signInGoogle,
         signInAsGuest,
         signUpUsernamePwd,
         signInUsernamePwd,
         signed: !!user,
+        isAnonymous: userObj ? userObj.isAnonymous : true,
         signOut: signOutx5,
+        isNerd: permissions.nerd,
+        userUid: userObj?.uid,
       }}
     >
       {children}

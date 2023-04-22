@@ -1,25 +1,40 @@
-import React, { useRef, useEffect, useState } from "react";
-import imageSrc from "./img";
+import React, { useRef, useEffect, useState, useContext } from "react";
+import interroga from "./interroga";
 import { getPlayerData } from "../../services/firebaseDatabase";
+import { MiscContext } from "../../contexts/miscContext";
 
 function PlayerDisplay({ name, ranks, sx, label }) {
   const canvasRef = useRef(null);
   const [photoSrc, setPhotoSrc] = useState("");
+  const [loading, setLoading] = useState(true);
+  const { cardBackground } = useContext(MiscContext);
 
   useEffect(() => {
     (async () => {
-      getPlayerData(name).then((r2) => {
-        setPhotoSrc(r2?.photo);
-      });
+      getPlayerData(name)
+        .then((r2) => {
+          if (r2) {
+            setPhotoSrc(r2?.photo);
+          } else {
+            setPhotoSrc(interroga);
+          }
+        })
+        .catch(() => {
+          setPhotoSrc(interroga);
+        });
+      setLoading(false);
     })();
-  }, []);
+  }, [name]);
 
   useEffect(() => {
+    if (loading) {
+      return;
+    }
     const canvas = canvasRef.current;
     const context = canvas.getContext("2d");
 
     const image = new Image();
-    image.src = imageSrc;
+    image.src = cardBackground;
 
     const photo = new Image();
     photo.src = photoSrc;
@@ -47,7 +62,11 @@ function PlayerDisplay({ name, ranks, sx, label }) {
       context.fillText(ranks.adc, 255, 351);
       context.fillText(ranks.support, 255, 379);
     };
-  }, [label, photoSrc, ranks, imageSrc]);
+  }, [label, photoSrc, ranks, cardBackground, loading]);
+
+  if (loading) {
+    return null;
+  }
 
   return (
     <canvas
