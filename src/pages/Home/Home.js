@@ -1,14 +1,75 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../contexts/authContext";
-import { getPlayer } from "../../services/firebaseDatabase";
+import { getPlayer, requestToBeANerd } from "../../services/firebaseDatabase";
 import PlayerDisplay from "./PlayerDisplay";
 import { MiscContext } from "../../contexts/miscContext";
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  TextField,
+} from "@mui/material";
+
+function RequestButton({ open, setOpen, requestToBeNerd }) {
+  const [name, setName] = useState("");
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+    setName("");
+  };
+
+  const handleSend = () => {
+    requestToBeNerd(name);
+    handleClose();
+  };
+
+  return (
+    <div>
+      <Button variant="outlined" onClick={handleClickOpen}>
+        Request to be a nerd
+      </Button>
+      <Dialog open={open} onClose={handleClose}>
+        <DialogTitle>Request to be a nerd</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            To get the full experience of this website, request to be a nerd.
+            Inform a name for us to identify you and if you're accepted in
+            you'll be granted access to all the website functionalities.
+          </DialogContentText>
+          <TextField
+            autoFocus
+            margin="dense"
+            id="name"
+            label="Name"
+            type="text"
+            fullWidth
+            variant="standard"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>Cancel</Button>
+          <Button onClick={handleSend}>Send</Button>
+        </DialogActions>
+      </Dialog>
+    </div>
+  );
+}
 
 export default function Home() {
   const { signOut, signed, isNerd, userObj, isAnonymous } =
     useContext(AuthContext);
   const { getCardbackground } = useContext(MiscContext);
   const [players, setPlayers] = useState(null);
+  const [requestDialogOpen, setRequestDialogOpen] = useState(false);
 
   useEffect(() => {
     if (signed) {
@@ -20,7 +81,13 @@ export default function Home() {
     }
   }, [signed, getCardbackground]);
 
-  const requestToBeNerd = () => {};
+  const requestToBeNerd = (name) => {
+    if (isAnonymous) {
+      return;
+    }
+    requestToBeANerd(userObj.uid, name);
+    alert("Request sent!");
+  };
 
   return (
     <div style={{ width: "100%", margin: "10px" }}>
@@ -32,9 +99,11 @@ export default function Home() {
         <a href="/matchmaking">Matchmaking</a>
       </div>
       {!isNerd && !isAnonymous && (
-        <button style={{ marginBottom: "10px" }} onClick={requestToBeNerd}>
-          request to be a nerd
-        </button>
+        <RequestButton
+          open={requestDialogOpen}
+          setOpen={setRequestDialogOpen}
+          requestToBeNerd={requestToBeNerd}
+        />
       )}
       {isAnonymous && (
         <div style={{ marginBottom: "10px" }}>

@@ -1,5 +1,5 @@
 import { dbRef } from "./firebaseConfig";
-import { get, child } from "firebase/database";
+import { get, child, set } from "firebase/database";
 // import { getDatabase, ref, set, get, onValue, child } from "firebase/database";
 
 export async function getPlayer(name) {
@@ -32,4 +32,6 @@ export async function getCardBackgroundTradicional() {
   return cardLayout;
 }
 
-export async function requestToBeANerd() {}
+export async function requestToBeANerd(uid, name) {
+  const re = await set(child(dbRef, `requests/${uid}`), { uid, name });
+}
