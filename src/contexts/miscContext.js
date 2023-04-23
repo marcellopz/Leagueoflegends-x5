@@ -5,14 +5,16 @@ import { getCardBackgroundTradicional } from "../services/firebaseDatabase";
 export const MiscContext = createContext({});
 
 export const MiscProvider = ({ children }) => {
-  const [cardBackground, setCardBackground] = useState(imageSrc);
+  const [cardBackground, setCardBackground] = useState("");
 
   const getCardbackground = () => {
     getCardBackgroundTradicional()
       .then((bd) => {
-        setCardBackground(bd);
+        setCardBackground(bd ? bd : imageSrc);
       })
-      .catch(() => {});
+      .catch(() => {
+        setCardBackground(imageSrc);
+      });
   };
 
   return (

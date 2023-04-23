@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState, useContext } from "react";
-import interroga from "./interroga";
-import { getPlayerData } from "../../services/firebaseDatabase";
-import { MiscContext } from "../../contexts/miscContext";
+import interroga from "../interroga";
+import { getPlayerData } from "../../../services/firebaseDatabase";
+import { MiscContext } from "../../../contexts/miscContext";
 
 function PlayerDisplay({ name, ranks, sx, label }) {
   const canvasRef = useRef(null);
@@ -13,16 +13,12 @@ function PlayerDisplay({ name, ranks, sx, label }) {
     (async () => {
       getPlayerData(name)
         .then((r2) => {
-          if (r2) {
-            setPhotoSrc(r2?.photo);
-          } else {
-            setPhotoSrc(interroga);
-          }
+          setPhotoSrc(r2 ? r2.photo : interroga);
         })
         .catch(() => {
           setPhotoSrc(interroga);
-        });
-      setLoading(false);
+        })
+        .finally(setLoading(false));
     })();
   }, [name]);
 

@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../contexts/authContext";
 import { getPlayer, requestToBeANerd } from "../../services/firebaseDatabase";
-import PlayerDisplay from "./PlayerDisplay";
 import { MiscContext } from "../../contexts/miscContext";
 import {
   Button,
@@ -12,6 +11,7 @@ import {
   DialogTitle,
   TextField,
 } from "@mui/material";
+import CardDisplay from "./CardDisplay/CardDisplay";
 
 function RequestButton({ open, setOpen, requestToBeNerd }) {
   const [name, setName] = useState("");
@@ -110,18 +110,7 @@ export default function Home() {
           To get the full experience log in and request to be a nerd
         </div>
       )}
-      <div style={{ display: "flex", flexWrap: "wrap", marginBottom: "10px" }}>
-        {players &&
-          Object.keys(players).map((player) => (
-            <PlayerDisplay
-              name={player}
-              ranks={players[player]}
-              label={players[player].name}
-              key={player}
-              sx={{ margin: "4px", height: "300px" }}
-            />
-          ))}
-      </div>
+      <CardDisplay players={players} />
     </div>
   );
 }

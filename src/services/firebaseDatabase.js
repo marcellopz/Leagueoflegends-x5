@@ -33,5 +33,5 @@ export async function getCardBackgroundTradicional() {
 }
 
 export async function requestToBeANerd(uid, name) {
-  const re = await set(child(dbRef, `requests/${uid}`), { uid, name });
+  await set(child(dbRef, `requests/${uid}`), { uid, name });
 }

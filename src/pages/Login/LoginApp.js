@@ -1,4 +1,4 @@
-import { Box, Grid, Paper } from "@mui/material";
+import { Grid } from "@mui/material";
 import { Navigate, useParams } from "react-router-dom";
 import LoginForm from "./LoginForm";
 import { AuthContext } from "../../contexts/authContext";
@@ -43,8 +43,8 @@ export default function LoginApp() {
           backgroundColor: "#f9f9f9",
         }}
       >
-        {routerParams.login == "register" && <RegisterForm />}
-        {routerParams.login == "login" && <LoginForm />}
+        {routerParams.login === "register" && <RegisterForm />}
+        {routerParams.login === "login" && <LoginForm />}
       </Grid>
     </Grid>
   );

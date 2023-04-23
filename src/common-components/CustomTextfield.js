@@ -16,7 +16,7 @@ export default function CustomTextfield({ onChange, type, width, label, sx }) {
 
   useEffect(() => {
     onChange(value);
-  }, [value]);
+  }, [value, onChange]);
 
   return (
     <ClickAwayListener onClickAway={handleClickAway}>
