@@ -42,11 +42,12 @@ export default function DisplayBox({ cards }) {
     <div
       style={{
         width: "80%",
-        minWidth: "700px",
+        // minWidth: "700px",
         height: "500px",
         border: "6px solid black",
         borderRadius: 10,
         margin: "auto",
+        marginTop: "10px",
         background:
           "linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(77,77,77,1) 100%)",
         position: "relative",
