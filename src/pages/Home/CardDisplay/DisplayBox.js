@@ -1,40 +1,42 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import { IconButton } from "@mui/material";
+import { motion } from "framer-motion";
 
 function CardBox({ card, scale, offset, zIndex }) {
   return (
-    <div
+    <motion.div
+      initial={{ opacity: 0, x: 0 }}
+      animate={{
+        opacity: 1,
+        translateX: `calc(-50% + ${offset}px)`,
+        scale: scale > 0.1 ? scale : 0,
+      }}
+      transition={{ duration: 0.5 }}
       style={{
         position: "absolute",
-        left: `${50 + offset}%`,
+        left: `50%`,
         top: "15%",
-        transform: `translateX(-50%) scale(${scale})`,
         zIndex: zIndex,
         boxShadow: 10,
       }}
     >
       {card}
-    </div>
+    </motion.div>
   );
 }
 
-const getCardIndex = (n, max) => {
-  if (n >= 0) {
-    return n;
-  }
-  return max + n;
-};
-
 export default function DisplayBox({ cards }) {
-  const [index, setIndex] = useState(1);
+  const [index, setIndex] = useState();
+
+  useEffect(() => {
+    setIndex(parseInt(cards.length / 2));
+  }, [cards]);
 
   if (cards.length === 0 || typeof cards === "undefined") {
     return;
   }
-
-  const keys = Array.from(Array(7).keys()).map((num) => num - 3);
 
   return (
     <div
@@ -50,10 +52,11 @@ export default function DisplayBox({ cards }) {
         position: "relative",
         pointerEvents: "text",
         zIndex: 0,
+        overflow: "hidden",
       }}
     >
       <IconButton
-        onClick={() => setIndex((prev) => prev - 1)}
+        onClick={() => setIndex((prev) => (prev === 0 ? prev : prev - 1))}
         style={{
           position: "absolute",
           top: "45%",
@@ -66,7 +69,10 @@ export default function DisplayBox({ cards }) {
         <KeyboardArrowLeftIcon fontSize="large" />
       </IconButton>
       <IconButton
-        onClick={() => setIndex((prev) => prev + 1)}
+        variant="contained"
+        onClick={() =>
+          setIndex((prev) => (prev === cards.length - 1 ? prev : prev + 1))
+        }
         style={{
           position: "absolute",
           top: "45%",
@@ -78,15 +84,16 @@ export default function DisplayBox({ cards }) {
       >
         <KeyboardArrowRightIcon fontSize="large" />
       </IconButton>
-      {keys.map((key) => {
-        const realIndex = getCardIndex(key + index, cards.length);
-        const zIndex = Math.abs(key) * -1;
-        const scale = 1.2 + zIndex * 0.1;
+      {cards.map((card, key) => {
+        const abs = Math.abs(key - index);
+        const zIndex = abs * -1;
+        const scale = 1.2 - abs * 0.2;
+        const offset = Math.sqrt(abs) * 200 * Math.sign(key - index);
         return (
           <CardBox
             key={key}
-            card={cards[realIndex]}
-            offset={key * 10}
+            card={card}
+            offset={offset}
             scale={scale}
             zIndex={zIndex}
           />

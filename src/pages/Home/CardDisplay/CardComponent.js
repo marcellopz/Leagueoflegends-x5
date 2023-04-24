@@ -18,7 +18,9 @@ function PlayerDisplay({ name, ranks, sx, label }) {
         .catch(() => {
           setPhotoSrc(interroga);
         })
-        .finally(setLoading(false));
+        .finally(() => {
+          setTimeout(() => setLoading(false), 500);
+        });
     })();
   }, [name]);
 
@@ -68,8 +70,8 @@ function PlayerDisplay({ name, ranks, sx, label }) {
     <canvas
       ref={canvasRef}
       style={{
-        border: "3px solid black",
-        borderRadius: 6,
+        border: "2px solid black",
+        borderRadius: 5,
         ...sx,
       }}
     ></canvas>

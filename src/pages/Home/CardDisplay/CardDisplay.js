@@ -1,14 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useMemo } from "react";
 import CardComponent from "./CardComponent";
 import DisplayBox from "./DisplayBox";
 
 export default function CardDisplay({ players }) {
-  const [cards, setCards] = useState([]);
-
-  useEffect(() => {
-    if (players) {
-      setCards(
-        Object.keys(players).map((player) => (
+  const cards = useMemo(() => {
+    return players
+      ? Object.keys(players).map((player) => (
           <CardComponent
             name={player}
             ranks={players[player]}
@@ -17,8 +14,7 @@ export default function CardDisplay({ players }) {
             sx={{ margin: "4px", height: "300px" }}
           />
         ))
-      );
-    }
+      : [];
   }, [players]);
 
   return <DisplayBox cards={cards} />;
