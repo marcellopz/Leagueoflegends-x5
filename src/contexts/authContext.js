@@ -45,7 +45,7 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     setLoading(user === null);
     try {
-      setUserObj(JSON.parse(user));
+      setUserObj(typeof user === "object" ? user : JSON.parse(user));
     } catch (e) {}
   }, [user]);
 
