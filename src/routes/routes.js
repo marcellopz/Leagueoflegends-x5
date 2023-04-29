@@ -5,6 +5,7 @@ import PrivateRoutes from ".";
 import Matchmaking from "../pages/Matchmaking/Matchmaking";
 import LoginApp from "../pages/Login/LoginApp";
 import TestPage from "../pages/TestPages/TestPage";
+import MatchHistory from "../pages/MatchHistory/MatchHistory";
 
 export default function AppRoutes() {
   return (
@@ -15,6 +16,7 @@ export default function AppRoutes() {
         <Route path="test" element={<TestPage />} />
         <Route element={<PrivateRoutes />}>
           <Route path="matchmaking" element={<Matchmaking />} />
+          <Route path="history" element={<MatchHistory />} />
           <Route path="home" element={<Home />} />
         </Route>
         <Route path="*" element={<Navigate to="/home" />} />

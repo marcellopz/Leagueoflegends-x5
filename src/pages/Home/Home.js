@@ -90,7 +90,7 @@ export default function Home() {
   };
 
   return (
-    <div style={{ width: "100%", margin: "10px" }}>
+    <div style={{ width: "100%", backgroundColor: "black", height: "100vh" }}>
       <div style={{ marginBottom: "10px" }}>{userObj?.displayName}</div>
       <button style={{ marginBottom: "10px" }} onClick={signOut}>
         Sair

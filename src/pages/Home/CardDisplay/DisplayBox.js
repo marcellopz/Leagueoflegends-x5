@@ -3,6 +3,7 @@ import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import { IconButton } from "@mui/material";
 import { motion } from "framer-motion";
+import { theme } from "../../../theme";
 
 function CardBox({ card, scale, offset, zIndex }) {
   return (
@@ -43,13 +44,13 @@ export default function DisplayBox({ cards }) {
       style={{
         width: "80%",
         // minWidth: "700px",
-        height: "500px",
+        height: "450px",
         border: "6px solid black",
         borderRadius: 10,
         margin: "auto",
         marginTop: "10px",
-        background:
-          "linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(77,77,77,1) 100%)",
+        background: theme.palette.background.default,
+        // "linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(77,77,77,1) 100%)",
         position: "relative",
         pointerEvents: "text",
         zIndex: 0,
