@@ -1,9 +1,21 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { theme } from "../../theme";
 import { AuthContext } from "../authContext";
+import RequestButton from "./RequestButton";
+import { requestToBeANerd } from "../../services/firebaseDatabase";
 
 export default function Navbar() {
-  const { userObj } = useContext(AuthContext);
+  const { userObj, signOut, isNerd, isAnonymous } = useContext(AuthContext);
+  const [requestDialogOpen, setRequestDialogOpen] = useState(false);
+
+  const requestToBeNerd = (name) => {
+    if (isAnonymous) {
+      return;
+    }
+    requestToBeANerd(userObj.uid, name);
+    alert("Request sent!");
+  };
+
   console.log(theme);
   return (
     <nav
@@ -11,7 +23,6 @@ export default function Navbar() {
         backgroundColor: theme.palette.background.paper,
         height: "80px",
         display: "flex",
-        // position: "fixed",
         zIndex: 10,
         width: "100%",
         justifyContent: "space-between",
@@ -114,16 +125,61 @@ export default function Navbar() {
         </ul>
       </div>
       <div>
-        <div
+        <ul
           style={{
             display: "flex",
-            alignItems: "center",
+            paddingLeft: "20px",
+            margin: "0",
             height: "100%",
-            paddingRight: "20px",
           }}
         >
-          <h1>{userObj?.displayName}</h1>
-        </div>
+          <li
+            style={{
+              display: "flex",
+              alignItems: "center",
+              height: "100%",
+              paddingRight: "20px",
+            }}
+          >
+            <h1>{userObj?.displayName}</h1>
+          </li>
+          <li
+            style={{
+              display: "flex",
+              alignItems: "center",
+              height: "100%",
+              paddingRight: "20px",
+            }}
+          >
+            <button
+              style={{
+                background: theme.palette.background.paper,
+                color: "lightGray",
+                fontSize: 14,
+                borderRadius: 10,
+              }}
+              onClick={signOut}
+            >
+              Sair
+            </button>
+          </li>
+          {!isNerd && !isAnonymous && (
+            <li
+              style={{
+                display: "flex",
+                alignItems: "center",
+                height: "100%",
+                paddingRight: "20px",
+              }}
+            >
+              <RequestButton
+                open={requestDialogOpen}
+                setOpen={setRequestDialogOpen}
+                requestToBeNerd={requestToBeNerd}
+              />
+            </li>
+          )}
+        </ul>
       </div>
     </nav>
   );

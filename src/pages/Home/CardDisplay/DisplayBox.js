@@ -48,7 +48,7 @@ export default function DisplayBox({ cards }) {
         border: "6px solid black",
         borderRadius: 10,
         margin: "auto",
-        marginTop: "10px",
+        // marginTop: "10px",
         background: theme.palette.background.default,
         // "linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(77,77,77,1) 100%)",
         position: "relative",
