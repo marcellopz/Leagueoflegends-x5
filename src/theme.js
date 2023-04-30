@@ -9,6 +9,9 @@ export const themeOptions = {
     secondary: {
       main: "#e4ca07",
     },
+    background: {
+      bd: "#080808",
+    },
   },
   typography: {
     button: {

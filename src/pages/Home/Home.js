@@ -20,7 +20,13 @@ export default function Home() {
   }, [signed, getCardbackground]);
 
   return (
-    <div style={{ width: "100%", backgroundColor: "black", height: "100vh" }}>
+    <div
+      style={{
+        width: "100%",
+        // height: "100vh",
+        paddingTop: "50px",
+      }}
+    >
       {isAnonymous && (
         <div style={{ marginBottom: "10px" }}>
           To get the full experience log in and request to be a nerd

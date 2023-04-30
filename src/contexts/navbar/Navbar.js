@@ -26,7 +26,8 @@ export default function Navbar() {
         zIndex: 10,
         width: "100%",
         justifyContent: "space-between",
-        fontFamily: "Ysabeau",
+        fontFamily: "'Source Sans Pro', sans-serif",
+        fontSize: 13,
         borderBottom: "1px solid #505050",
         color: "lightGray",
       }}
@@ -120,6 +121,22 @@ export default function Navbar() {
               style={{ color: "inherit", textDecoration: "none" }}
             >
               <h1>card rankings</h1>
+            </a>
+          </li>
+          <li
+            style={{
+              listStyle: "none",
+              display: "flex",
+              alignItems: "center",
+              height: "100%",
+              marginRight: "50px",
+            }}
+          >
+            <a
+              href="/patchnotes"
+              style={{ color: "inherit", textDecoration: "none" }}
+            >
+              <h1>patch notes</h1>
             </a>
           </li>
         </ul>

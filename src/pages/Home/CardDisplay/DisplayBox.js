@@ -45,7 +45,7 @@ export default function DisplayBox({ cards }) {
         width: "80%",
         // minWidth: "700px",
         height: "450px",
-        border: "6px solid black",
+        border: "2px solid black",
         borderRadius: 10,
         margin: "auto",
         // marginTop: "10px",
