@@ -1,5 +1,6 @@
 import { createContext } from "react";
 import Navbar from "./navbar/Navbar";
+import Sidebar from "./navbar/Sidebar";
 
 export const NavbarContext = createContext();
 
