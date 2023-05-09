@@ -2,7 +2,6 @@ import { Divider, Drawer, MenuItem, MenuList } from "@mui/material";
 import React from "react";
 
 export default function Sidebar({ navbarItems, open, setOpen }) {
-  console.log(navbarItems);
   return (
     <Drawer
       anchor="right"
@@ -11,7 +10,7 @@ export default function Sidebar({ navbarItems, open, setOpen }) {
     >
       <MenuList style={{ width: "250px" }}>
         {navbarItems.map((item) => (
-          <>
+          <React.Fragment key={item.label}>
             <a
               href={item.url}
               style={{
@@ -25,7 +24,7 @@ export default function Sidebar({ navbarItems, open, setOpen }) {
               </MenuItem>
             </a>
             <Divider />
-          </>
+          </React.Fragment>
         ))}
       </MenuList>
     </Drawer>

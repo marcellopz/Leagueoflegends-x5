@@ -6,6 +6,7 @@ import { requestToBeANerd } from "../../services/firebaseDatabase";
 import Sidebar from "./Sidebar";
 import { IconButton } from "@mui/material";
 import { Menu } from "@mui/icons-material";
+import { NavbarContext } from "../navbarContext";
 
 const navbarItems = [
   { label: "match history", url: "/history" },
@@ -16,11 +17,9 @@ const navbarItems = [
 
 export default function Navbar() {
   const { userObj, signOut, isNerd, isAnonymous } = useContext(AuthContext);
+  const { windowSize } = useContext(NavbarContext);
   const [requestDialogOpen, setRequestDialogOpen] = useState(false);
-  const [windowSize, setWindowSize] = useState({
-    width: window.innerWidth,
-    height: window.innerHeight,
-  });
+
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const requestToBeNerd = (name) => {
@@ -31,23 +30,6 @@ export default function Navbar() {
     alert("Request sent!");
   };
 
-  useEffect(() => {
-    // Create an event listener
-    function handleResize() {
-      setWindowSize({
-        width: window.innerWidth,
-        height: window.innerHeight,
-      });
-    }
-
-    // Attach the event listener
-    window.addEventListener("resize", handleResize);
-
-    // Clean up the event listener on component unmount
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
   return (
     <>
       <Sidebar

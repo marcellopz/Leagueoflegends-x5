@@ -3,7 +3,7 @@ import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import { IconButton } from "@mui/material";
 import { motion } from "framer-motion";
-import { theme } from "../../../theme";
+import { theme } from "../../theme";
 
 function CardBox({ card, scale, offset, zIndex }) {
   return (

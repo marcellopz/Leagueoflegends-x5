@@ -1,88 +1,63 @@
 import React, { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../../contexts/authContext";
-import { getPlayer } from "../../services/firebaseDatabase";
-import BalanceMatch from "./BalanceMatch";
+import {
+  MatchMakingContext,
+  MatchMakingProvider,
+} from "./context/matchMakingContext";
+import { theme } from "../../theme";
+import PlayerSelectionStep from "./steps/playerSelectionStep";
+import AlgorithmSelectionStep from "./steps/algorithmSelectionStep";
+import ResultStep from "./steps/resultStep";
+import { Button } from "@mui/material";
+import { MiscContext } from "../../contexts/miscContext";
 
 export default function Matchmaking() {
-  const [selectedOptions, setSelectedOptions] = useState([]);
-  const { signed } = useContext(AuthContext);
-  const [players, setPlayers] = useState(null);
-  const [error, setError] = useState("");
-  const [playersToBalance, setPlayersToBalance] = useState([]);
+  const [step, setStep] = useState(0);
+  const { getCardbackground } = useContext(MiscContext);
+  const [isOk, setIsOk] = useState(false);
 
   useEffect(() => {
-    if (signed) {
-      (async () => {
-        const players_ = await getPlayer("");
-        setPlayers(players_);
-      })();
-    }
-  }, [signed]);
-
-  useEffect(() => {
-    setError(
-      selectedOptions.length === 10
-        ? ""
-        : "You need exactly 10 players to balance a game"
-    );
-  }, [selectedOptions]);
-
-  const handleOptionChange = (event) => {
-    const value = event.target.value;
-    if (selectedOptions.includes(value)) {
-      setSelectedOptions(selectedOptions.filter((option) => option !== value));
-    } else {
-      setSelectedOptions([...selectedOptions, value]);
-    }
-  };
-
-  const balance = (event) => {
-    event.preventDefault();
-    if (error) {
-      return;
-    }
-    setPlayersToBalance(
-      selectedOptions.map((player) => ({
-        name: player,
-        ranks: [
-          players[player].top,
-          players[player].jungle,
-          players[player].mid,
-          players[player].adc,
-          players[player].support,
-        ],
-      }))
-    );
-  };
+    getCardbackground();
+  }, []);
 
   return (
-    <div>
-      <a href="home">Home</a>
-      <h2>Multi-Select Page</h2>
-      <p>Select one or more options:</p>
-      <form>
-        {players &&
-          Object.keys(players).map((player) => (
-            <div key={player}>
-              <input
-                type="checkbox"
-                id={player}
-                value={player}
-                checked={selectedOptions.includes(player)}
-                onChange={handleOptionChange}
-              />
-              <label htmlFor={player}>{player}</label>
-            </div>
-          ))}
-      </form>
-      <b>Selected options: {selectedOptions.join(", ")}</b>
-      <div>
-        <button onClick={balance}>Balance</button>
+    <MatchMakingProvider>
+      <div
+        style={{
+          width: "80%",
+          // height: "450px",
+          minHeight: "400px",
+          border: "2px solid black",
+          borderRadius: 10,
+          margin: "auto",
+          marginTop: "30px",
+          background: theme.palette.background.default,
+          position: "relative",
+          pointerEvents: "text",
+          zIndex: 0,
+          overflow: "hidden",
+          paddingBottom: "60px",
+        }}
+      >
+        {step === 0 && <PlayerSelectionStep setIsOk={setIsOk} />}
+        {step === 1 && <AlgorithmSelectionStep setIsOk={setIsOk} />}
+        {step === 2 && <ResultStep />}
+        <Button
+          style={{ position: "absolute", bottom: "20px", left: "20px" }}
+          variant="outlined"
+          disabled={step === 0}
+          onClick={() => setStep((prev) => prev - 1)}
+        >
+          Back
+        </Button>
+        <Button
+          style={{ position: "absolute", bottom: "20px", right: "20px" }}
+          variant="outlined"
+          disabled={step === 2 || !isOk}
+          onClick={() => setStep((prev) => prev + 1)}
+        >
+          Next
+        </Button>
       </div>
-      <div>
-        <p style={{ color: "red" }}>{error}</p>
-      </div>
-      <BalanceMatch players={playersToBalance} />
-    </div>
+    </MatchMakingProvider>
   );
 }

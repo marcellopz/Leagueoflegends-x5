@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../contexts/authContext";
 import { getPlayer } from "../../services/firebaseDatabase";
 import { MiscContext } from "../../contexts/miscContext";
-import CardDisplay from "./CardDisplay/CardDisplay";
+import CardDisplay from "../../common-components/CardDisplay/CardDisplay";
 
 export default function Home() {
   const { signed, isAnonymous } = useContext(AuthContext);

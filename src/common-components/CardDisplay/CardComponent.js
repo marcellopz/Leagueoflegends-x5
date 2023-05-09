@@ -1,9 +1,9 @@
 import React, { useRef, useEffect, useState, useContext } from "react";
-import interroga from "../interroga";
-import { getPlayerData } from "../../../services/firebaseDatabase";
-import { MiscContext } from "../../../contexts/miscContext";
+import interroga from "../../pages/Home/interroga";
+import { getPlayerData } from "../../services/firebaseDatabase";
+import { MiscContext } from "../../contexts/miscContext";
 
-function PlayerDisplay({ name, ranks, sx, label }) {
+function CardComponent({ name, ranks, sx, label }) {
   const canvasRef = useRef(null);
   const [photoSrc, setPhotoSrc] = useState("");
   const [loading, setLoading] = useState(true);
@@ -78,4 +78,4 @@ function PlayerDisplay({ name, ranks, sx, label }) {
   );
 }
 
-export default PlayerDisplay;
+export default CardComponent;

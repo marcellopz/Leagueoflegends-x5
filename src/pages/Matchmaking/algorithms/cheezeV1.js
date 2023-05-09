@@ -1,9 +1,13 @@
-import React from "react";
+export default function BalanceMatchCheezeV1(in_players) {
+  let players = in_players
+    .map((value) => ({ value, sort: Math.random() }))
+    .sort((a, b) => a.sort - b.sort)
+    .map(({ value }) => value);
 
-export default function BalanceMatch({ players }) {
   if (players.length !== 10) {
-    return <div></div>;
+    return null;
   }
+
   const state = Array(1 << 10);
   for (let i = 0; i < state.length; i++) {
     state[i] = {
@@ -75,20 +79,32 @@ export default function BalanceMatch({ players }) {
   const bits = 0b1111111111;
   solve(bits);
 
-  const roles = ["Top", "Jungle", "Mid", "Bot", "Support"];
+  const roles = ["Top", "Jungle", "Mid", "Adc", "Support"];
   const { diff, pairings } = state[bits];
 
-  return (
-    <div>
-      <div>{`Rank difference: ${diff}`}</div>
-      <ul>
-        {roles.map((role, i) => {
-          const [p1, p2] = pairings[i];
-          return (
-            <li>{`${role}\t${players[p1].name} vs ${players[p2].name}`}</li>
-          );
-        })}
-      </ul>
-    </div>
-  );
+  const pairingsRoles = {};
+  roles.map((role, i) => {
+    pairingsRoles[role] = pairings[i].map((p) => ({
+      name: players[p].name,
+      rank: players[p].ranks[i],
+    }));
+  });
+
+  const getScoreSide = (match, side) => {
+    let i = 0;
+    roles.forEach((role) => {
+      i += match[role][side].rank;
+    });
+    return i;
+  };
+
+  return {
+    diff,
+    pairingsRoles,
+    matchScore: {
+      blue: getScoreSide(pairingsRoles, 0),
+      red: getScoreSide(pairingsRoles, 1),
+    },
+    pairings,
+  };
 }
