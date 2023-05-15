@@ -35,3 +35,23 @@ export async function getCardBackgroundTradicional() {
 export async function requestToBeANerd(uid, name) {
   await set(child(dbRef, `requests/${uid}`), { uid, name });
 }
+
+export async function sendFullMatchJson(match) {
+  await set(child(dbRef, `full-json-matches/match${match.gameId}`), match);
+}
+
+export async function sendReducedMatchJson(match) {
+  await set(
+    child(dbRef, `pre-processed-data/all-reduced/match${match.gameId}`),
+    match
+  );
+  match.participants.forEach(async (p) => {
+    await set(
+      child(
+        dbRef,
+        `pre-processed-data/players/${p.summonerId}/matches/match${match.gameId}`
+      ),
+      p
+    );
+  });
+}

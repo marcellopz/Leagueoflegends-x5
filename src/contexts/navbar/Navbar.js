@@ -4,9 +4,16 @@ import { AuthContext } from "../authContext";
 import RequestButton from "./RequestButton";
 import { requestToBeANerd } from "../../services/firebaseDatabase";
 import Sidebar from "./Sidebar";
-import { IconButton } from "@mui/material";
-import { Menu } from "@mui/icons-material";
+import {
+  Button,
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  IconButton,
+} from "@mui/material";
+import { Menu, UploadFile } from "@mui/icons-material";
 import { NavbarContext } from "../navbarContext";
+import { sendFile } from "./newMatchFileSend";
 
 const navbarItems = [
   { label: "match history", url: "/history" },
@@ -15,10 +22,77 @@ const navbarItems = [
   { label: "patch notes", url: "/patchnotes" },
 ];
 
+const AddMatchDialog = ({ open, onClose }) => {
+  const [file, setFile] = useState(null);
+  const [fileContent, setFileContent] = useState("");
+
+  useEffect(() => {
+    if (file) {
+      const reader = new FileReader();
+
+      reader.onloadend = (e) => {
+        const content = e.target.result;
+        setFileContent(content);
+      };
+
+      reader.readAsText(file);
+    }
+  }, [file]);
+
+  const handleFileChange = (e) => {
+    setFile(e.target.files[0]);
+  };
+
+  const handleFileSend = () => {
+    if (fileContent) {
+      sendFile(fileContent);
+    }
+    setFile(null);
+    setFileContent("");
+    alert("match sent");
+  };
+
+  return (
+    <Dialog onClose={onClose} open={open}>
+      <DialogTitle>Add match to the database</DialogTitle>
+      <DialogContent style={{ margin: "20px", display: "flex" }}>
+        <Button
+          variant="contained"
+          sx={{ margin: "auto", padding: "20px" }}
+          color="secondary"
+          onClick={() => document.getElementById("upload-match-json").click()}
+        >
+          <input
+            id="upload-match-json"
+            type="file"
+            accept=".json"
+            onChange={handleFileChange}
+            style={{ display: "none" }}
+          />
+          <UploadFile fontSize="large" />
+          {file && <div>{file.name} selected</div>}
+        </Button>
+        {file && (
+          <Button
+            color="secondary"
+            variant="contained"
+            sx={{ marginLeft: "20px" }}
+            onClick={handleFileSend}
+          >
+            Send
+          </Button>
+        )}
+      </DialogContent>
+    </Dialog>
+  );
+};
+
 export default function Navbar() {
-  const { userObj, signOut, isNerd, isAnonymous } = useContext(AuthContext);
+  const { userObj, signOut, isNerd, isAnonymous, isAdmin } =
+    useContext(AuthContext);
   const { windowSize } = useContext(NavbarContext);
   const [requestDialogOpen, setRequestDialogOpen] = useState(false);
+  const [addMatchDialogOpen, setAddMatchDialogOpen] = useState(false);
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
@@ -36,6 +110,10 @@ export default function Navbar() {
         navbarItems={navbarItems}
         open={sidebarOpen}
         setOpen={setSidebarOpen}
+      />
+      <AddMatchDialog
+        open={addMatchDialogOpen}
+        onClose={() => setAddMatchDialogOpen(false)}
       />
       <nav
         style={{
@@ -126,6 +204,23 @@ export default function Navbar() {
                 height: "100%",
               }}
             >
+              {isAdmin && (
+                <li
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    height: "100%",
+                    paddingRight: "20px",
+                  }}
+                >
+                  <Button
+                    onClick={() => setAddMatchDialogOpen(true)}
+                    variant="outlined"
+                  >
+                    Add match
+                  </Button>
+                </li>
+              )}
               <li
                 style={{
                   display: "flex",

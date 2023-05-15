@@ -142,6 +142,7 @@ export const AuthProvider = ({ children }) => {
         isAnonymous: userObj ? userObj.isAnonymous : true,
         signOut: signOutx5,
         isNerd: permissions.nerd,
+        isAdmin: permissions.admin,
         userUid: userObj?.uid,
       }}
     >
