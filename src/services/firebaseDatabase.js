@@ -1,5 +1,5 @@
 import { dbRef } from "./firebaseConfig";
-import { get, child, set } from "firebase/database";
+import { get, child, set, push } from "firebase/database";
 // import { getDatabase, ref, set, get, onValue, child } from "firebase/database";
 
 export async function getPlayer(name) {
@@ -54,4 +54,8 @@ export async function sendReducedMatchJson(match) {
       p
     );
   });
+}
+
+export async function addMatchId(id) {
+  await push(child(dbRef, "pre-processed-data/match-ids"), `match${id}`);
 }

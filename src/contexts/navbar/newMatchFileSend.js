@@ -1,4 +1,5 @@
 import {
+  addMatchId,
   sendFullMatchJson,
   sendReducedMatchJson,
 } from "../../services/firebaseDatabase";
@@ -9,6 +10,7 @@ export const sendFile = (fileContent) => {
   sendFullMatchJson(matchObj);
   const reducedMatch = reduceFile(matchObj);
   sendReducedMatchJson(reducedMatch);
+  addMatchId(matchObj.gameId);
 };
 
 const reduceFile = (matchObj) => {
@@ -31,6 +33,7 @@ const reduceFile = (matchObj) => {
     championId: p.championId,
     championName: championIds[p.championId],
     participantId: p.participantId,
+    spellsIds: [p.spell1Id, p.spell2Id],
     spells: [summonerSpells[p.spell1Id], summonerSpells[p.spell2Id]],
     teamId: p.teamId,
     stats: {

@@ -23,33 +23,37 @@ const navbarItems = [
 ];
 
 const AddMatchDialog = ({ open, onClose }) => {
-  const [file, setFile] = useState(null);
-  const [fileContent, setFileContent] = useState("");
+  const [files, setFiles] = useState([]);
+  const [filesContent, setFilesContent] = useState([]);
 
   useEffect(() => {
-    if (file) {
-      const reader = new FileReader();
+    if (files.length > 0) {
+      setFilesContent([]);
 
-      reader.onloadend = (e) => {
-        const content = e.target.result;
-        setFileContent(content);
-      };
+      for (let i = 0; i < files.length; i++) {
+        let reader = new FileReader();
 
-      reader.readAsText(file);
+        reader.onload = (e) => {
+          const content = e.target.result;
+          setFilesContent((prev) => [...prev, content]);
+        };
+
+        reader.readAsText(files[i]);
+      }
     }
-  }, [file]);
+  }, [files]);
 
   const handleFileChange = (e) => {
-    setFile(e.target.files[0]);
+    setFiles(e.target.files);
   };
 
   const handleFileSend = () => {
-    if (fileContent) {
-      sendFile(fileContent);
+    if (filesContent.length > 0) {
+      filesContent.forEach((fileContent) => sendFile(fileContent));
     }
-    setFile(null);
-    setFileContent("");
-    alert("match sent");
+    setFiles([]);
+    setFilesContent([]);
+    alert("match(es) sent");
   };
 
   return (
@@ -68,11 +72,12 @@ const AddMatchDialog = ({ open, onClose }) => {
             accept=".json"
             onChange={handleFileChange}
             style={{ display: "none" }}
+            multiple
           />
           <UploadFile fontSize="large" />
-          {file && <div>{file.name} selected</div>}
+          {files.length > 0 && <div>{files.length} files selected</div>}
         </Button>
-        {file && (
+        {files.length > 0 && (
           <Button
             color="secondary"
             variant="contained"
