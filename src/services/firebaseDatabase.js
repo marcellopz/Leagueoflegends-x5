@@ -59,3 +59,9 @@ export async function sendReducedMatchJson(match) {
 export async function addMatchId(id) {
   await push(child(dbRef, "pre-processed-data/match-ids"), `match${id}`);
 }
+
+export async function getMatches() {
+  const re = await get(child(dbRef, `pre-processed-data/all-reduced`));
+  const matches = await re.val();
+  return matches;
+}
