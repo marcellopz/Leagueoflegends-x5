@@ -60,6 +60,7 @@ const PlayerLine = ({
   maxTank,
   width,
 }) => {
+  // console.log(width);
   return (
     <div
       style={{
@@ -74,67 +75,95 @@ const PlayerLine = ({
         justifyContent: "space-between",
       }}
     >
-      <div
-        style={{
-          width: "30px",
-          height: "30px",
-          overflow: "hidden",
-          borderRadius: "15px",
-          marginLeft: "5px",
-          marginRight: "10px",
-        }}
-      >
-        <img
-          src={`${CHAMPIONICONURL}${player.championId}.png`}
-          width={"30px"}
-          alt={player.championName}
-        />
+      <div style={{ display: "flex" }}>
+        <div
+          style={{
+            width: "30px",
+            height: "30px",
+            overflow: "hidden",
+            borderRadius: "15px",
+            marginLeft: "5px",
+            marginRight: "10px",
+          }}
+        >
+          <img
+            src={`${CHAMPIONICONURL}${player.championId}.png`}
+            width={"30px"}
+            alt={player.championName}
+          />
+        </div>
+        <Typography
+          sx={{
+            width: width < 740 ? "calc(100%-45px)" : "150px",
+            color: "white",
+          }}
+        >
+          {player.summonerName}
+        </Typography>
       </div>
-      <Typography sx={{ width: "150px", color: "white" }}>
-        {player.summonerName}
-      </Typography>
-      <Typography sx={{ width: "150px", textAlign: "center" }}>{`${
-        player.stats.kills
-      }/${player.stats.deaths}/${player.stats.assists} (${parseInt(
-        (100 * (player.stats.kills + player.stats.assists)) / totalKills
-      )}%)`}</Typography>
-      <ProgressBar
-        value={player.stats.totalDamageDealtToChampions}
-        maxValue={maxDamage}
-        tooltip="Damage dealt to champions: {0}\nHighest damage dealt by the team: {1}"
-        color="rgb(245,100,100)"
-      />
-      <ProgressBar
-        value={player.stats.totalDamageTaken}
-        maxValue={maxTank}
-        tooltip="Damage taken: {0}\nMost damage taken on team: {1}"
-      />
-      <ProgressBar
-        value={player.stats.goldEarned}
-        maxValue={maxGold}
-        tooltip="Gold earned: {0}\nMost gold earned on team: {1}"
-        color="rgb(240,245,100)"
-      />
-      <Typography
-        sx={{ width: "30px", textAlign: "center", marginLeft: "20px" }}
-      >
-        {player.stats.totalCs}
-      </Typography>
-      <img
-        width="20px"
-        src="https://static.wikia.nocookie.net/leagueoflegends/images/3/30/Minion_icon.png"
-        style={{ filter: "invert(30%)" }}
-      />
-      <Typography
-        sx={{ width: "30px", textAlign: "center", marginLeft: "20px" }}
-      >
-        {player.stats.visionScore}
-      </Typography>
-      <img
-        width="20px"
-        src="https://static.wikia.nocookie.net/leagueoflegends/images/f/f1/Ward_icon.png/"
-        style={{ filter: "invert(30%)", marginRight: "20px" }}
-      />
+
+      {width > 740 && (
+        <Typography sx={{ width: "150px", textAlign: "center" }}>{`${
+          player.stats.kills
+        }/${player.stats.deaths}/${player.stats.assists} (${parseInt(
+          (100 * (player.stats.kills + player.stats.assists)) / totalKills
+        )}%)`}</Typography>
+      )}
+      {width > 1260 && (
+        <ProgressBar
+          value={player.stats.totalDamageDealtToChampions}
+          maxValue={maxDamage}
+          tooltip="Damage dealt to champions: {0}\nHighest damage dealt by the team: {1}"
+          color="rgb(245,100,100)"
+        />
+      )}
+      {width > 1550 && (
+        <ProgressBar
+          value={player.stats.totalDamageTaken}
+          maxValue={maxTank}
+          tooltip="Damage taken: {0}\nMost damage taken on team: {1}"
+        />
+      )}
+      {width > 1400 && (
+        <ProgressBar
+          value={player.stats.goldEarned}
+          maxValue={maxGold}
+          tooltip="Gold earned: {0}\nMost gold earned on team: {1}"
+          color="rgb(240,245,100)"
+        />
+      )}
+      {width > 900 && (
+        <>
+          <Typography
+            sx={{ width: "30px", textAlign: "center", marginLeft: "20px" }}
+          >
+            {player.stats.totalCs}
+          </Typography>
+          <Tooltip title="Creep Score">
+            <img
+              width="20px"
+              src="https://static.wikia.nocookie.net/leagueoflegends/images/3/30/Minion_icon.png"
+              style={{ filter: "invert(30%)" }}
+            />
+          </Tooltip>
+        </>
+      )}
+      {width > 1060 && (
+        <>
+          <Typography
+            sx={{ width: "30px", textAlign: "center", marginLeft: "20px" }}
+          >
+            {player.stats.visionScore}
+          </Typography>
+          <Tooltip title="Vision Score">
+            <img
+              width="20px"
+              src="https://static.wikia.nocookie.net/leagueoflegends/images/f/f1/Ward_icon.png/"
+              style={{ filter: "invert(30%)", marginRight: "20px" }}
+            />
+          </Tooltip>
+        </>
+      )}
     </div>
   );
 };
