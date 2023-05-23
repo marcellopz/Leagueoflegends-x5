@@ -16,5 +16,10 @@ export default function MatchDetails({ match }) {
     blueWin,
     redWin,
   } = useMatchData(match);
-  return <div style={{ color: "white" }}>Soon</div>;
+  return (
+    <div>
+      <div>xd</div>
+      <div>xd</div>
+    </div>
+  );
 }

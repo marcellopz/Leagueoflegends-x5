@@ -143,7 +143,7 @@ const PlayerLine = ({
             <img
               width="20px"
               src="https://static.wikia.nocookie.net/leagueoflegends/images/3/30/Minion_icon.png"
-              style={{ filter: "invert(30%)" }}
+              style={{ filter: "invert(30%)", marginRight: "20px" }}
             />
           </Tooltip>
         </>

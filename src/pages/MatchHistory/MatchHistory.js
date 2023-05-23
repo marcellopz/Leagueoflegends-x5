@@ -3,8 +3,8 @@ import { getMatches } from "../../services/firebaseDatabase";
 import MatchDisplay from "./MatchDisplay/MatchDisplay";
 
 export default function MatchHistory() {
-  const [matches, setMatches] = useState([]);
-  const matchKeys = useMemo(() => Object.keys(matches).reverse(), []);
+  const [matches, setMatches] = useState({});
+  const matchKeys = useMemo(() => Object.keys(matches).reverse(), [matches]);
   const [numberOfMatches, setNumberOfMatches] = useState(7);
 
   useEffect(() => {
