@@ -67,6 +67,8 @@ const useMatchData = (match) => {
     blueMaxGold,
     blueWin,
     redWin,
+    colorWin: "rgba(0,60,120,0.4)",
+    colorLose: "rgba(140,0,0,0.4)",
   };
 };
 

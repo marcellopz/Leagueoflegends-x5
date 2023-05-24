@@ -18,6 +18,8 @@ export default function MatchSummary({ match, expanded, toggleExpanded }) {
     blueMaxGold,
     blueWin,
     redWin,
+    colorWin,
+    colorLose,
   } = useMatchData(match);
   const ref = useRef(null);
   const [summaryWidth, setSummaryWidth] = useState();
@@ -29,8 +31,6 @@ export default function MatchSummary({ match, expanded, toggleExpanded }) {
     setSummaryWidth(ref.current?.clientWidth);
   }, []);
 
-  const colorWin = "#003c7a";
-  const colorLose = "#8f0101";
   return (
     <Box
       sx={{
@@ -59,7 +59,7 @@ export default function MatchSummary({ match, expanded, toggleExpanded }) {
             maxDamage={blueMaxDamage}
             maxGold={blueMaxGold}
             maxTank={blueMaxTanked}
-            width={summaryWidth}
+            width={summaryWidth / 2}
           />
         ))}
       </Paper>
@@ -80,7 +80,7 @@ export default function MatchSummary({ match, expanded, toggleExpanded }) {
             maxDamage={redMaxDamage}
             maxGold={redMaxGold}
             maxTank={redMaxTanked}
-            width={summaryWidth}
+            width={summaryWidth / 2}
           />
         ))}
       </Paper>

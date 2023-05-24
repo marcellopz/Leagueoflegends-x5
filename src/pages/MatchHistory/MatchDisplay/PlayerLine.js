@@ -1,5 +1,52 @@
 import { Tooltip, Typography } from "@mui/material";
-import { CHAMPIONICONURL } from "../../../common-components/resources";
+import {
+  CHAMPIONICONURL,
+  summonerSpells,
+  summonerSpellsUrl,
+} from "../../../common-components/resources";
+import { ITEMICONURL } from "../../../common-components/resources";
+
+const ItemsSection = ({ player }) => {
+  const itemList = [
+    player.stats.item0,
+    player.stats.item1,
+    player.stats.item2,
+    player.stats.item3,
+    player.stats.item4,
+    player.stats.item5,
+  ];
+  const filteredList = itemList.filter((i) => i > 0);
+  while (filteredList.length < 6) {
+    filteredList.push(0);
+  }
+
+  return (
+    <div style={{ display: "flex", marginRight: "20px" }}>
+      {filteredList.map((item) => (
+        <div
+          style={{
+            background: "rgba(255,255,255,0.2)",
+            width: "34px",
+            height: "34px",
+            borderRadius: "3px",
+            marginRight: "2px",
+          }}
+        >
+          {item > 0 && (
+            <img
+              src={`${ITEMICONURL}${item}.png`}
+              alt={item}
+              style={{
+                margin: "2px",
+              }}
+              width="30px"
+            />
+          )}
+        </div>
+      ))}
+    </div>
+  );
+};
 
 const ProgressBar = ({
   value,
@@ -59,8 +106,8 @@ const PlayerLine = ({
   maxGold,
   maxTank,
   width,
+  showItems,
 }) => {
-  // console.log(width);
   return (
     <div
       style={{
@@ -92,6 +139,16 @@ const PlayerLine = ({
             alt={player.championName}
           />
         </div>
+        <div style={{ marginRight: "10px" }}>
+          {player.spellsIds.map((spellId) => (
+            <img
+              src={summonerSpellsUrl[spellId]}
+              alt={summonerSpells[spellId]}
+              width={15}
+              style={{ display: "block" }}
+            />
+          ))}
+        </div>
         <Typography
           sx={{
             width: width < 740 ? "calc(100%-45px)" : "150px",
@@ -102,14 +159,14 @@ const PlayerLine = ({
         </Typography>
       </div>
 
-      {width > 740 && (
+      {width > 740 / 2 && (
         <Typography sx={{ width: "150px", textAlign: "center" }}>{`${
           player.stats.kills
         }/${player.stats.deaths}/${player.stats.assists} (${parseInt(
           (100 * (player.stats.kills + player.stats.assists)) / totalKills
         )}%)`}</Typography>
       )}
-      {width > 1260 && (
+      {width > 1260 / 2 && (
         <ProgressBar
           value={player.stats.totalDamageDealtToChampions}
           maxValue={maxDamage}
@@ -117,14 +174,14 @@ const PlayerLine = ({
           color="rgb(245,100,100)"
         />
       )}
-      {width > 1550 && (
+      {width > 1550 / 2 && (
         <ProgressBar
           value={player.stats.totalDamageTaken}
           maxValue={maxTank}
           tooltip="Damage taken: {0}\nMost damage taken on team: {1}"
         />
       )}
-      {width > 1400 && (
+      {width > 1400 / 2 && (
         <ProgressBar
           value={player.stats.goldEarned}
           maxValue={maxGold}
@@ -132,8 +189,8 @@ const PlayerLine = ({
           color="rgb(240,245,100)"
         />
       )}
-      {width > 900 && (
-        <>
+      {width > 900 / 2 && (
+        <div style={{ display: "flex" }}>
           <Typography
             sx={{ width: "30px", textAlign: "center", marginLeft: "20px" }}
           >
@@ -144,12 +201,13 @@ const PlayerLine = ({
               width="20px"
               src="https://static.wikia.nocookie.net/leagueoflegends/images/3/30/Minion_icon.png"
               style={{ filter: "invert(30%)", marginRight: "20px" }}
+              alt="cs"
             />
           </Tooltip>
-        </>
+        </div>
       )}
-      {width > 1060 && (
-        <>
+      {width > 1060 / 2 && (
+        <div style={{ display: "flex" }}>
           <Typography
             sx={{ width: "30px", textAlign: "center", marginLeft: "20px" }}
           >
@@ -160,10 +218,12 @@ const PlayerLine = ({
               width="20px"
               src="https://static.wikia.nocookie.net/leagueoflegends/images/f/f1/Ward_icon.png/"
               style={{ filter: "invert(30%)", marginRight: "20px" }}
+              alt="vision score"
             />
           </Tooltip>
-        </>
+        </div>
       )}
+      {showItems && <ItemsSection player={player} />}
     </div>
   );
 };
