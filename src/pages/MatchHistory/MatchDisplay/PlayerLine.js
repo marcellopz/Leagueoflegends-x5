@@ -177,10 +177,11 @@ const PlayerLine = ({
         </div>
         <Typography
           sx={{
-            width: "130px",
+            width: width > 390 ? "130px" : "100%",
             color: "white",
             overflow: "hidden",
             height: "100%",
+            fontSize: width > 200 ? "1rem" : "0.7rem",
           }}
         >
           {player.summonerName}
