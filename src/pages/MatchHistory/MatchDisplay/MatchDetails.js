@@ -17,6 +17,7 @@ export default function MatchDetails({ match }) {
     blueMaxGold,
     blueWin,
     redWin,
+    gameDuration,
     colorWin,
     colorLose,
   } = useMatchData(match);
@@ -55,6 +56,7 @@ export default function MatchDetails({ match }) {
             maxDamage={blueMaxDamage}
             maxGold={blueMaxGold}
             maxTank={blueMaxTanked}
+            gameDuration={gameDuration}
             width={width1}
             showItems
           />
@@ -78,6 +80,7 @@ export default function MatchDetails({ match }) {
             maxDamage={redMaxDamage}
             maxGold={redMaxGold}
             maxTank={redMaxTanked}
+            gameDuration={gameDuration}
             width={width2}
             showItems
           />

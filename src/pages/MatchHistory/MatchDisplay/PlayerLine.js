@@ -22,7 +22,7 @@ const ItemsSection = ({ player }) => {
 
   return (
     <div style={{ display: "flex", marginRight: "20px" }}>
-      {filteredList.map((item) => (
+      {filteredList.map((item, i) => (
         <div
           style={{
             background: "rgba(255,255,255,0.2)",
@@ -31,6 +31,7 @@ const ItemsSection = ({ player }) => {
             borderRadius: "3px",
             marginRight: "2px",
           }}
+          key={i}
         >
           {item > 0 && (
             <img
@@ -105,9 +106,17 @@ const PlayerLine = ({
   maxDamage,
   maxGold,
   maxTank,
+  gameDuration,
   width,
   showItems,
 }) => {
+  // let width_ = width;
+  // if (showItems) {
+  //   width_ = width - 10;
+  // }
+  // if (!showItems) {
+  //   console.log(width);
+  // }
   return (
     <div
       style={{
@@ -122,22 +131,38 @@ const PlayerLine = ({
         justifyContent: "space-between",
       }}
     >
-      <div style={{ display: "flex" }}>
-        <div
-          style={{
-            width: "30px",
-            height: "30px",
-            overflow: "hidden",
-            borderRadius: "15px",
-            marginLeft: "5px",
-            marginRight: "10px",
-          }}
-        >
-          <img
-            src={`${CHAMPIONICONURL}${player.championId}.png`}
-            width={"30px"}
-            alt={player.championName}
-          />
+      <div style={{ display: "flex", alignItems: "center" }}>
+        <div style={{ position: "relative" }}>
+          <div
+            style={{
+              position: "absolute",
+              bottom: "5px",
+              right: "10px",
+              width: "10px",
+              height: "10px",
+              background: "rgba(0,0,0,0.6)",
+              zIndex: 10,
+              fontSize: "13px",
+            }}
+          >
+            {player.stats.champLevel}
+          </div>
+          <div
+            style={{
+              width: "30px",
+              height: "30px",
+              overflow: "hidden",
+              borderRadius: "15px",
+              marginLeft: "5px",
+              marginRight: "10px",
+            }}
+          >
+            <img
+              src={`${CHAMPIONICONURL}${player.championId}.png`}
+              width={"30px"}
+              alt={player.championName}
+            />
+          </div>
         </div>
         <div style={{ marginRight: "10px" }}>
           {player.spellsIds.map((spellId) => (
@@ -146,27 +171,30 @@ const PlayerLine = ({
               alt={summonerSpells[spellId]}
               width={15}
               style={{ display: "block" }}
+              key={spellId}
             />
           ))}
         </div>
         <Typography
           sx={{
-            width: width < 740 ? "calc(100%-45px)" : "150px",
+            width: "130px",
             color: "white",
+            overflow: "hidden",
+            height: "100%",
           }}
         >
           {player.summonerName}
         </Typography>
       </div>
 
-      {width > 740 / 2 && (
+      {width > 390 && (
         <Typography sx={{ width: "150px", textAlign: "center" }}>{`${
           player.stats.kills
         }/${player.stats.deaths}/${player.stats.assists} (${parseInt(
           (100 * (player.stats.kills + player.stats.assists)) / totalKills
         )}%)`}</Typography>
       )}
-      {width > 1260 / 2 && (
+      {width > 700 && (
         <ProgressBar
           value={player.stats.totalDamageDealtToChampions}
           maxValue={maxDamage}
@@ -174,14 +202,14 @@ const PlayerLine = ({
           color="rgb(245,100,100)"
         />
       )}
-      {width > 1550 / 2 && (
+      {width > 900 && (
         <ProgressBar
           value={player.stats.totalDamageTaken}
           maxValue={maxTank}
           tooltip="Damage taken: {0}\nMost damage taken on team: {1}"
         />
       )}
-      {width > 1400 / 2 && (
+      {width > 780 && (
         <ProgressBar
           value={player.stats.goldEarned}
           maxValue={maxGold}
@@ -189,12 +217,15 @@ const PlayerLine = ({
           color="rgb(240,245,100)"
         />
       )}
-      {width > 900 / 2 && (
+      {width > 510 && (
         <div style={{ display: "flex" }}>
           <Typography
             sx={{ width: "30px", textAlign: "center", marginLeft: "20px" }}
           >
             {player.stats.totalCs}
+          </Typography>
+          <Typography sx={{ marginLeft: "5px", marginRight: "5px" }}>
+            ({((60 * player.stats.totalCs) / gameDuration).toFixed(1)})
           </Typography>
           <Tooltip title="Creep Score">
             <img
@@ -206,7 +237,7 @@ const PlayerLine = ({
           </Tooltip>
         </div>
       )}
-      {width > 1060 / 2 && (
+      {width > 580 && (
         <div style={{ display: "flex" }}>
           <Typography
             sx={{ width: "30px", textAlign: "center", marginLeft: "20px" }}

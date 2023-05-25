@@ -18,6 +18,7 @@ export default function MatchSummary({ match, expanded, toggleExpanded }) {
     blueMaxGold,
     blueWin,
     redWin,
+    gameDuration,
     colorWin,
     colorLose,
   } = useMatchData(match);
@@ -32,76 +33,101 @@ export default function MatchSummary({ match, expanded, toggleExpanded }) {
   }, []);
 
   return (
-    <Box
-      sx={{
-        height: "100%",
-        width: "100%",
-        display: "flex",
-        justifyContent: "space-between",
-        color: "gainsboro",
-      }}
-      ref={ref}
-    >
-      <Paper
-        sx={{
-          borderRadius: "7px",
-          background: blueWin ? colorWin : colorLose,
-          width: "47%",
-          padding: "5px",
-          color: "gainsboro",
-        }}
-      >
-        {blueTeam.map((p) => (
-          <PlayerLine
-            player={p}
-            key={p.participantId}
-            totalKills={blueKills}
-            maxDamage={blueMaxDamage}
-            maxGold={blueMaxGold}
-            maxTank={blueMaxTanked}
-            width={summaryWidth / 2}
-          />
-        ))}
-      </Paper>
-      <Paper
-        sx={{
-          borderRadius: "7px",
-          background: redWin ? colorWin : colorLose,
-          width: "47%",
-          padding: "5px",
-          color: "gainsboro",
-        }}
-      >
-        {redTeam.map((p) => (
-          <PlayerLine
-            player={p}
-            key={p.participantId}
-            totalKills={redKils}
-            maxDamage={redMaxDamage}
-            maxGold={redMaxGold}
-            maxTank={redMaxTanked}
-            width={summaryWidth / 2}
-          />
-        ))}
-      </Paper>
+    <div style={{ width: "100%", color: "gainsboro" }}>
       <Box
         sx={{
-          width: "3%",
-          backgroundColor: "rgba(255,255,255,0.05)",
-          borderRadius: "7px",
+          width: "100%",
           display: "flex",
-          ":hover": {
-            cursor: "pointer",
-          },
+          justifyContent: "space-between",
         }}
-        onClick={toggleExpanded}
       >
-        {expanded ? (
-          <ExpandLess sx={{ margin: "auto" }} />
-        ) : (
-          <ExpandMore sx={{ margin: "auto" }} />
+        <Paper
+          sx={{
+            borderRadius: "7px",
+            background: blueWin ? colorWin : colorLose,
+            width: summaryWidth > 350 ? "47%" : "49%",
+            padding: "5px",
+            color: "gainsboro",
+          }}
+          ref={ref}
+        >
+          {blueTeam.map((p) => (
+            <PlayerLine
+              player={p}
+              key={p.participantId}
+              totalKills={blueKills}
+              maxDamage={blueMaxDamage}
+              maxGold={blueMaxGold}
+              maxTank={blueMaxTanked}
+              gameDuration={gameDuration}
+              width={summaryWidth}
+            />
+          ))}
+        </Paper>
+        <Paper
+          sx={{
+            borderRadius: "7px",
+            background: redWin ? colorWin : colorLose,
+            width: summaryWidth > 350 ? "47%" : "49%",
+            padding: "5px",
+            color: "gainsboro",
+          }}
+        >
+          {redTeam.map((p) => (
+            <PlayerLine
+              player={p}
+              key={p.participantId}
+              totalKills={redKils}
+              maxDamage={redMaxDamage}
+              maxGold={redMaxGold}
+              maxTank={redMaxTanked}
+              gameDuration={gameDuration}
+              width={summaryWidth}
+            />
+          ))}
+        </Paper>
+        {summaryWidth > 350 && (
+          <Box
+            sx={{
+              width: "3%",
+              backgroundColor: "rgba(255,255,255,0.05)",
+              borderRadius: "7px",
+              display: "flex",
+              ":hover": {
+                cursor: "pointer",
+              },
+            }}
+            onClick={toggleExpanded}
+          >
+            {expanded ? (
+              <ExpandLess sx={{ margin: "auto" }} />
+            ) : (
+              <ExpandMore sx={{ margin: "auto" }} />
+            )}
+          </Box>
         )}
       </Box>
-    </Box>
+      {summaryWidth < 350 && (
+        <Box
+          sx={{
+            backgroundColor: "rgba(255,255,255,0.1)",
+            borderRadius: "7px",
+            display: "flex",
+            ":hover": {
+              cursor: "pointer",
+            },
+            margin: "7px 0",
+            height: "30px",
+          }}
+          onClick={toggleExpanded}
+        >
+          {expanded ? (
+            <ExpandLess sx={{ margin: "auto" }} />
+          ) : (
+            <ExpandMore sx={{ margin: "auto" }} />
+          )}
+        </Box>
+      )}
+    </div>
   );
 }
