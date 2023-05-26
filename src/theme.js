@@ -5,13 +5,23 @@ export const themeOptions = {
     mode: "dark",
     primary: {
       // main: "#e65100",
-      main: "#909090",
+      main: "#66FCF1",
     },
     secondary: {
-      main: "#e4ca07",
+      main: "#45A29E",
     },
     background: {
-      bd: "#080808",
+      bd: "#0B0C10",
+      default: "#0B0C10",
+      paper: "#1F2833",
+      match: "#041218",
+    },
+    text: {
+      primary: "#C5C6C7",
+    },
+    navbar: {
+      background: "#0B0C10",
+      text: "#f0fffe",
     },
   },
   typography: {

@@ -10,11 +10,13 @@ export default function MatchDisplay({ match }) {
 
   const toggleExpand = useCallback(() => setExpanded((prev) => !prev), []);
 
+  console.log(theme);
+
   return (
     <Accordion
       expanded={expanded}
       sx={{
-        backgroundColor: theme.palette.background.paper,
+        backgroundColor: theme.palette.background.match,
         padding: 0,
         "&.MuiPaper-root": {
           borderRadius: "7px",

@@ -1,14 +1,19 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { getMatches } from "../../services/firebaseDatabase";
 import MatchDisplay from "./MatchDisplay/MatchDisplay";
+import { CircularProgress } from "@mui/material";
+import { theme } from "../../theme";
 
 export default function MatchHistory() {
   const [matches, setMatches] = useState({});
   const matchKeys = useMemo(() => Object.keys(matches).reverse(), [matches]);
   const [numberOfMatches, setNumberOfMatches] = useState(7);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    getMatches().then((ms) => setMatches(ms));
+    getMatches()
+      .then((ms) => setMatches(ms))
+      .then(() => setLoading(false));
   }, []);
 
   useEffect(() => {
@@ -39,18 +44,32 @@ export default function MatchHistory() {
 
   return (
     <div style={{ display: "flex", justifyContent: "center" }}>
-      <div style={{ width: "100%", maxWidth: "1600px" }}>
-        {matchKeys.slice(0, numberOfMatches).map((key) => (
-          <div
-            style={{
-              margin: "20px",
-            }}
-            key={key}
-          >
-            <MatchDisplay match={matches[key]} />
-          </div>
-        ))}
-      </div>
+      {loading ? (
+        <div style={{ marginTop: "100px" }}>
+          <CircularProgress />
+        </div>
+      ) : (
+        <div
+          style={{
+            width: "100%",
+            maxWidth: "1600px",
+            background: theme.palette.background.match,
+            borderRadius: "15px",
+            marginTop: "20px",
+          }}
+        >
+          {matchKeys.slice(0, numberOfMatches).map((key) => (
+            <div
+              style={{
+                margin: "20px",
+              }}
+              key={key}
+            >
+              <MatchDisplay match={matches[key]} />
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

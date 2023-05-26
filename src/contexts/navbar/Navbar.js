@@ -98,8 +98,11 @@ export default function Navbar() {
   const { windowSize } = useContext(NavbarContext);
   const [requestDialogOpen, setRequestDialogOpen] = useState(false);
   const [addMatchDialogOpen, setAddMatchDialogOpen] = useState(false);
+  const [hover, setHover] = useState("");
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  console.log(window.location.pathname);
 
   const requestToBeNerd = (name) => {
     if (isAnonymous) {
@@ -122,7 +125,7 @@ export default function Navbar() {
       />
       <nav
         style={{
-          backgroundColor: theme.palette.background.paper,
+          backgroundColor: theme.palette.navbar.background,
           height: "80px",
           display: "flex",
           zIndex: 10,
@@ -130,8 +133,9 @@ export default function Navbar() {
           justifyContent: "space-between",
           fontFamily: "'Source Sans Pro', sans-serif",
           fontSize: 13,
-          borderBottom: "1px solid #505050",
-          color: "lightGray",
+          borderBottom: "1px solid rgba(255,255,255,0.15)",
+          boxSizing: "border-box",
+          color: theme.palette.navbar.text,
         }}
       >
         <div
@@ -187,7 +191,15 @@ export default function Navbar() {
                     alignItems: "center",
                     height: "100%",
                     marginRight: "50px",
+                    borderBottom:
+                      window.location.pathname === item.url ||
+                      hover === item.url
+                        ? "4px solid white"
+                        : "4px transparent",
+                    boxSizing: "border-box",
                   }}
+                  onMouseEnter={() => setHover(item.url)}
+                  onMouseLeave={() => setHover("")}
                 >
                   <a
                     href={item.url}
@@ -221,6 +233,7 @@ export default function Navbar() {
                   <Button
                     onClick={() => setAddMatchDialogOpen(true)}
                     variant="outlined"
+                    color="secondary"
                   >
                     Add match
                   </Button>
@@ -244,17 +257,9 @@ export default function Navbar() {
                   paddingRight: "20px",
                 }}
               >
-                <button
-                  style={{
-                    background: theme.palette.background.paper,
-                    color: "lightGray",
-                    fontSize: 14,
-                    borderRadius: 10,
-                  }}
-                  onClick={signOut}
-                >
+                <Button onClick={signOut} variant="outlined" color="secondary">
                   Sair
-                </button>
+                </Button>
               </li>
               {!isNerd && !isAnonymous && (
                 <li
