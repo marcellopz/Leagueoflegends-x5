@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import useMatchData from "./useMatchData";
-import { Paper, Tooltip, Typography } from "@mui/material";
+import { Paper, Typography } from "@mui/material";
 import PlayerLine from "./PlayerLine";
 import {
   CHAMPIONICONURL,
@@ -93,7 +93,7 @@ const ProgressBar = ({ value, maxValue, leftColor, rightColor, text }) => {
               position: "absolute",
               zIndex: 10,
               width: "100%",
-              paddingRight: "5px",
+              transform: "translate(-5px)",
             }}
           >
             {maxValue - value}
@@ -197,7 +197,7 @@ export default function MatchDetails({ match }) {
             flexWrap: "wrap",
           }}
         >
-          {blueTeamObj.bans.map((champ, i) => (
+          {blueTeamObj.bans?.map((champ, i) => (
             <div
               style={{
                 background: "rgba(255,255,255,0.2)",
@@ -265,6 +265,19 @@ export default function MatchDetails({ match }) {
           />
         </Paper>
       </div>
+      {width1 > 700 && (
+        <div
+          style={{
+            height: "70px",
+            width: "3%",
+            justifyContent: "space-around",
+            display: "flex",
+            alignItems: "center",
+          }}
+        >
+          <Typography color="dimgray">bans</Typography>
+        </div>
+      )}
       <div style={{ width: width1 > 700 ? "96%" : "100%", display: "flex" }}>
         <Paper
           sx={{
@@ -301,7 +314,7 @@ export default function MatchDetails({ match }) {
             flexWrap: "wrap",
           }}
         >
-          {redTeamObj.bans.map((champ, i) => (
+          {redTeamObj.bans?.map((champ, i) => (
             <div
               style={{
                 background: "rgba(255,255,255,0.2)",
