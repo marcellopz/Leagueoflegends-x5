@@ -80,21 +80,27 @@ const ProgressBar = ({
       }
       arrow
     >
-      <div
-        style={{
-          width: "60px",
-          height: "8px",
-          backgroundColor: "rgba(0,0,0,0.5)",
-          marginLeft: "20px",
-        }}
-      >
-        <div
-          style={{
-            width: `${progressPercentage}%`,
-            height: "100%",
-            backgroundColor: color,
-          }}
-        ></div>
+      <div style={{ height: "100%", marginLeft: "20px" }}>
+        <div style={{ padding: "5px 0" }}>
+          <Typography style={{ textAlign: "center", fontSize: "12px" }}>
+            {value}
+          </Typography>
+          <div
+            style={{
+              width: "60px",
+              height: "8px",
+              backgroundColor: "rgba(0,0,0,0.5)",
+            }}
+          >
+            <div
+              style={{
+                width: `${progressPercentage}%`,
+                height: "100%",
+                backgroundColor: color,
+              }}
+            ></div>
+          </div>
+        </div>
       </div>
     </Tooltip>
   );
@@ -110,13 +116,10 @@ const PlayerLine = ({
   width,
   showItems,
 }) => {
-  // let width_ = width;
-  // if (showItems) {
-  //   width_ = width - 10;
-  // }
-  // if (!showItems) {
-  //   console.log(width);
-  // }
+  let width_ = width;
+  if (showItems) {
+    width_ = width - 236;
+  }
   return (
     <div
       style={{
@@ -182,20 +185,21 @@ const PlayerLine = ({
             overflow: "hidden",
             height: "100%",
             fontSize: width > 200 ? "1rem" : "0.7rem",
+            whiteSpace: "nowrap",
           }}
         >
           {player.summonerName}
         </Typography>
       </div>
 
-      {width > 390 && (
+      {width_ > 390 && (
         <Typography sx={{ width: "150px", textAlign: "center" }}>{`${
           player.stats.kills
         }/${player.stats.deaths}/${player.stats.assists} (${parseInt(
           (100 * (player.stats.kills + player.stats.assists)) / totalKills
         )}%)`}</Typography>
       )}
-      {width > 700 && (
+      {width_ > 700 && (
         <ProgressBar
           value={player.stats.totalDamageDealtToChampions}
           maxValue={maxDamage}
@@ -203,14 +207,14 @@ const PlayerLine = ({
           color="rgb(245,100,100)"
         />
       )}
-      {width > 900 && (
+      {width_ > 900 && (
         <ProgressBar
           value={player.stats.totalDamageTaken}
           maxValue={maxTank}
           tooltip="Damage taken: {0}\nMost damage taken on team: {1}"
         />
       )}
-      {width > 780 && (
+      {width_ > 780 && (
         <ProgressBar
           value={player.stats.goldEarned}
           maxValue={maxGold}
@@ -218,7 +222,7 @@ const PlayerLine = ({
           color="rgb(240,245,100)"
         />
       )}
-      {width > 510 && (
+      {width_ > 510 && (
         <div style={{ display: "flex" }}>
           <Typography
             sx={{ width: "30px", textAlign: "center", marginLeft: "20px" }}
@@ -238,11 +242,9 @@ const PlayerLine = ({
           </Tooltip>
         </div>
       )}
-      {width > 580 && (
+      {width_ > 580 && (
         <div style={{ display: "flex" }}>
-          <Typography
-            sx={{ width: "30px", textAlign: "center", marginLeft: "20px" }}
-          >
+          <Typography sx={{ width: "30px", textAlign: "center" }}>
             {player.stats.visionScore}
           </Typography>
           <Tooltip title="Vision Score">

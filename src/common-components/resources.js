@@ -297,3 +297,20 @@ export const summonerSpellsUrl = {
   14: "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/data/spells/icons2d/summonerignite.png",
   21: "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/data/spells/icons2d/summonerbarrier.png",
 };
+
+export const baronWinUrl = "https://s-lol-web.op.gg/images/icon/icon-baron.svg";
+
+export const dragonWinUrl =
+  "https://s-lol-web.op.gg/images/icon/icon-dragon.svg";
+
+export const turretWinUrl =
+  "https://s-lol-web.op.gg/images/icon/icon-tower.svg";
+
+export const baronLoseUrl =
+  "https://s-lol-web.op.gg/images/icon/icon-baron-r.svg";
+
+export const dragonLoseUrl =
+  "https://s-lol-web.op.gg/images/icon/icon-dragon-r.svg";
+
+export const turretLoseUrl =
+  "https://s-lol-web.op.gg/images/icon/icon-tower-r.svg";

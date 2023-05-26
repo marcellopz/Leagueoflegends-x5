@@ -11,6 +11,14 @@ const useMatchData = (match) => {
     [match]
   );
 
+  const blueTeamObj = useMemo(
+    () => match.teams.filter((t) => t.teamId === 100)[0]
+  );
+
+  const redTeamObj = useMemo(
+    () => match.teams.filter((t) => t.teamId === 200)[0]
+  );
+
   const blueKills = useMemo(() => {
     let i = 0;
     return blueTeam.reduce((a, b) => a + b.stats.kills, i);
@@ -54,9 +62,34 @@ const useMatchData = (match) => {
     [redTeam]
   );
 
+  const blueTotalDamage = useMemo(() => {
+    let i = 0;
+    return blueTeam.reduce(
+      (a, b) => a + b.stats.totalDamageDealtToChampions,
+      i
+    );
+  });
+
+  const redTotalDamage = useMemo(() => {
+    let i = 0;
+    return redTeam.reduce((a, b) => a + b.stats.totalDamageDealtToChampions, i);
+  });
+
+  const blueTotalKills = useMemo(() => {
+    let i = 0;
+    return blueTeam.reduce((a, b) => a + b.stats.kills, i);
+  });
+
+  const redTotalKills = useMemo(() => {
+    let i = 0;
+    return redTeam.reduce((a, b) => a + b.stats.kills, i);
+  });
+
   return {
     blueTeam,
     redTeam,
+    blueTeamObj,
+    redTeamObj,
     blueMaxTanked,
     redMaxTanked,
     redKils,
@@ -67,6 +100,10 @@ const useMatchData = (match) => {
     blueMaxGold,
     blueWin,
     redWin,
+    blueTotalDamage,
+    redTotalDamage,
+    blueTotalKills,
+    redTotalKills,
     gameDuration: match.gameDuration,
     colorWin: "rgba(0,60,120,0.4)",
     colorLose: "rgba(140,0,0,0.4)",
