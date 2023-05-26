@@ -4,7 +4,8 @@ export const themeOptions = {
   palette: {
     mode: "dark",
     primary: {
-      main: "#e65100",
+      // main: "#e65100",
+      main: "#909090",
     },
     secondary: {
       main: "#e4ca07",
