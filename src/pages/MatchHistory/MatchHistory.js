@@ -3,6 +3,7 @@ import { getMatches } from "../../services/firebaseDatabase";
 import MatchDisplay from "./MatchDisplay/MatchDisplay";
 import { CircularProgress, Typography } from "@mui/material";
 import { theme } from "../../theme";
+import { motion } from "framer-motion";
 
 export default function MatchHistory() {
   const [matches, setMatches] = useState({});
@@ -49,7 +50,7 @@ export default function MatchHistory() {
           <CircularProgress />
         </div>
       ) : (
-        <div
+        <motion.div
           style={{
             width: "100%",
             maxWidth: "1600px",
@@ -57,6 +58,21 @@ export default function MatchHistory() {
             borderRadius: "15px",
             marginTop: "20px",
             border: "2px solid black",
+          }}
+          initial="initial"
+          animate="animate"
+          variants={{
+            initial: {
+              opacity: 0,
+              // y: 20,
+            },
+            animate: {
+              opacity: 1,
+              // y: 0,
+              transition: {
+                duration: 0.5,
+              },
+            },
           }}
         >
           <div style={{ margin: "20px", position: "relative" }}>
@@ -75,7 +91,7 @@ export default function MatchHistory() {
               <MatchDisplay match={matches[key]} />
             </div>
           ))}
-        </div>
+        </motion.div>
       )}
     </div>
   );

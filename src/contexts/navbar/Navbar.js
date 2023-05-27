@@ -18,7 +18,7 @@ import { sendFile } from "./newMatchFileSend";
 const navbarItems = [
   { label: "match history", url: "/history" },
   { label: "matchmaking", url: "/matchmaking" },
-  { label: "card rankings", url: "/rankings" },
+  { label: "player list", url: "/players" },
   { label: "patch notes", url: "/patchnotes" },
 ];
 
