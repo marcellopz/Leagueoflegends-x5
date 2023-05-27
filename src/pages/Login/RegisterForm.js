@@ -70,6 +70,7 @@ function RegisterForm() {
         variant="outlined"
         sx={{ width: "350px", marginBottom: "1rem", maxWidth: "90%" }}
         type="submit"
+        color="secondary"
       >
         Register
       </Button>

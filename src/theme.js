@@ -1,6 +1,19 @@
 import { createTheme } from "@mui/material";
 
 export const themeOptions = {
+  components: {
+    MuiTooltip: {
+      styleOverrides: {
+        tooltip: {
+          fontSize: "1em",
+          color: "#f0fffe",
+          backgroundColor: "#0B0C10",
+          whiteSpace: "nowrap",
+          padding: "5px 10px",
+        },
+      },
+    },
+  },
   palette: {
     mode: "dark",
     primary: {

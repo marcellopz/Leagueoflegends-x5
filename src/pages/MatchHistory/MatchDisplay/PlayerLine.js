@@ -74,7 +74,7 @@ const ProgressBar = ({
             .format(value, maxValue)
             .split("\\n")
             .map((line) => (
-              <p key={line}>{line}</p>
+              <div key={line}>{line}</div>
             ))}
         </div>
       }

@@ -129,7 +129,6 @@ export default function Navbar() {
           zIndex: 10,
           width: "100%",
           justifyContent: "space-between",
-          fontFamily: "'Source Sans Pro', sans-serif",
           fontSize: 13,
           borderBottom: "1px solid rgba(255,255,255,0.1)",
           boxSizing: "border-box",
@@ -164,6 +163,7 @@ export default function Navbar() {
                   color: "inherit",
                   textDecoration: "none",
                   display: "flex",
+                  alignItems: "center",
                 }}
               >
                 <img
@@ -173,9 +173,15 @@ export default function Navbar() {
                 />
 
                 <div style={{ marginLeft: "5px" }}>
-                  <h3 style={{ margin: 0 }}>x5</h3>
-                  <h3 style={{ margin: 0 }}>dos</h3>
-                  <h3 style={{ margin: 0 }}>nerds</h3>
+                  <h3 style={{ margin: 0, fontWeight: 600, lineHeight: 1.1 }}>
+                    x5
+                  </h3>
+                  <h3 style={{ margin: 0, fontWeight: 600, lineHeight: 1.1 }}>
+                    dos
+                  </h3>
+                  <h3 style={{ margin: 0, fontWeight: 600, lineHeight: 1.1 }}>
+                    nerds
+                  </h3>
                 </div>
               </a>
             </li>
@@ -203,7 +209,9 @@ export default function Navbar() {
                     href={item.url}
                     style={{ color: "inherit", textDecoration: "none" }}
                   >
-                    <h1>{item.label}</h1>
+                    <h1 style={{ fontWeight: 400, letterSpacing: "0.02em" }}>
+                      {item.label}
+                    </h1>
                   </a>
                 </li>
               ))}
