@@ -10,8 +10,6 @@ export default function MatchDisplay({ match }) {
 
   const toggleExpand = useCallback(() => setExpanded((prev) => !prev), []);
 
-  console.log(theme);
-
   return (
     <Accordion
       expanded={expanded}

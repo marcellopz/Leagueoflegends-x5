@@ -11,6 +11,7 @@ import {
   turretLoseUrl,
   turretWinUrl,
 } from "../../../common-components/resources";
+import { theme } from "../../../theme";
 
 const BaronDragonTurretBans = ({ win, baron, dragon, turret }) => {
   const baronIcon = win ? baronWinUrl : baronLoseUrl;
@@ -168,7 +169,7 @@ export default function MatchDetails({ match }) {
             background: blueWin ? colorWin : colorLose,
             width: "100%",
             padding: "5px",
-            color: "gainsboro",
+            color: theme.palette.text.primary,
           }}
           ref={ref1}
         >
@@ -231,7 +232,7 @@ export default function MatchDetails({ match }) {
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
-            color: "gainsboro",
+            color: theme.palette.text.primary,
           }}
         >
           <BaronDragonTurretBans
@@ -285,7 +286,7 @@ export default function MatchDetails({ match }) {
             background: redWin ? colorWin : colorLose,
             width: "100%",
             padding: "5px",
-            color: "gainsboro",
+            color: theme.palette.text.primary,
           }}
           ref={ref2}
         >

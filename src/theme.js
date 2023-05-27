@@ -17,7 +17,7 @@ export const themeOptions = {
       match: "#041218",
     },
     text: {
-      primary: "#C5C6C7",
+      primary: "#f0fffe",
     },
     navbar: {
       background: "#0B0C10",

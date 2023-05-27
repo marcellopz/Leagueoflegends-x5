@@ -13,6 +13,11 @@ export const MatchMakingProvider = ({ children }) => {
   const [error, setError] = useState("");
   // const [playersToBalance, setPlayersToBalance] = useState([]);
   const [algoOptions, setAlgoOptions] = useState({});
+  const [cardReadyCounter, setCardReadyCounter] = useState(0);
+
+  const handleCardLoad = () => {
+    setCardReadyCounter((prev) => prev + 1);
+  };
 
   useEffect(() => {
     if (signed) {
@@ -42,6 +47,7 @@ export const MatchMakingProvider = ({ children }) => {
               label={players[player].name}
               key={player}
               sx={{ height: "inherit" }}
+              onLoad={handleCardLoad}
             />
           ),
         }))
@@ -88,6 +94,7 @@ export const MatchMakingProvider = ({ children }) => {
         cards,
         algoOptions,
         setAlgoOptions,
+        cardReadyCounter,
       }}
     >
       {children}

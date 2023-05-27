@@ -3,7 +3,7 @@ import interroga from "../../pages/Home/interroga";
 import { getPlayerData } from "../../services/firebaseDatabase";
 import { MiscContext } from "../../contexts/miscContext";
 
-function CardComponent({ name, ranks, sx, label }) {
+function CardComponent({ name, ranks, sx, label, onLoad }) {
   const canvasRef = useRef(null);
   const [photoSrc, setPhotoSrc] = useState("");
   const [loading, setLoading] = useState(true);
@@ -38,6 +38,7 @@ function CardComponent({ name, ranks, sx, label }) {
     photo.src = photoSrc;
 
     image.onload = () => {
+      onLoad && onLoad();
       canvas.width = image.width;
       canvas.height = image.height;
       context.drawImage(photo, 40, 60);
@@ -74,7 +75,7 @@ function CardComponent({ name, ranks, sx, label }) {
         borderRadius: 5,
         ...sx,
       }}
-    ></canvas>
+    />
   );
 }
 

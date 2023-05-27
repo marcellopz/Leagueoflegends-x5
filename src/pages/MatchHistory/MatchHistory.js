@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { getMatches } from "../../services/firebaseDatabase";
 import MatchDisplay from "./MatchDisplay/MatchDisplay";
-import { CircularProgress } from "@mui/material";
+import { CircularProgress, Typography } from "@mui/material";
 import { theme } from "../../theme";
 
 export default function MatchHistory() {
@@ -53,11 +53,18 @@ export default function MatchHistory() {
           style={{
             width: "100%",
             maxWidth: "1600px",
-            background: theme.palette.background.match,
+            background: theme.palette.background.bd,
             borderRadius: "15px",
             marginTop: "20px",
+            border: "2px solid black",
           }}
         >
+          <div style={{ margin: "20px", position: "relative" }}>
+            <Typography fontSize={25}>Match history</Typography>
+            <div style={{ position: "absolute", right: 10, top: "25%" }}>
+              Filters soon
+            </div>
+          </div>
           {matchKeys.slice(0, numberOfMatches).map((key) => (
             <div
               style={{

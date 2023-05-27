@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import PlayerLine from "./PlayerLine";
 import useMatchData from "./useMatchData";
 import { ExpandLess, ExpandMore } from "@mui/icons-material";
+import { theme } from "../../../theme";
 
 export default function MatchSummary({ match, expanded, toggleExpanded }) {
   const {
@@ -21,6 +22,8 @@ export default function MatchSummary({ match, expanded, toggleExpanded }) {
     gameDuration,
     colorWin,
     colorLose,
+    gameDate,
+    gameDurationStr,
   } = useMatchData(match);
   const ref = useRef(null);
   const [summaryWidth, setSummaryWidth] = useState();
@@ -34,6 +37,16 @@ export default function MatchSummary({ match, expanded, toggleExpanded }) {
 
   return (
     <div style={{ width: "100%", color: "gainsboro" }}>
+      <div
+        style={{
+          color: "rgba(255,255,255,0.5)",
+          textAlign: "center",
+          width: "100%",
+          marginBottom: "5px",
+        }}
+      >
+        {`Played on ${gameDate} - Duration: ${gameDurationStr}`}
+      </div>
       <Box
         sx={{
           width: "100%",
@@ -47,7 +60,7 @@ export default function MatchSummary({ match, expanded, toggleExpanded }) {
             background: blueWin ? colorWin : colorLose,
             width: summaryWidth > 350 ? "47%" : "49%",
             padding: "5px",
-            color: "gainsboro",
+            color: theme.palette.text.primary,
           }}
           ref={ref}
         >
@@ -70,7 +83,7 @@ export default function MatchSummary({ match, expanded, toggleExpanded }) {
             background: redWin ? colorWin : colorLose,
             width: summaryWidth > 350 ? "47%" : "49%",
             padding: "5px",
-            color: "gainsboro",
+            color: theme.palette.text.primary,
           }}
         >
           {redTeam.map((p) => (

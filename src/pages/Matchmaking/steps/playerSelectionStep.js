@@ -1,8 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
 import { MatchMakingContext } from "../context/matchMakingContext";
-import { Box, IconButton } from "@mui/material";
+import { Box, CircularProgress, IconButton } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { List } from "@mui/icons-material";
+import { theme } from "../../../theme";
 
 const columns = [
   {
@@ -62,6 +63,7 @@ export default function PlayerSelectionStep({ setIsOk }) {
     selectedOptions,
     error,
     setSelectedOptions,
+    cardReadyCounter,
   } = useContext(MatchMakingContext);
   const [displayCard, setDisplayCard] = useState(true);
 
@@ -76,6 +78,8 @@ export default function PlayerSelectionStep({ setIsOk }) {
     setIsOk(!error);
   }, [error]);
 
+  console.log(cardReadyCounter);
+
   return (
     <div>
       <div
@@ -87,8 +91,12 @@ export default function PlayerSelectionStep({ setIsOk }) {
         }}
       >
         <div>
-          <p>Select the players for the match</p>
-          <p style={{ color: "grey" }}>{selectedOptions.length} selected</p>
+          <p style={{ color: theme.palette.text.primary }}>
+            Select the players for the match
+          </p>
+          <p style={{ color: theme.palette.secondary.main }}>
+            {selectedOptions.length} selected
+          </p>
         </div>
         <IconButton
           style={{ position: "absolute", right: "40px", top: "30px" }}
@@ -98,7 +106,11 @@ export default function PlayerSelectionStep({ setIsOk }) {
         </IconButton>
       </div>
 
-      {error && <p style={{ color: "red", margin: "20px" }}>{error}</p>}
+      {error && (
+        <p style={{ color: theme.palette.error.main, margin: "20px" }}>
+          {error}
+        </p>
+      )}
       <form>
         {displayCard && (
           <div
@@ -112,6 +124,7 @@ export default function PlayerSelectionStep({ setIsOk }) {
               paddingBottom: "20px",
               borderRadius: "20px",
               justifyContent: "space-evenly",
+              minHeight: "800px",
             }}
           >
             {cards.map((card) => (
@@ -119,7 +132,10 @@ export default function PlayerSelectionStep({ setIsOk }) {
                 key={card.name}
                 onClick={() => handleOptionChange(card.name)}
                 sx={{
-                  "&:hover": { border: "1px solid red", cursor: "pointer" },
+                  "&:hover": {
+                    border: "1px solid " + theme.palette.primary.main,
+                    cursor: "pointer",
+                  },
                   border: selectedOptions.includes(card.name)
                     ? "1px solid yellow"
                     : "1px solid black",
@@ -129,11 +145,18 @@ export default function PlayerSelectionStep({ setIsOk }) {
                   height: "300px",
                   marginBottom: "15px",
                   justifyContent: "center",
+                  borderRadius: "5px",
+                  display: cards.length > cardReadyCounter ? "none" : "block",
                 }}
               >
                 {card.card}
               </Box>
             ))}
+            {cards.length > cardReadyCounter && (
+              <CircularProgress
+                sx={{ marginTop: "50px", marginBottom: "900px" }}
+              />
+            )}
           </div>
         )}
         {!displayCard && (
@@ -168,7 +191,11 @@ export default function PlayerSelectionStep({ setIsOk }) {
           </div>
         )}
       </form>
-      {error && <p style={{ color: "red", marginLeft: "20px" }}>{error}</p>}
+      {error && (
+        <p style={{ color: theme.palette.error.main, marginLeft: "20px" }}>
+          {error}
+        </p>
+      )}
     </div>
   );
 }

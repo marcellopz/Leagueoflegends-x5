@@ -102,8 +102,6 @@ export default function Navbar() {
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  console.log(window.location.pathname);
-
   const requestToBeNerd = (name) => {
     if (isAnonymous) {
       return;
@@ -133,7 +131,7 @@ export default function Navbar() {
           justifyContent: "space-between",
           fontFamily: "'Source Sans Pro', sans-serif",
           fontSize: 13,
-          borderBottom: "1px solid rgba(255,255,255,0.15)",
+          borderBottom: "1px solid rgba(255,255,255,0.1)",
           boxSizing: "border-box",
           color: theme.palette.navbar.text,
         }}
@@ -195,7 +193,7 @@ export default function Navbar() {
                       window.location.pathname === item.url ||
                       hover === item.url
                         ? "4px solid white"
-                        : "4px transparent",
+                        : "",
                     boxSizing: "border-box",
                   }}
                   onMouseEnter={() => setHover(item.url)}

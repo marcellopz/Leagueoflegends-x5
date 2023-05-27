@@ -4,6 +4,7 @@ import BalanceMatchCheezeV2 from "../algorithms/cheezeV2";
 import { MatchMakingContext } from "../context/matchMakingContext";
 import { Button, IconButton, TextField } from "@mui/material";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
+import { theme } from "../../../theme";
 
 const roles = ["Top", "Jungle", "Mid", "Adc", "Support"];
 
@@ -40,7 +41,10 @@ const ResultComponent = ({ match }) => {
               key={i}
               style={{
                 display: "flex",
-                backgroundColor: i % 2 === 0 ? "#383838" : "#161616",
+                backgroundColor:
+                  i % 2 === 0
+                    ? "rgba(255,255,255,0.1)"
+                    : "rgba(255,255,255,0.3)",
                 padding: "5px",
               }}
             >
@@ -78,7 +82,7 @@ const ResultComponent = ({ match }) => {
         <li
           style={{
             display: "flex",
-            backgroundColor: "#cc5500",
+            backgroundColor: theme.palette.secondary.main,
             padding: "5px",
             marginTop: "10px",
           }}
@@ -109,7 +113,7 @@ const ResultComponent = ({ match }) => {
         <li
           style={{
             display: "flex",
-            backgroundColor: "#8b4000",
+            backgroundColor: theme.palette.secondary.dark,
             paddingTop: "5px",
             paddingBottom: "5px",
           }}
