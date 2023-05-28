@@ -1,9 +1,9 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { theme } from "../theme";
-import { CircularProgress } from "@mui/material";
+import { CircularProgress, Typography } from "@mui/material";
 
-export default function X5pageContentArea({ children, loading }) {
+export default function X5pageContentArea({ children, loading, title }) {
   return (
     <div style={{ display: "flex", justifyContent: "center" }}>
       {loading ? (
@@ -37,6 +37,11 @@ export default function X5pageContentArea({ children, loading }) {
             },
           }}
         >
+          {title && (
+            <div style={{ margin: "20px" }}>
+              <Typography fontSize={25}>{title}</Typography>
+            </div>
+          )}
           {children}
         </motion.div>
       )}

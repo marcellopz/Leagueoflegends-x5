@@ -4,16 +4,9 @@ import { AuthContext } from "../authContext";
 import RequestButton from "./RequestButton";
 import { requestToBeANerd } from "../../services/firebaseDatabase";
 import Sidebar from "./Sidebar";
-import {
-  Button,
-  Dialog,
-  DialogContent,
-  DialogTitle,
-  IconButton,
-} from "@mui/material";
-import { Menu, UploadFile } from "@mui/icons-material";
+import { Button, IconButton } from "@mui/material";
+import { Menu } from "@mui/icons-material";
 import { NavbarContext } from "../navbarContext";
-import { sendFile } from "./newMatchFileSend";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
@@ -24,82 +17,11 @@ const navbarItems = [
   { label: "patch notes", url: "/patchnotes" },
 ];
 
-const AddMatchDialog = ({ open, onClose }) => {
-  const [files, setFiles] = useState([]);
-  const [filesContent, setFilesContent] = useState([]);
-
-  useEffect(() => {
-    if (files.length > 0) {
-      setFilesContent([]);
-
-      for (let i = 0; i < files.length; i++) {
-        let reader = new FileReader();
-
-        reader.onload = (e) => {
-          const content = e.target.result;
-          setFilesContent((prev) => [...prev, content]);
-        };
-
-        reader.readAsText(files[i]);
-      }
-    }
-  }, [files]);
-
-  const handleFileChange = (e) => {
-    setFiles(e.target.files);
-  };
-
-  const handleFileSend = () => {
-    if (filesContent.length > 0) {
-      filesContent.forEach((fileContent) => sendFile(fileContent));
-    }
-    setFiles([]);
-    setFilesContent([]);
-    alert("match(es) sent");
-  };
-
-  return (
-    <Dialog onClose={onClose} open={open}>
-      <DialogTitle>Add match to the database</DialogTitle>
-      <DialogContent style={{ margin: "20px", display: "flex" }}>
-        <Button
-          variant="contained"
-          sx={{ margin: "auto", padding: "20px" }}
-          color="secondary"
-          onClick={() => document.getElementById("upload-match-json").click()}
-        >
-          <input
-            id="upload-match-json"
-            type="file"
-            accept=".json"
-            onChange={handleFileChange}
-            style={{ display: "none" }}
-            multiple
-          />
-          <UploadFile fontSize="large" />
-          {files.length > 0 && <div>{files.length} files selected</div>}
-        </Button>
-        {files.length > 0 && (
-          <Button
-            color="secondary"
-            variant="contained"
-            sx={{ marginLeft: "20px" }}
-            onClick={handleFileSend}
-          >
-            Send
-          </Button>
-        )}
-      </DialogContent>
-    </Dialog>
-  );
-};
-
 function Navbar({ children }) {
   const { userObj, signOut, isNerd, isAnonymous, isAdmin } =
     useContext(AuthContext);
   const { windowSize } = useContext(NavbarContext);
   const [requestDialogOpen, setRequestDialogOpen] = useState(false);
-  const [addMatchDialogOpen, setAddMatchDialogOpen] = useState(false);
   const [hover, setHover] = useState("");
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
@@ -117,10 +39,6 @@ function Navbar({ children }) {
         navbarItems={navbarItems}
         open={sidebarOpen}
         setOpen={setSidebarOpen}
-      />
-      <AddMatchDialog
-        open={addMatchDialogOpen}
-        onClose={() => setAddMatchDialogOpen(false)}
       />
       <nav
         style={{
@@ -246,13 +164,11 @@ function Navbar({ children }) {
                     paddingRight: "20px",
                   }}
                 >
-                  <Button
-                    onClick={() => setAddMatchDialogOpen(true)}
-                    variant="outlined"
-                    color="secondary"
-                  >
-                    Add match
-                  </Button>
+                  <Link to="admin">
+                    <Button variant="outlined" color="secondary">
+                      Admin page
+                    </Button>
+                  </Link>
                 </li>
               )}
               <li
