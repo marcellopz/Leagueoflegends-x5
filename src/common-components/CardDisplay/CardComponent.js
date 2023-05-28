@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useState, useContext } from "react";
 import interroga from "../../pages/Home/interroga";
 import { getPlayerData } from "../../services/firebaseDatabase";
 import { MiscContext } from "../../contexts/miscContext";
+import { motion } from "framer-motion";
 
 function CardComponent({ name, ranks, sx, label, onLoad }) {
   const canvasRef = useRef(null);
@@ -68,14 +69,33 @@ function CardComponent({ name, ranks, sx, label, onLoad }) {
   }
 
   return (
-    <canvas
-      ref={canvasRef}
-      style={{
-        border: "2px solid black",
-        borderRadius: 5,
-        ...sx,
+    <motion.div
+      style={{ height: "100%" }}
+      initial="initial"
+      animate="animate"
+      variants={{
+        initial: {
+          opacity: 0,
+          // y: 20,
+        },
+        animate: {
+          opacity: 1,
+          // y: 0,
+          transition: {
+            duration: 0.3,
+          },
+        },
       }}
-    />
+    >
+      <canvas
+        ref={canvasRef}
+        style={{
+          border: "2px solid black",
+          borderRadius: 5,
+          ...sx,
+        }}
+      />
+    </motion.div>
   );
 }
 

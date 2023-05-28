@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { memo, useContext, useEffect, useState } from "react";
 import { theme } from "../../theme";
 import { AuthContext } from "../authContext";
 import RequestButton from "./RequestButton";
@@ -14,6 +14,8 @@ import {
 import { Menu, UploadFile } from "@mui/icons-material";
 import { NavbarContext } from "../navbarContext";
 import { sendFile } from "./newMatchFileSend";
+import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const navbarItems = [
   { label: "match history", url: "/history" },
@@ -92,14 +94,13 @@ const AddMatchDialog = ({ open, onClose }) => {
   );
 };
 
-export default function Navbar() {
+function Navbar({ children }) {
   const { userObj, signOut, isNerd, isAnonymous, isAdmin } =
     useContext(AuthContext);
   const { windowSize } = useContext(NavbarContext);
   const [requestDialogOpen, setRequestDialogOpen] = useState(false);
   const [addMatchDialogOpen, setAddMatchDialogOpen] = useState(false);
   const [hover, setHover] = useState("");
-
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const requestToBeNerd = (name) => {
@@ -157,8 +158,8 @@ export default function Navbar() {
                 marginRight: "50px",
               }}
             >
-              <a
-                href="/home"
+              <Link
+                to="/home"
                 style={{
                   color: "inherit",
                   textDecoration: "none",
@@ -183,11 +184,11 @@ export default function Navbar() {
                     nerds
                   </h3>
                 </div>
-              </a>
+              </Link>
             </li>
             {windowSize.width > 1200 &&
               navbarItems.map((item) => (
-                <li
+                <motion.li
                   key={item.label}
                   style={{
                     listStyle: "none",
@@ -195,25 +196,34 @@ export default function Navbar() {
                     alignItems: "center",
                     height: "100%",
                     marginRight: "50px",
-                    borderBottom:
-                      window.location.pathname === item.url ||
-                      hover === item.url
-                        ? "4px solid white"
-                        : "",
                     boxSizing: "border-box",
                   }}
                   onMouseEnter={() => setHover(item.url)}
                   onMouseLeave={() => setHover("")}
+                  initial={{ borderBottom: "4px solid transparent" }}
+                  transition={{ duration: 0.2 }}
+                  animate={{
+                    opacity:
+                      window.location.pathname === item.url ||
+                      hover === item.url
+                        ? 1
+                        : 0.8,
+                    borderBottom:
+                      window.location.pathname === item.url ||
+                      hover === item.url
+                        ? "4px solid white"
+                        : "4px solid transparent",
+                  }}
                 >
-                  <a
-                    href={item.url}
+                  <Link
+                    to={item.url}
                     style={{ color: "inherit", textDecoration: "none" }}
                   >
                     <h1 style={{ fontWeight: 400, letterSpacing: "0.02em" }}>
                       {item.label}
                     </h1>
-                  </a>
-                </li>
+                  </Link>
+                </motion.li>
               ))}
           </ul>
         </div>
@@ -300,6 +310,9 @@ export default function Navbar() {
           )}
         </div>
       </nav>
+      {children}
     </>
   );
 }
+
+export default memo(Navbar);

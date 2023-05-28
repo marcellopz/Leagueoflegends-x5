@@ -80,7 +80,7 @@ export default function PlayerPage() {
           maxWidth: "1600px",
           background: theme.palette.background.bd,
           borderRadius: "15px",
-          marginTop: "20px",
+          margin: "20px 0",
           border: "2px solid black",
         }}
         initial="initial"
@@ -113,6 +113,7 @@ export default function PlayerPage() {
               "& .MuiDataGrid-cell:focus": {
                 outline: "none",
               },
+              marginBottom: "20px",
             }}
             onRowClick={(a) => console.log(a)}
           />

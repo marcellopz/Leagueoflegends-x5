@@ -29,8 +29,7 @@ export const NavbarProvider = ({ children }) => {
 
   return (
     <NavbarContext.Provider value={{ windowSize }}>
-      <Navbar />
-      {children}
+      <Navbar>{children}</Navbar>
     </NavbarContext.Provider>
   );
 };

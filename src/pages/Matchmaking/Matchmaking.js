@@ -1,14 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
-import {
-  MatchMakingContext,
-  MatchMakingProvider,
-} from "./context/matchMakingContext";
+import { MatchMakingProvider } from "./context/matchMakingContext";
 import { theme } from "../../theme";
 import PlayerSelectionStep from "./steps/playerSelectionStep";
 import AlgorithmSelectionStep from "./steps/algorithmSelectionStep";
 import ResultStep from "./steps/resultStep";
 import { Button } from "@mui/material";
 import { MiscContext } from "../../contexts/miscContext";
+import { motion } from "framer-motion";
 
 export default function Matchmaking() {
   const [step, setStep] = useState(0);
@@ -21,7 +19,22 @@ export default function Matchmaking() {
 
   return (
     <MatchMakingProvider>
-      <div
+      <motion.div
+        initial="initial"
+        animate="animate"
+        variants={{
+          initial: {
+            opacity: 0,
+            // y: 20,
+          },
+          animate: {
+            opacity: 1,
+            // y: 0,
+            transition: {
+              duration: 0.5,
+            },
+          },
+        }}
         style={{
           width: "80%",
           // height: "450px",
@@ -57,7 +70,7 @@ export default function Matchmaking() {
         >
           Next
         </Button>
-      </div>
+      </motion.div>
     </MatchMakingProvider>
   );
 }

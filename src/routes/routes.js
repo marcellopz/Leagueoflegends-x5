@@ -8,6 +8,7 @@ import TestPage from "../pages/TestPages/TestPage";
 import MatchHistory from "../pages/MatchHistory/MatchHistory";
 import PatchNotes from "../pages/PatchNotes/PatchNotes";
 import PlayerPage from "../pages/PlayerPage/PlayerPage";
+import AdminPage from "../pages/AdminPage/AdminPage";
 
 export default function AppRoutes() {
   return (
@@ -22,6 +23,7 @@ export default function AppRoutes() {
           <Route path="players" element={<PlayerPage />} />
           <Route path="patchnotes" element={<PatchNotes />} />
           <Route path="home" element={<Home />} />
+          <Route path="admin" element={<AdminPage />} />
         </Route>
         <Route path="*" element={<Navigate to="/home" />} />
       </Routes>
