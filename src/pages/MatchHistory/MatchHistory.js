@@ -1,9 +1,8 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { getMatches } from "../../services/firebaseDatabase";
 import MatchDisplay from "./MatchDisplay/MatchDisplay";
-import { CircularProgress, Typography } from "@mui/material";
-import { theme } from "../../theme";
-import { motion } from "framer-motion";
+import { Typography } from "@mui/material";
+import X5pageContentArea from "../../common-components/X5pageContentArea";
 
 export default function MatchHistory() {
   const [matches, setMatches] = useState({});
@@ -44,55 +43,23 @@ export default function MatchHistory() {
   }, []);
 
   return (
-    <div style={{ display: "flex", justifyContent: "center" }}>
-      {loading ? (
-        <div style={{ marginTop: "100px" }}>
-          <CircularProgress />
+    <X5pageContentArea loading={loading}>
+      <div style={{ margin: "20px", position: "relative" }}>
+        <Typography fontSize={25}>Match history</Typography>
+        <div style={{ position: "absolute", right: 10, top: "25%" }}>
+          Filters soon
         </div>
-      ) : (
-        <motion.div
+      </div>
+      {matchKeys.slice(0, numberOfMatches).map((key) => (
+        <div
           style={{
-            width: "100%",
-            maxWidth: "1600px",
-            background: theme.palette.background.bd,
-            borderRadius: "15px",
-            marginTop: "20px",
-            border: "2px solid black",
+            margin: "20px",
           }}
-          initial="initial"
-          animate="animate"
-          variants={{
-            initial: {
-              opacity: 0,
-              // y: 20,
-            },
-            animate: {
-              opacity: 1,
-              // y: 0,
-              transition: {
-                duration: 0.5,
-              },
-            },
-          }}
+          key={key}
         >
-          <div style={{ margin: "20px", position: "relative" }}>
-            <Typography fontSize={25}>Match history</Typography>
-            <div style={{ position: "absolute", right: 10, top: "25%" }}>
-              Filters soon
-            </div>
-          </div>
-          {matchKeys.slice(0, numberOfMatches).map((key) => (
-            <div
-              style={{
-                margin: "20px",
-              }}
-              key={key}
-            >
-              <MatchDisplay match={matches[key]} />
-            </div>
-          ))}
-        </motion.div>
-      )}
-    </div>
+          <MatchDisplay match={matches[key]} />
+        </div>
+      ))}
+    </X5pageContentArea>
   );
 }

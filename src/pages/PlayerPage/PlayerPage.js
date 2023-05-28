@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { theme } from "../../theme";
 import { Typography } from "@mui/material";
 import { motion } from "framer-motion";
 import { DataGrid } from "@mui/x-data-grid";
 import { getPlayer } from "../../services/firebaseDatabase";
+import X5pageContentArea from "../../common-components/X5pageContentArea";
 
 const columns = [
   {
@@ -73,52 +73,28 @@ export default function PlayerPage() {
     })) ?? [];
 
   return (
-    <div style={{ display: "flex", justifyContent: "center" }}>
-      <motion.div
-        style={{
-          width: "100%",
-          maxWidth: "1600px",
-          background: theme.palette.background.bd,
-          borderRadius: "15px",
-          margin: "20px 0",
-          border: "2px solid black",
-        }}
-        initial="initial"
-        animate="animate"
-        variants={{
-          initial: {
-            opacity: 0,
-          },
-          animate: {
-            opacity: 1,
-            transition: {
-              duration: 0.5,
+    <X5pageContentArea>
+      <div style={{ margin: "20px" }}>
+        <Typography fontSize={25}>Player List</Typography>
+      </div>
+      <div style={{ maxWidth: "900px", width: "95%", margin: "auto" }}>
+        <DataGrid
+          rows={arrayOfPlayers}
+          columns={columns}
+          hideFooter
+          rowSelection={false}
+          disableRowSelectionOnClick
+          disableColumnSelector
+          disableDensitySelector
+          sx={{
+            "& .MuiDataGrid-cell:focus": {
+              outline: "none",
             },
-          },
-        }}
-      >
-        <div style={{ margin: "20px" }}>
-          <Typography fontSize={25}>Player List</Typography>
-        </div>
-        <div style={{ maxWidth: "900px", width: "95%", margin: "auto" }}>
-          <DataGrid
-            rows={arrayOfPlayers}
-            columns={columns}
-            hideFooter
-            rowSelection={false}
-            disableRowSelectionOnClick
-            disableColumnSelector
-            disableDensitySelector
-            sx={{
-              "& .MuiDataGrid-cell:focus": {
-                outline: "none",
-              },
-              marginBottom: "20px",
-            }}
-            onRowClick={(a) => console.log(a)}
-          />
-        </div>
-      </motion.div>
-    </div>
+            marginBottom: "20px",
+          }}
+          onRowClick={(a) => console.log(a)}
+        />
+      </div>
+    </X5pageContentArea>
   );
 }
