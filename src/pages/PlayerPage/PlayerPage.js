@@ -10,7 +10,7 @@ const columns = [
     field: "name",
     headerName: "Name",
     type: "string",
-    width: 120,
+    width: 90,
     sortable: true,
   },
   {

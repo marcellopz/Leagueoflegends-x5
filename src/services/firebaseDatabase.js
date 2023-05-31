@@ -65,3 +65,18 @@ export async function getMatches() {
   const matches = await re.val();
   return matches;
 }
+
+export async function getMatchesByPlayer() {
+  const re = await get(child(dbRef, `pre-processed-data/players`));
+  const players = await re.val();
+  return players;
+}
+
+export async function savePlayerStats(player) {
+  Object.keys(player).forEach(async (tag) => {
+    await set(
+      child(dbRef, `pre-processed-data/players/${player.summonerId}/${tag}`),
+      player[tag]
+    );
+  });
+}

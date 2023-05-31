@@ -4,7 +4,6 @@ import Home from "../pages/Home/Home";
 import PrivateRoutes from ".";
 import Matchmaking from "../pages/Matchmaking/Matchmaking";
 import LoginApp from "../pages/Login/LoginApp";
-import TestPage from "../pages/TestPages/TestPage";
 import MatchHistory from "../pages/MatchHistory/MatchHistory";
 import PatchNotes from "../pages/PatchNotes/PatchNotes";
 import PlayerPage from "../pages/PlayerPage/PlayerPage";
@@ -16,7 +15,6 @@ export default function AppRoutes() {
       <Routes>
         <Route path="" element={<Navigate to="/home" />} />
         <Route path="auth/:login" element={<LoginApp />} />
-        <Route path="test" element={<TestPage />} />
         <Route element={<PrivateRoutes />}>
           <Route path="matchmaking" element={<Matchmaking />} />
           <Route path="history" element={<MatchHistory />} />
