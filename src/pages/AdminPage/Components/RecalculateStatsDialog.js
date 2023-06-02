@@ -118,7 +118,6 @@ export default function RecalculateStatsDialog({ open, onClose }) {
         >
           Recalculate stats
         </Button>
-        {/* <pre id="code">{"dfdaf sdfds \n dsfsd"}</pre> */}
       </DialogContent>
     </Dialog>
   );

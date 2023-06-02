@@ -79,4 +79,18 @@ export async function savePlayerStats(player) {
       player[tag]
     );
   });
+  await set(
+    child(dbRef, `pre-processed-data/player-summary/${player.summonerId}`),
+    {
+      winRate: player.winRate,
+      summonerId: player.summonerName,
+      numberOfMatches: player.numberOfMatches,
+    }
+  );
+}
+
+export async function getPlayerSummaryList() {
+  const re = await get(child(dbRef, `pre-processed-data/player-summary`));
+  const players = await re.val();
+  return players;
 }

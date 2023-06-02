@@ -1,3 +1,4 @@
+import "./App.css";
 import { ThemeProvider } from "@emotion/react";
 import { AuthProvider } from "./contexts/authContext";
 import AppRoutes from "./routes/routes";

@@ -6,8 +6,9 @@ import Matchmaking from "../pages/Matchmaking/Matchmaking";
 import LoginApp from "../pages/Login/LoginApp";
 import MatchHistory from "../pages/MatchHistory/MatchHistory";
 import PatchNotes from "../pages/PatchNotes/PatchNotes";
-import PlayerPage from "../pages/PlayerPage/PlayerPage";
 import AdminPage from "../pages/AdminPage/AdminPage";
+import PlayerList from "../pages/PlayerPage/PlayerList";
+import PlayerPage from "../pages/PlayerPage/PlayerPage";
 
 export default function AppRoutes() {
   return (
@@ -18,7 +19,8 @@ export default function AppRoutes() {
         <Route element={<PrivateRoutes />}>
           <Route path="matchmaking" element={<Matchmaking />} />
           <Route path="history" element={<MatchHistory />} />
-          <Route path="players" element={<PlayerPage />} />
+          <Route path="players" element={<PlayerList />} />
+          <Route path="player/:player" element={<PlayerPage />} />
           <Route path="patchnotes" element={<PatchNotes />} />
           <Route path="home" element={<Home />} />
           <Route path="admin" element={<AdminPage />} />
