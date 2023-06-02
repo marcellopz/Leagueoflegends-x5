@@ -48,7 +48,7 @@ function Navbar({ children }) {
           zIndex: 10,
           width: "100%",
           justifyContent: "space-between",
-          fontSize: 13,
+          fontSize: 20,
           borderBottom: "1px solid rgba(255,255,255,0.1)",
           boxSizing: "border-box",
           color: theme.palette.navbar.text,
@@ -87,18 +87,43 @@ function Navbar({ children }) {
               >
                 <img
                   src="grilha.webp"
-                  style={{ height: 60, marginRight: "10px", margin: "auto" }}
+                  style={{
+                    height: 60,
+                    marginRight: "10px",
+                    margin: "auto",
+                  }}
                   alt="icon"
                 />
 
                 <div style={{ marginLeft: "5px" }}>
-                  <h3 style={{ margin: 0, fontWeight: 600, lineHeight: 1.1 }}>
+                  <h3
+                    style={{
+                      margin: 0,
+                      fontWeight: 600,
+                      lineHeight: 1.1,
+                      fontSize: 14,
+                    }}
+                  >
                     x5
                   </h3>
-                  <h3 style={{ margin: 0, fontWeight: 600, lineHeight: 1.1 }}>
+                  <h3
+                    style={{
+                      margin: 0,
+                      fontWeight: 600,
+                      lineHeight: 1.1,
+                      fontSize: 14,
+                    }}
+                  >
                     dos
                   </h3>
-                  <h3 style={{ margin: 0, fontWeight: 600, lineHeight: 1.1 }}>
+                  <h3
+                    style={{
+                      margin: 0,
+                      fontWeight: 600,
+                      lineHeight: 1.1,
+                      fontSize: 14,
+                    }}
+                  >
                     nerds
                   </h3>
                 </div>
