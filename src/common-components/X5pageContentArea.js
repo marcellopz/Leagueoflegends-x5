@@ -20,6 +20,7 @@ export default function X5pageContentArea({ children, loading, title }) {
             marginTop: "20px",
             border: "2px solid black",
             position: "relative",
+            paddingTop: "20px",
           }}
           initial="initial"
           animate="animate"
@@ -38,7 +39,7 @@ export default function X5pageContentArea({ children, loading, title }) {
           }}
         >
           {title && (
-            <div style={{ margin: "20px" }}>
+            <div style={{ marginLeft: "20px" }}>
               <Typography fontSize={25}>{title}</Typography>
             </div>
           )}

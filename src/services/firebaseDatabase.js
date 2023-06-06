@@ -94,3 +94,9 @@ export async function getPlayerSummaryList() {
   const players = await re.val();
   return players;
 }
+
+export async function getPlayerInfo(playerId) {
+  const re = await get(child(dbRef, `pre-processed-data/players/${playerId}`));
+  const playerInfo = await re.val();
+  return playerInfo;
+}

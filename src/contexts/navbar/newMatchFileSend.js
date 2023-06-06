@@ -31,7 +31,7 @@ const reduceFile = (matchObj) => {
 
   const participants = matchObj.participants.map((p) => ({
     championId: p.championId,
-    championName: championIds[p.championId],
+    championName: championIds[p.championId] ?? "",
     participantId: p.participantId,
     spellsIds: [p.spell1Id, p.spell2Id],
     spells: [summonerSpells[p.spell1Id], summonerSpells[p.spell2Id]],

@@ -17,6 +17,7 @@ import {
   supB64,
   topB64,
 } from "../../assets/images/lanes";
+import { useNavigate } from "react-router-dom";
 
 const columns = [
   {
@@ -103,6 +104,7 @@ export default function PlayerList() {
   const [players, setPlayers] = useState({});
   const [playersSummary, setPlayersSummary] = useState({});
   const [playersWithStats, setPlayersWithStats] = useState([]);
+  const Navigate = useNavigate();
 
   useEffect(() => {
     (async () => {
@@ -131,10 +133,7 @@ export default function PlayerList() {
   }, [players, playersSummary]);
 
   return (
-    <X5pageContentArea>
-      <div style={{ margin: "20px" }}>
-        <Typography fontSize={25}>Player List</Typography>
-      </div>
+    <X5pageContentArea title="Player List">
       <div style={{ maxWidth: "703px", width: "95%", margin: "auto" }}>
         <DataGrid
           rows={playersWithStats}
@@ -149,9 +148,12 @@ export default function PlayerList() {
             "& .MuiDataGrid-cell:focus": {
               outline: "none",
             },
+            "& .MuiDataGrid-cell": {
+              cursor: "pointer",
+            },
             marginBottom: "20px",
           }}
-          onRowClick={(a) => console.log(a)}
+          onRowClick={(a) => Navigate("/player/" + a.row.account_id)}
         />
       </div>
     </X5pageContentArea>

@@ -49,3 +49,7 @@ export function getWinRateClassName(value) {
 
   return className;
 }
+
+export function isObjEmpty(obj) {
+  return Object.keys(obj).length === 0;
+}

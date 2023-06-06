@@ -44,7 +44,7 @@ export default function MatchHistory() {
 
   return (
     <X5pageContentArea loading={loading}>
-      <div style={{ margin: "20px", position: "relative" }}>
+      <div style={{ margin: "0 20px", position: "relative" }}>
         <Typography fontSize={25}>Match history</Typography>
         <div style={{ position: "absolute", right: 10, top: "25%" }}>
           Filters soon

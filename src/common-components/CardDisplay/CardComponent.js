@@ -8,6 +8,7 @@ function CardComponent({ name, ranks, sx, label, onLoad }) {
   const canvasRef = useRef(null);
   const [photoSrc, setPhotoSrc] = useState("");
   const [loading, setLoading] = useState(true);
+  const [loading2, setLoading2] = useState(true);
   const { cardBackground } = useContext(MiscContext);
 
   useEffect(() => {
@@ -61,6 +62,7 @@ function CardComponent({ name, ranks, sx, label, onLoad }) {
       context.fillText(ranks.mid, 255, 323);
       context.fillText(ranks.adc, 255, 351);
       context.fillText(ranks.support, 255, 379);
+      setLoading2(false);
     };
   }, [label, photoSrc, ranks, cardBackground, loading]);
 
@@ -90,6 +92,7 @@ function CardComponent({ name, ranks, sx, label, onLoad }) {
         style={{
           border: "2px solid black",
           borderRadius: 5,
+          display: loading2 ? "none" : "block",
           ...sx,
         }}
       />

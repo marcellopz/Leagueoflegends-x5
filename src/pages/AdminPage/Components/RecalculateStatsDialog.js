@@ -67,7 +67,10 @@ const processData = (playerMatches) => {
       championId,
       numberOfMatches,
       winRate: champWins / numberOfMatches,
-      kda: (champKills + champAssists) / champDeaths,
+      kda:
+        champDeaths === 0
+          ? "Infinity"
+          : (champKills + champAssists) / champDeaths,
       AveragePerMatch: {
         kills: champKills / numberOfMatches,
         deaths: champDeaths / numberOfMatches,
@@ -76,7 +79,9 @@ const processData = (playerMatches) => {
         goldEarned: champGoldEarned / numberOfMatches,
         damageToChampions: champDamageToChampions / numberOfMatches,
         damageTaken: champDamageTaken / numberOfMatches,
-        creepScore: champCreepScore / numberOfMatches,
+        creepScore: isNaN(champCreepScore)
+          ? 0
+          : champCreepScore / numberOfMatches,
         visionScore: champVisionScore / numberOfMatches,
         visionWardsBought: champVisionWardsBought / numberOfMatches,
         damageSelfMitigates: champDamageSelfMitigated / numberOfMatches,
