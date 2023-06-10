@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useCallback, useState } from "react";
 import imageSrc from "./assets/img";
 import { getCardBackgroundTradicional } from "../services/firebaseDatabase";
 
@@ -7,7 +7,7 @@ export const MiscContext = createContext({});
 export const MiscProvider = ({ children }) => {
   const [cardBackground, setCardBackground] = useState("");
 
-  const getCardbackground = () => {
+  const getCardbackground = useCallback(() => {
     getCardBackgroundTradicional()
       .then((bd) => {
         setCardBackground(bd ? bd : imageSrc);
@@ -15,7 +15,7 @@ export const MiscProvider = ({ children }) => {
       .catch(() => {
         setCardBackground(imageSrc);
       });
-  };
+  }, []);
 
   return (
     <MiscContext.Provider value={{ cardBackground, getCardbackground }}>

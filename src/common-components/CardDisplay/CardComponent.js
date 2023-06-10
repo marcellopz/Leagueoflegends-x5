@@ -3,15 +3,19 @@ import interroga from "../../pages/Home/interroga";
 import { getPlayerData } from "../../services/firebaseDatabase";
 import { MiscContext } from "../../contexts/miscContext";
 import { motion } from "framer-motion";
+import { CircularProgress } from "@mui/material";
 
 function CardComponent({ name, ranks, sx, label, onLoad }) {
   const canvasRef = useRef(null);
   const [photoSrc, setPhotoSrc] = useState("");
   const [loading, setLoading] = useState(true);
   const [loading2, setLoading2] = useState(true);
-  const { cardBackground } = useContext(MiscContext);
+  const { cardBackground, getCardbackground } = useContext(MiscContext);
 
   useEffect(() => {
+    if (!cardBackground) {
+      getCardbackground();
+    }
     (async () => {
       getPlayerData(name)
         .then((r2) => {
@@ -24,7 +28,7 @@ function CardComponent({ name, ranks, sx, label, onLoad }) {
           setTimeout(() => setLoading(false), 500);
         });
     })();
-  }, [name]);
+  }, [name, cardBackground, getCardbackground]);
 
   useEffect(() => {
     if (loading) {
@@ -67,7 +71,13 @@ function CardComponent({ name, ranks, sx, label, onLoad }) {
   }, [label, photoSrc, ranks, cardBackground, loading]);
 
   if (loading) {
-    return null;
+    return (
+      <div style={{ ...sx, display: "flex" }}>
+        <div style={{ margin: "auto" }}>
+          <CircularProgress />
+        </div>
+      </div>
+    );
   }
 
   return (

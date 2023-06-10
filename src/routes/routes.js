@@ -7,7 +7,7 @@ import LoginApp from "../pages/Login/LoginApp";
 import MatchHistory from "../pages/MatchHistory/MatchHistory";
 import PatchNotes from "../pages/PatchNotes/PatchNotes";
 import AdminPage from "../pages/AdminPage/AdminPage";
-import PlayerList from "../pages/PlayerPage/PlayerList";
+import PlayerList from "../pages/PlayerList/PlayerList";
 import PlayerPage from "../pages/PlayerPage/PlayerPage";
 
 export default function AppRoutes() {

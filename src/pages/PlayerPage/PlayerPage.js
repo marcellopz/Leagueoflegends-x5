@@ -2,9 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import X5pageContentArea from "../../common-components/X5pageContentArea";
 import { getPlayer, getPlayerInfo } from "../../services/firebaseDatabase";
-import { floatToPercentageString, isObjEmpty } from "../../utils/utils";
-import CardComponent from "../../common-components/CardDisplay/CardComponent";
-import { Typography } from "@mui/material";
+import { isObjEmpty } from "../../utils/utils";
+import PlayerBanner from "./PlayerBanner";
+import PlayerSummaryTab from "./PlayerSummaryTab";
+import PlayerChampionsTab from "./PlayerChampionsTab";
+import PlayerStatsTab from "./PlayerStatsTab";
+import PlayerRecordsTab from "./PlayerRecordsTab";
 
 export default function PlayerPage() {
   const { player } = useParams();
@@ -13,8 +16,8 @@ export default function PlayerPage() {
   const [selectedPlayerCardStats, setSelectedPlayerCardStats] = useState({});
   const [playerKey, setPlayerKey] = useState("");
   const [champs, setChamps] = useState([]);
-
-  let champs_ = [];
+  const [loading, setLoading] = useState(true);
+  const [selectedTab, setSelectedTab] = useState(0);
 
   useEffect(() => {
     (async () => {
@@ -37,37 +40,63 @@ export default function PlayerPage() {
         setPlayerKey(key);
       }
     });
+
+    let champs_ = [];
     champs_ = Object.values(playerInfo.championStats);
     champs_.sort((a, b) => b.numberOfMatches - a.numberOfMatches);
     setChamps(champs_);
+    setLoading(false);
   }, [playerCardStats, playerInfo]);
 
   return (
-    <X5pageContentArea loading={false}>
-      <div style={{ width: "100%", display: "flex" }}>
-        <CardComponent
-          name={playerKey}
-          ranks={selectedPlayerCardStats}
-          label={selectedPlayerCardStats.name}
-          sx={{ marginLeft: "20px", height: "300px" }}
+    <X5pageContentArea loading={loading} removeMarginTop>
+      <PlayerBanner
+        champs={champs}
+        playerInfo={playerInfo}
+        playerKey={playerKey}
+        selectedPlayerCardStats={selectedPlayerCardStats}
+        setSelectedTab={setSelectedTab}
+        selectedTab={selectedTab}
+      />
+      {selectedTab === 0 && (
+        <PlayerSummaryTab
+          champs={champs}
+          playerInfo={playerInfo}
+          playerKey={playerKey}
+          selectedPlayerCardStats={selectedPlayerCardStats}
         />
-        <div style={{ margin: "20px" }}>
-          <Typography sx={{ fontSize: 25, marginBottom: "10px" }}>
-            {playerInfo.summonerName}
-          </Typography>
-          <Typography>
-            {`Number of matches: ${playerInfo.numberOfMatches}`}
-          </Typography>
-          <Typography>{`Win rate: ${floatToPercentageString(
-            playerInfo.winRate
-          )}`}</Typography>
-        </div>
-        <div>
-          {champs.map((champ) => (
-            <div key={champ.championName}>{champ.championName}</div>
-          ))}
-        </div>
-      </div>
+      )}
+      {selectedTab === 1 && (
+        <PlayerChampionsTab
+          champs={champs}
+          playerInfo={playerInfo}
+          playerKey={playerKey}
+          selectedPlayerCardStats={selectedPlayerCardStats}
+        />
+      )}
+      {selectedTab === 2 && (
+        <PlayerStatsTab
+          champs={champs}
+          playerInfo={playerInfo}
+          playerKey={playerKey}
+          selectedPlayerCardStats={selectedPlayerCardStats}
+        />
+      )}
+      {selectedTab === 3 && (
+        <PlayerRecordsTab
+          champs={champs}
+          playerInfo={playerInfo}
+          playerKey={playerKey}
+          selectedPlayerCardStats={selectedPlayerCardStats}
+        />
+      )}
     </X5pageContentArea>
   );
 }
+
+/* <div>
+        {champs.map((champ) => (
+          // <div key={champ.championName}>{champ.championName}</div>
+          <PersonalChampionStats key={champ.championName} champ={champ} />
+        ))}
+      </div> */

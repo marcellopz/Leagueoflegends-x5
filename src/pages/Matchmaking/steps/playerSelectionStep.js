@@ -78,8 +78,6 @@ export default function PlayerSelectionStep({ setIsOk }) {
     setIsOk(!error);
   }, [error]);
 
-  console.log(cardReadyCounter);
-
   return (
     <div>
       <div

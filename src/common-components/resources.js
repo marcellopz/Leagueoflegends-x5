@@ -8,6 +8,11 @@ export const CHAMPIONICONURL =
   "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champion-icons/";
 export const RUNEICONURL =
   "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/";
+export const CHAMPIONSPLASHURL =
+  "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champion-splashes/";
+
+export const getChampionSplash = (champId) =>
+  `${CHAMPIONSPLASHURL}${champId}/${champId}000.jpg`;
 
 export const championIds = {
   1: "Annie",

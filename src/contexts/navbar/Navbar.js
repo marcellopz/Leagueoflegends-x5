@@ -1,4 +1,4 @@
-import React, { memo, useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { theme } from "../../theme";
 import { AuthContext } from "../authContext";
 import RequestButton from "./RequestButton";
@@ -256,4 +256,4 @@ function Navbar({ children }) {
   );
 }
 
-export default memo(Navbar);
+export default Navbar;

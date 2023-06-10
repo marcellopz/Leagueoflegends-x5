@@ -3,7 +3,12 @@ import { motion } from "framer-motion";
 import { theme } from "../theme";
 import { CircularProgress, Typography } from "@mui/material";
 
-export default function X5pageContentArea({ children, loading, title }) {
+export default function X5pageContentArea({
+  children,
+  loading,
+  title,
+  removeMarginTop,
+}) {
   return (
     <div style={{ display: "flex", justifyContent: "center" }}>
       {loading ? (
@@ -20,18 +25,17 @@ export default function X5pageContentArea({ children, loading, title }) {
             marginTop: "20px",
             border: "2px solid black",
             position: "relative",
-            paddingTop: "20px",
+            overflow: "hidden",
+            paddingTop: removeMarginTop ? "" : "20px",
           }}
           initial="initial"
           animate="animate"
           variants={{
             initial: {
               opacity: 0,
-              // y: 20,
             },
             animate: {
               opacity: 1,
-              // y: 0,
               transition: {
                 duration: 0.5,
               },
