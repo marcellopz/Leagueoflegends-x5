@@ -39,14 +39,14 @@ export default function PersonalChampionStats({ champ }) {
           <Typography
             fontSize={13}
             color={theme.palette.grey[500]}
-          >{`CS ${champ.AveragePerMatch.creepScore.toFixed(1)}`}</Typography>
+          >{`CS ${champ.AveragePerMatch.creepScore?.toFixed(1)}`}</Typography>
         </div>
       </div>
 
       <div>
-        <Typography fontSize={15} textAlign="center">{`${champ.kda.toFixed(
-          2
-        )}:1 KDA`}</Typography>
+        <Typography fontSize={15} textAlign="center">{`${
+          typeof champ.kda === "number" ? champ.kda.toFixed(2) : champ.kda
+        }:1 KDA`}</Typography>
         <Typography
           textAlign="center"
           color={theme.palette.grey[500]}
