@@ -1,4 +1,5 @@
 import React from "react";
+import PersonalChampionStats from "./components/PersonalChampionStats";
 
 export default function PlayerSummaryTab({
   champs,
@@ -7,5 +8,15 @@ export default function PlayerSummaryTab({
   selectedPlayerCardStats,
 }) {
   console.log({ champs, playerInfo, playerKey, selectedPlayerCardStats });
-  return <div>PlayerSummary</div>;
+  return (
+    <div>
+      PlayerSummary
+      <div>
+        {champs.map((champ) => (
+          // <div key={champ.championName}>{champ.championName}</div>
+          <PersonalChampionStats key={champ.championName} champ={champ} />
+        ))}
+      </div>
+    </div>
+  );
 }

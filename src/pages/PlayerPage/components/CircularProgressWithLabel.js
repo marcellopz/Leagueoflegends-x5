@@ -9,15 +9,15 @@ export default function CircularProgressWithLabel({ value }) {
       sx={{
         position: "relative",
         display: "inline-flex",
-        height: "200px",
-        width: "200px",
+        height: "176px",
+        width: "176px",
         color: "black",
       }}
     >
       <CircularProgress
         variant="determinate"
         value={value * 100}
-        size={200}
+        size={176}
         color="primary"
         sx={{ position: "absolute", zIndex: 2 }}
       />
@@ -25,7 +25,7 @@ export default function CircularProgressWithLabel({ value }) {
         variant="determinate"
         value={100}
         color="secondary"
-        size={200}
+        size={176}
       />
       <Box
         sx={{

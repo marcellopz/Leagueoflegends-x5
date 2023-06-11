@@ -8,6 +8,7 @@ export default function X5pageContentArea({
   loading,
   title,
   removeMarginTop,
+  sx,
 }) {
   return (
     <div style={{ display: "flex", justifyContent: "center" }}>
@@ -27,6 +28,8 @@ export default function X5pageContentArea({
             position: "relative",
             overflow: "hidden",
             paddingTop: removeMarginTop ? "" : "20px",
+            paddingBottom: "70px",
+            ...sx,
           }}
           initial="initial"
           animate="animate"

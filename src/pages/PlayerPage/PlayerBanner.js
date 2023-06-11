@@ -16,9 +16,9 @@ export default function PlayerBanner({
   return (
     <div
       style={{
-        height: "355px",
+        // height: "355px",
         width: "100%",
-        padding: "10px 10px 0 10px",
+        padding: "10px 10px 0px 10px",
         overflow: "hidden",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
@@ -31,7 +31,13 @@ export default function PlayerBanner({
             : undefined,
       }}
     >
-      <div style={{ display: "flex", justifyContent: "space-between" }}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          flexWrap: "wrap",
+        }}
+      >
         <div style={{ marginLeft: "20px", display: "flex" }}>
           <CardComponent
             name={playerKey}
@@ -40,7 +46,7 @@ export default function PlayerBanner({
             sx={{
               height: "300px",
               width: "216px",
-              transform: "translateY(15px)",
+              // transform: "translateY(15px)",
             }}
           />
           <div style={{ margin: "20px" }}>
@@ -59,6 +65,7 @@ export default function PlayerBanner({
               background: "rgba(0,0,0,0.8)",
               height: "fit-content",
               padding: "20px",
+              margin: "20px",
               borderRadius: "5px",
             }}
           >
@@ -66,7 +73,9 @@ export default function PlayerBanner({
           </Box>
         </div>
       </div>
-      <div style={{ position: "absolute", right: "20px", display: "flex" }}>
+      <div
+        style={{ display: "flex", justifyContent: "end", marginRight: "2%" }}
+      >
         <ul style={{ display: "flex" }}>
           <li
             style={{

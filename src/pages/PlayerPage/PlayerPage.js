@@ -93,10 +93,3 @@ export default function PlayerPage() {
     </X5pageContentArea>
   );
 }
-
-/* <div>
-        {champs.map((champ) => (
-          // <div key={champ.championName}>{champ.championName}</div>
-          <PersonalChampionStats key={champ.championName} champ={champ} />
-        ))}
-      </div> */
