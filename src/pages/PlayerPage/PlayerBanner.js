@@ -39,7 +39,7 @@ export default function PlayerBanner({
           flexWrap: "wrap",
         }}
       >
-        <div style={{ marginLeft: "20px", display: "flex" }}>
+        <div style={{ marginLeft: "20px", display: "flex", flexWrap: "wrap" }}>
           <CardComponent
             name={playerKey}
             ranks={selectedPlayerCardStats}
@@ -50,7 +50,7 @@ export default function PlayerBanner({
               // transform: "translateY(15px)",
             }}
           />
-          <div style={{ margin: "20px" }}>
+          <div style={{ margin: "20px", height: "70px", width: "180px" }}>
             <Typography sx={{ fontSize: 25, marginBottom: "10px" }}>
               {playerInfo.summonerName}
             </Typography>

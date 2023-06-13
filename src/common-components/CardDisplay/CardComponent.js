@@ -82,7 +82,7 @@ function CardComponent({ name, ranks, sx, label, onLoad }) {
 
   return (
     <motion.div
-      style={{ height: "100%" }}
+      style={{ height: "100%", ...sx }}
       initial="initial"
       animate="animate"
       variants={{
