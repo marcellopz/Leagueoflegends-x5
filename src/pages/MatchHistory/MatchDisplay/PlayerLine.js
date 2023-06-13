@@ -57,6 +57,7 @@ const ProgressBar = ({
 }) => {
   const progressPercentage = (value / maxValue) * 100;
 
+  // eslint-disable-next-line
   String.prototype.format = function () {
     let formatted = this;
     for (let i = 0; i < arguments.length; i++) {

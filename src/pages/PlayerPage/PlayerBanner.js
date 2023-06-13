@@ -4,6 +4,7 @@ import { Box, Typography } from "@mui/material";
 import CircularProgressWithLabel from "./components/CircularProgressWithLabel";
 import { getChampionSplash } from "../../common-components/resources";
 import { theme } from "../../theme";
+import { floatToPercentageString } from "../../utils/utils";
 
 export default function PlayerBanner({
   champs,
@@ -69,7 +70,12 @@ export default function PlayerBanner({
               borderRadius: "5px",
             }}
           >
-            <CircularProgressWithLabel value={playerInfo.winRate} />
+            <CircularProgressWithLabel
+              value={playerInfo.winRate}
+              size={176}
+              label={`${floatToPercentageString(playerInfo.winRate)} Win rate`}
+              labelFontSize={25}
+            />
           </Box>
         </div>
       </div>

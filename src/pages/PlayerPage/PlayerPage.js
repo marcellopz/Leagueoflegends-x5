@@ -46,7 +46,7 @@ export default function PlayerPage() {
     champs_.sort((a, b) => b.numberOfMatches - a.numberOfMatches);
     setChamps(champs_);
     setLoading(false);
-  }, [playerCardStats, playerInfo]);
+  }, [playerCardStats, playerInfo, player]);
 
   return (
     <X5pageContentArea loading={loading} removeMarginTop>

@@ -13,7 +13,6 @@ export default function PersonalChampionStats({ champ }) {
         padding: "5px 3px",
         display: "flex",
         alignItems: "center",
-        width: "320px",
         justifyContent: "space-between",
       }}
     >

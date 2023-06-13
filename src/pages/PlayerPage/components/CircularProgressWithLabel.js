@@ -1,23 +1,25 @@
 import { Box, CircularProgress, Typography } from "@mui/material";
-import { floatToPercentageString } from "../../../utils/utils";
-import { useTheme } from "@emotion/react";
 
-export default function CircularProgressWithLabel({ value }) {
-  const theme = useTheme();
+export default function CircularProgressWithLabel({
+  value,
+  size,
+  label,
+  labelFontSize,
+}) {
   return (
     <Box
       sx={{
         position: "relative",
         display: "inline-flex",
-        height: "176px",
-        width: "176px",
+        height: size,
+        width: size,
         color: "black",
       }}
     >
       <CircularProgress
         variant="determinate"
         value={value * 100}
-        size={176}
+        size={size}
         color="primary"
         sx={{ position: "absolute", zIndex: 2 }}
       />
@@ -25,7 +27,7 @@ export default function CircularProgressWithLabel({ value }) {
         variant="determinate"
         value={100}
         color="secondary"
-        size={176}
+        size={size}
       />
       <Box
         sx={{
@@ -43,10 +45,10 @@ export default function CircularProgressWithLabel({ value }) {
           variant="caption"
           component="div"
           color="text.primary"
-          fontSize={25}
+          fontSize={labelFontSize}
           sx={{ width: 100, textAlign: "center" }}
         >
-          {`${floatToPercentageString(value)} Win rate`}
+          {label}
         </Typography>
       </Box>
     </Box>
