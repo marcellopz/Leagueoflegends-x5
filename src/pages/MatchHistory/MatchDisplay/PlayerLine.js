@@ -5,6 +5,7 @@ import {
   summonerSpellsUrl,
 } from "../../../common-components/resources";
 import { ITEMICONURL } from "../../../common-components/resources";
+import { Link } from "react-router-dom";
 
 const ItemsSection = ({ player }) => {
   const itemList = [
@@ -180,6 +181,8 @@ const PlayerLine = ({
           ))}
         </div>
         <Typography
+          component={Link}
+          to={`/player/${player.summonerId}`}
           sx={{
             width: width > 390 ? "130px" : "100%",
             color: "white",
@@ -187,6 +190,7 @@ const PlayerLine = ({
             height: "100%",
             fontSize: width > 200 ? "1rem" : "0.7rem",
             whiteSpace: "nowrap",
+            textOverflow: "ellipsis",
           }}
         >
           {player.summonerName}

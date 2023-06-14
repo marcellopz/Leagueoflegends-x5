@@ -11,6 +11,7 @@ import {
 } from "../../../common-components/resources";
 import Chip from "@mui/material/Chip";
 import Tooltip from "@mui/material/Tooltip";
+import { Link } from "react-router-dom";
 
 const ItemsSection = ({ game }) => {
   const itemList = [
@@ -81,7 +82,8 @@ const TeamSection = ({ players, playerId }) => {
               style={{ margin: "1px" }}
               alt={p.championId}
             />
-            <div
+            <Link
+              to={`/player/${p.summonerId}`}
               style={{
                 width: "100px",
                 marginLeft: "2px",
@@ -93,7 +95,7 @@ const TeamSection = ({ players, playerId }) => {
               title={p.summonerName}
             >
               {p.summonerName}
-            </div>
+            </Link>
           </div>
         ))}
       </div>
@@ -106,7 +108,8 @@ const TeamSection = ({ players, playerId }) => {
               style={{ margin: "1px" }}
               alt={p.championId}
             />
-            <div
+            <Link
+              to={`/player/${p.summonerId}`}
               style={{
                 width: "100px",
                 marginLeft: "2px",
@@ -118,7 +121,7 @@ const TeamSection = ({ players, playerId }) => {
               title={p.summonerName}
             >
               {p.summonerName}
-            </div>
+            </Link>
           </div>
         ))}
       </div>
