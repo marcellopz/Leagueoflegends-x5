@@ -56,8 +56,15 @@ export const AuthProvider = ({ children }) => {
           setPermissions(r);
         }
       });
+    } else {
+      setPermissions({
+        admin: false,
+        moderator: false,
+        nerd: false,
+        name: "",
+      });
     }
-  }, [userObj]);
+  }, [userObj, auth]);
 
   const signInAsGuest = () => {
     signInAnonymously(auth)
@@ -144,6 +151,7 @@ export const AuthProvider = ({ children }) => {
         isNerd: permissions.nerd,
         isAdmin: permissions.admin,
         userUid: userObj?.uid,
+        isNull: auth.currentUser === null,
       }}
     >
       {children}

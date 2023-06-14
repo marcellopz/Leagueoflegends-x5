@@ -7,8 +7,7 @@ import { AuthContext } from "../../contexts/authContext";
 import { Person } from "@mui/icons-material";
 
 export default function LoginForm() {
-  const { signInGoogle, signInUsernamePwd, signInAsGuest } =
-    useContext(AuthContext);
+  const { signInGoogle, signInUsernamePwd } = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -83,11 +82,13 @@ export default function LoginForm() {
         variant="outlined"
         startIcon={<Person />}
         sx={{ width: "350px", marginBottom: "2rem", maxWidth: "90%" }}
-        onClick={signInAsGuest}
         color="secondary"
+        component={Link}
+        to="/home"
       >
         <Typography>Sign in as guest</Typography>
       </Button>
+
       <Link to="/auth/register" style={{ textDecoration: "none" }}>
         <Typography
           sx={{

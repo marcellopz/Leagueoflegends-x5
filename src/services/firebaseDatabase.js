@@ -45,13 +45,25 @@ export async function sendReducedMatchJson(match) {
     child(dbRef, `pre-processed-data/all-reduced/match${match.gameId}`),
     match
   );
+  const participantsReduced = match.participants.map((p) => ({
+    championId: p.championId,
+    championName: p.championName,
+    summonerId: p.summonerId,
+    summonerName: p.summonerName,
+    teamId: p.teamId,
+  }));
   match.participants.forEach(async (p) => {
     await set(
       child(
         dbRef,
         `pre-processed-data/players/${p.summonerId}/matches/match${match.gameId}`
       ),
-      { ...p, date: match.date, gameDuration: match.gameDuration }
+      {
+        ...p,
+        date: match.date,
+        gameDuration: match.gameDuration,
+        participants: participantsReduced,
+      }
     );
   });
 }

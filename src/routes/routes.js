@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Home from "../pages/Home/Home";
-import PrivateRoutes from ".";
+import PrivateRoutes, { NavbarRoutes } from ".";
 import Matchmaking from "../pages/Matchmaking/Matchmaking";
 import LoginApp from "../pages/Login/LoginApp";
 import MatchHistory from "../pages/MatchHistory/MatchHistory";
@@ -16,16 +16,18 @@ export default function AppRoutes() {
       <Routes>
         <Route path="" element={<Navigate to="/home" />} />
         <Route path="auth/:login" element={<LoginApp />} />
-        <Route element={<PrivateRoutes />}>
+        <Route element={<NavbarRoutes />}>
           <Route path="matchmaking" element={<Matchmaking />} />
           <Route path="history" element={<MatchHistory />} />
           <Route path="players" element={<PlayerList />} />
           <Route path="player/:player" element={<PlayerPage />} />
           <Route path="patchnotes" element={<PatchNotes />} />
           <Route path="home" element={<Home />} />
-          <Route path="admin" element={<AdminPage />} />
+          <Route element={<PrivateRoutes />}>
+            <Route path="admin" element={<AdminPage />} />
+          </Route>
+          <Route path="*" element={<Navigate to="/home" />} />
         </Route>
-        <Route path="*" element={<Navigate to="/home" />} />
       </Routes>
     </BrowserRouter>
   );

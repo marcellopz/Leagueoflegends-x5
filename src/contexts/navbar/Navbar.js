@@ -9,6 +9,7 @@ import { Menu } from "@mui/icons-material";
 import { NavbarContext } from "../navbarContext";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import grilhaIcon from "./grilhaIcon";
 
 const navbarItems = [
   { label: "match history", url: "/history" },
@@ -18,12 +19,23 @@ const navbarItems = [
 ];
 
 function Navbar({ children }) {
-  const { userObj, signOut, isNerd, isAnonymous, isAdmin } =
-    useContext(AuthContext);
+  const {
+    userObj,
+    signOut,
+    isNerd,
+    isAnonymous,
+    isAdmin,
+    isNull,
+    signInAsGuest,
+  } = useContext(AuthContext);
   const { windowSize } = useContext(NavbarContext);
   const [requestDialogOpen, setRequestDialogOpen] = useState(false);
   const [hover, setHover] = useState("");
   const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  if (isNull) {
+    signInAsGuest();
+  }
 
   const requestToBeNerd = (name) => {
     if (isAnonymous) {
@@ -86,7 +98,7 @@ function Navbar({ children }) {
                 }}
               >
                 <img
-                  src="grilha.webp"
+                  src={grilhaIcon}
                   style={{
                     height: 60,
                     marginRight: "10px",
@@ -214,9 +226,21 @@ function Navbar({ children }) {
                   paddingRight: "20px",
                 }}
               >
-                <Button onClick={signOut} variant="outlined" color="secondary">
-                  Sair
-                </Button>
+                {isNull || isAnonymous ? (
+                  <Link to="/auth/login">
+                    <Button variant="outlined" color="secondary">
+                      Log in
+                    </Button>
+                  </Link>
+                ) : (
+                  <Button
+                    onClick={signOut}
+                    variant="outlined"
+                    color="secondary"
+                  >
+                    Log out
+                  </Button>
+                )}
               </li>
               {!isNerd && !isAnonymous && (
                 <li
@@ -244,7 +268,38 @@ function Navbar({ children }) {
                 paddingRight: "20px",
               }}
             >
-              <IconButton onClick={() => setSidebarOpen(true)}>
+              {isAdmin && (
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    height: "100%",
+                    paddingRight: "20px",
+                  }}
+                >
+                  <Link to="admin">
+                    <Button variant="outlined" color="secondary">
+                      Admin page
+                    </Button>
+                  </Link>
+                </div>
+              )}
+              {isNull || isAnonymous ? (
+                <Link to="/auth/login">
+                  <Button variant="outlined" color="secondary">
+                    Log in
+                  </Button>
+                </Link>
+              ) : (
+                <Button onClick={signOut} variant="outlined" color="secondary">
+                  Log out
+                </Button>
+              )}
+
+              <IconButton
+                onClick={() => setSidebarOpen(true)}
+                sx={{ marginLeft: "10px" }}
+              >
                 <Menu fontSize="large" />
               </IconButton>
             </div>

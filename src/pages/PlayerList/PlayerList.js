@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Typography } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import {
   getPlayer,
@@ -133,7 +132,10 @@ export default function PlayerList() {
   }, [players, playersSummary]);
 
   return (
-    <X5pageContentArea title="Player List">
+    <X5pageContentArea
+      title="Player List"
+      loading={playersWithStats.length === 0}
+    >
       <div style={{ maxWidth: "703px", width: "95%", margin: "auto" }}>
         <DataGrid
           rows={playersWithStats}

@@ -16,7 +16,6 @@ export default function PlayerSummaryTab({
     return keys.map((key) => playerInfo.matches[key]);
   }, [playerInfo]);
 
-  console.log({ champs, playerInfo, playerKey, selectedPlayerCardStats });
   return (
     <Grid container style={{ padding: "20px" }} spacing={2}>
       <Grid item md={5} xs={12} lg={4}>

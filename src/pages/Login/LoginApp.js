@@ -6,10 +6,10 @@ import { useContext } from "react";
 import RegisterForm from "./RegisterForm";
 
 export default function LoginApp() {
-  const { signed } = useContext(AuthContext);
+  const { signed, isNull, isAnonymous } = useContext(AuthContext);
   const routerParams = useParams();
 
-  if (signed) {
+  if (signed && !isNull && !isAnonymous) {
     return <Navigate to="/home" />;
   }
 
