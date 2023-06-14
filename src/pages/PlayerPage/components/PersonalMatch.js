@@ -112,6 +112,7 @@ export default function PersonalMatch({ game }) {
           ).toFixed(2)} KDA`}</div>
         </div>
         <div>itens</div>
+        <div>time</div>
       </div>
     </div>
   );
