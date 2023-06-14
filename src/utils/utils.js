@@ -53,3 +53,40 @@ export function getWinRateClassName(value) {
 export function isObjEmpty(obj) {
   return Object.keys(obj).length === 0;
 }
+
+export function timeSince(date) {
+  let seconds = Math.floor((new Date() - date) / 1000);
+
+  let interval = seconds / 2592000;
+  if (interval > 1) {
+    return Math.floor(interval) + " months ago";
+  }
+  interval = seconds / 86400;
+  if (interval > 1) {
+    return (
+      Math.floor(interval) +
+      (Math.floor(interval) === 1 ? " day ago" : " days ago")
+    );
+  }
+  interval = seconds / 3600;
+  if (interval > 1) {
+    return (
+      Math.floor(interval) +
+      (Math.floor(interval) === 1 ? " hour ago" : " hours ago")
+    );
+  }
+  interval = seconds / 60;
+  if (interval > 1) {
+    return Math.floor(interval) + " minutes ago";
+  }
+  return "";
+}
+
+export function convertSecondsToMinutesAndSeconds(seconds) {
+  var minutes = Math.floor(seconds / 60);
+  var remainingSeconds = seconds % 60;
+  var formattedMinutes = minutes < 10 ? "0" + minutes : minutes;
+  var formattedSeconds =
+    remainingSeconds < 10 ? "0" + remainingSeconds : remainingSeconds;
+  return formattedMinutes + ":" + formattedSeconds;
+}

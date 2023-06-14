@@ -1,13 +1,5 @@
 import { useMemo } from "react";
-
-function convertSecondsToMinutesAndSeconds(seconds) {
-  var minutes = Math.floor(seconds / 60);
-  var remainingSeconds = seconds % 60;
-  var formattedMinutes = minutes < 10 ? "0" + minutes : minutes;
-  var formattedSeconds =
-    remainingSeconds < 10 ? "0" + remainingSeconds : remainingSeconds;
-  return formattedMinutes + ":" + formattedSeconds;
-}
+import { convertSecondsToMinutesAndSeconds } from "../../../utils/utils";
 
 const useMatchData = (match) => {
   const blueTeam = useMemo(

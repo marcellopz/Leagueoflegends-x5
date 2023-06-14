@@ -2,6 +2,7 @@ import React, { useMemo, useState } from "react";
 import PersonalChampionStats from "./components/PersonalChampionStats";
 import { Button, Grid } from "@mui/material";
 import SummaryLastGames from "./components/SummaryLastGames";
+import SummaryMatches from "./components/SummaryMatches";
 
 export default function PlayerSummaryTab({
   champs,
@@ -15,11 +16,11 @@ export default function PlayerSummaryTab({
     return keys.map((key) => playerInfo.matches[key]);
   }, [playerInfo]);
 
-  // console.log({ champs, playerInfo, playerKey, selectedPlayerCardStats });
+  console.log({ champs, playerInfo, playerKey, selectedPlayerCardStats });
   return (
     <Grid container style={{ padding: "20px" }} spacing={2}>
-      {/* champs summary */}
       <Grid item md={5} xs={12} lg={4}>
+        {/* champs summary */}
         <div
           style={{
             display: "flex",
@@ -75,7 +76,7 @@ export default function PlayerSummaryTab({
       <Grid item md={7} xs={12} lg={8}>
         <div>
           <SummaryLastGames games={last20Matches} />
-          xd
+          <SummaryMatches games={playerInfo.matches} />
         </div>
       </Grid>
     </Grid>

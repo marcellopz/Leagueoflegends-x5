@@ -138,6 +138,7 @@ export default function SummaryLastGames({ games }) {
               });
               return (
                 <div
+                  key={champId}
                   style={{
                     alignItems: "center",
                     display: "flex",

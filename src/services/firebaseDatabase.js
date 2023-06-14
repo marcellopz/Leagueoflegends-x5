@@ -51,7 +51,7 @@ export async function sendReducedMatchJson(match) {
         dbRef,
         `pre-processed-data/players/${p.summonerId}/matches/match${match.gameId}`
       ),
-      p
+      { ...p, date: match.date, gameDuration: match.gameDuration }
     );
   });
 }
