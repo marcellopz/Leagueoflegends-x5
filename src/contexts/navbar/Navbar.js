@@ -35,6 +35,7 @@ function Navbar({ children }) {
 
   if (isNull) {
     signInAsGuest();
+    return null;
   }
 
   const requestToBeNerd = (name) => {
