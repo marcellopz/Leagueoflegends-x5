@@ -5,10 +5,10 @@ import PrivateRoutes, { NavbarRoutes } from ".";
 import Matchmaking from "../pages/Matchmaking/Matchmaking";
 import LoginApp from "../pages/Login/LoginApp";
 import MatchHistory from "../pages/MatchHistory/MatchHistory";
-import PatchNotes from "../pages/PatchNotes/PatchNotes";
 import AdminPage from "../pages/AdminPage/AdminPage";
 import PlayerList from "../pages/PlayerList/PlayerList";
 import PlayerPage from "../pages/PlayerPage/PlayerPage";
+import GameStats from "../pages/GameStats/GameStats";
 
 export default function AppRoutes() {
   return (
@@ -21,8 +21,8 @@ export default function AppRoutes() {
           <Route path="history" element={<MatchHistory />} />
           <Route path="players" element={<PlayerList />} />
           <Route path="player/:player" element={<PlayerPage />} />
-          <Route path="patchnotes" element={<PatchNotes />} />
           <Route path="home" element={<Home />} />
+          <Route path="gamestats" element={<GameStats />} />
           <Route element={<PrivateRoutes />}>
             <Route path="admin" element={<AdminPage />} />
           </Route>

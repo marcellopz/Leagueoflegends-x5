@@ -10,7 +10,7 @@ export const sendFile = (fileContent) => {
   sendFullMatchJson(matchObj);
   const reducedMatch = reduceFile(matchObj);
   sendReducedMatchJson(reducedMatch);
-  addMatchId(matchObj.gameId);
+  // addMatchId(matchObj.gameId);
 };
 
 const reduceFile = (matchObj) => {

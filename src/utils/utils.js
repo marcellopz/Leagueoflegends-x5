@@ -12,6 +12,9 @@ export function shuffle(oldArray) {
 }
 
 export function floatToPercentageString(value) {
+  if (!value && value !== 0) {
+    return null;
+  }
   let percentage = (value * 100).toFixed(0);
   return percentage + "%";
 }
@@ -89,4 +92,8 @@ export function convertSecondsToMinutesAndSeconds(seconds) {
   var formattedSeconds =
     remainingSeconds < 10 ? "0" + remainingSeconds : remainingSeconds;
   return formattedMinutes + ":" + formattedSeconds;
+}
+
+export function getKDA(obj) {
+  return ((obj.kills + obj.assists) / obj.deaths).toFixed(1) || null;
 }

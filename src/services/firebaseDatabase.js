@@ -112,3 +112,13 @@ export async function getPlayerInfo(playerId) {
   const playerInfo = await re.val();
   return playerInfo;
 }
+
+export async function saveOverallStats(stats) {
+  await set(child(dbRef, "pre-processed-data/overall-stats"), stats);
+}
+
+export async function getOverallStats() {
+  const re = await get(child(dbRef, `pre-processed-data/overall-stats`));
+  const stats = await re.val();
+  return stats;
+}

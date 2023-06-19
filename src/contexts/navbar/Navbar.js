@@ -15,7 +15,7 @@ const navbarItems = [
   { label: "match history", url: "/history" },
   { label: "matchmaking", url: "/matchmaking" },
   { label: "player list", url: "/players" },
-  { label: "patch notes", url: "/patchnotes" },
+  { label: "game stats", url: "/gamestats" },
 ];
 
 function Navbar({ children }) {
