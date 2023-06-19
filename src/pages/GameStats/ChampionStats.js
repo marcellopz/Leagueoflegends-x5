@@ -10,6 +10,8 @@ const columns = [
     type: "string",
     headerName: "",
     align: "center",
+    sortable: false,
+    width: 60,
     renderCell: (params) => (
       <img
         src={`${CHAMPIONICONURL}${params.row.championId}.png`}
@@ -18,13 +20,14 @@ const columns = [
       />
     ),
   },
-  { field: "championName", type: "string", headerName: "Champion" },
+  { field: "championName", type: "string", headerName: "Champion", width: 120 },
   {
     field: "picks",
     type: "number",
     headerName: "Picked",
     align: "center",
     headerAlign: "center",
+    width: 100,
   },
   {
     field: "bans",
@@ -32,6 +35,7 @@ const columns = [
     headerName: "Banned",
     align: "center",
     headerAlign: "center",
+    width: 100,
   },
   {
     field: "wins",
@@ -39,7 +43,12 @@ const columns = [
     headerName: "Win rate",
     align: "center",
     headerAlign: "center",
+    width: 110,
     valueGetter: (params) =>
+      isNaN(params.row.wins / params.row.picks)
+        ? -1
+        : params.row.wins / params.row.picks,
+    renderCell: (params) =>
       floatToPercentageString(params.row.wins / params.row.picks) || "-",
   },
   {
@@ -48,6 +57,7 @@ const columns = [
     headerName: "Kills",
     align: "center",
     headerAlign: "center",
+    width: 90,
     valueGetter: (params) =>
       isNaN((params.row.kills / params.row.picks).toFixed(1))
         ? "-"
@@ -59,6 +69,7 @@ const columns = [
     headerName: "Deaths",
     align: "center",
     headerAlign: "center",
+    width: 100,
     valueGetter: (params) =>
       isNaN((params.row.deaths / params.row.picks).toFixed(1))
         ? "-"
@@ -70,6 +81,7 @@ const columns = [
     headerName: "Assists",
     align: "center",
     headerAlign: "center",
+    width: 100,
     valueGetter: (params) =>
       isNaN((params.row.assists / params.row.picks).toFixed(1))
         ? "-"
@@ -80,6 +92,7 @@ const columns = [
     headerName: "KDA",
     align: "center",
     headerAlign: "center",
+    width: 80,
     valueGetter: (params) =>
       isNaN(getKDA(params.row)) ? "-" : getKDA(params.row),
   },
@@ -89,6 +102,7 @@ const columns = [
     headerName: "CS",
     align: "center",
     headerAlign: "center",
+    width: 70,
     valueGetter: (params) =>
       isNaN((params.row.creepsKilled / params.row.picks).toFixed(1))
         ? "-"
@@ -107,8 +121,9 @@ export default function ChampionStats({ champions }) {
 
   return (
     <Paper sx={{ margin: "20px", padding: "10px" }}>
-      <div style={{ width: "1000px", display: "flex", margin: "10px auto" }}>
+      <div style={{ width: "95%", maxWidth: "930px", margin: "10px auto" }}>
         <DataGrid
+          // sx={{ background: "rgba(255,255,255, 0.1)" }}
           rows={championsArray}
           columns={columns}
           hideFooter
