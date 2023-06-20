@@ -69,12 +69,13 @@ const TeamSection = ({ players, playerId }) => {
   return (
     <div style={{ display: "flex", fontSize: 10 }}>
       <div style={{ width: "100px", marginRight: "5px" }}>
-        {blueTeam.map((p) => (
+        {blueTeam.map((p, i) => (
           <div
             style={{
               display: "flex",
               alignItems: "center",
             }}
+            key={i}
           >
             <img
               src={`${CHAMPIONICONURL}${p.championId}.png`}
@@ -100,8 +101,8 @@ const TeamSection = ({ players, playerId }) => {
         ))}
       </div>
       <div>
-        {redTeam.map((p) => (
-          <div style={{ display: "flex", alignItems: "center" }}>
+        {redTeam.map((p, i) => (
+          <div style={{ display: "flex", alignItems: "center" }} key={i}>
             <img
               src={`${CHAMPIONICONURL}${p.championId}.png`}
               width="20px"

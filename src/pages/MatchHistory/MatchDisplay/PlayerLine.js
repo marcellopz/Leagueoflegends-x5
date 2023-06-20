@@ -7,7 +7,7 @@ import {
 import { ITEMICONURL } from "../../../common-components/resources";
 import { Link } from "react-router-dom";
 
-const ItemsSection = ({ player }) => {
+const ItemsSection = ({ player, small }) => {
   const itemList = [
     player.stats.item0,
     player.stats.item1,
@@ -22,15 +22,23 @@ const ItemsSection = ({ player }) => {
   }
 
   return (
-    <div style={{ display: "flex", marginRight: "20px" }}>
+    <div
+      style={{
+        display: "flex",
+        marginRight: "20px",
+        flexWrap: "wrap",
+        width: small ? "51px" : "",
+      }}
+    >
       {filteredList.map((item, i) => (
         <div
           style={{
             background: "rgba(255,255,255,0.2)",
-            width: "34px",
-            height: "34px",
-            borderRadius: "3px",
+            width: small ? "15px" : "34px",
+            height: small ? "15px" : "34px",
+            borderRadius: small ? "1px" : "3px",
             marginRight: "2px",
+            marginTop: "1px",
           }}
           key={i}
         >
@@ -39,9 +47,9 @@ const ItemsSection = ({ player }) => {
               src={`${ITEMICONURL}${item}.png`}
               alt={item}
               style={{
-                margin: "2px",
+                margin: small ? "1px" : "2px",
               }}
-              width="30px"
+              width={small ? "13px" : "30px"}
             />
           )}
         </div>
@@ -122,12 +130,12 @@ const PlayerLine = ({
   if (showItems) {
     width_ = width - 236;
   }
+
   return (
     <div
       style={{
         display: "flex",
         height: "35px",
-        width: "100%",
         background: "rgba(255,255,255,0.15)",
         marginTop: "2px",
         marginBottom: "2px",
@@ -159,12 +167,13 @@ const PlayerLine = ({
               overflow: "hidden",
               borderRadius: "15px",
               marginLeft: "5px",
-              marginRight: "10px",
+              marginRight: "5px",
             }}
           >
             <img
               src={`${CHAMPIONICONURL}${player.championId}.png`}
               width={"30px"}
+              height={"30px"}
               alt={player.championName}
             />
           </div>
@@ -184,23 +193,33 @@ const PlayerLine = ({
           component={Link}
           to={`/player/${player.summonerId}`}
           sx={{
-            width: width > 390 ? "130px" : "100%",
+            width: width_ > 390 ? "150px" : "100px",
+            maxWidth: "50%",
             color: "white",
             overflow: "hidden",
             height: "100%",
-            fontSize: width > 200 ? "1rem" : "0.7rem",
             whiteSpace: "nowrap",
             textOverflow: "ellipsis",
+            fontSize: width_ > 390 ? "1rem" : "0.7rem",
+            flexGrow: 1,
           }}
         >
           {player.summonerName}
         </Typography>
       </div>
 
-      {width_ > 390 && (
-        <Typography sx={{ width: "150px", textAlign: "center" }}>{`${
-          player.stats.kills
-        }/${player.stats.deaths}/${player.stats.assists} (${parseInt(
+      {width > 320 && (
+        <Typography
+          sx={{
+            // width: "150px",
+            textAlign: "center",
+            fontSize: width < 500 ? "10px" : "1rem",
+            marginRight: "20px",
+            // fontSize: "10px",
+          }}
+        >{`${player.stats.kills}/${player.stats.deaths}/${
+          player.stats.assists
+        } (${parseInt(
           (100 * (player.stats.kills + player.stats.assists)) / totalKills
         )}%)`}</Typography>
       )}
@@ -262,7 +281,7 @@ const PlayerLine = ({
           </Tooltip>
         </div>
       )}
-      {showItems && <ItemsSection player={player} />}
+      {showItems && <ItemsSection player={player} small={width_ < 320} />}
     </div>
   );
 };

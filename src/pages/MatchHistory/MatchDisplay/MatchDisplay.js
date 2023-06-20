@@ -15,7 +15,7 @@ export default function MatchDisplay({ match }) {
       expanded={expanded}
       sx={{
         backgroundColor: theme.palette.background.match,
-        padding: 0,
+        padding: "5px",
         "&.MuiPaper-root": {
           borderRadius: "7px",
         },

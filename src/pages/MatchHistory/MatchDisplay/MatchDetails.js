@@ -224,7 +224,8 @@ export default function MatchDetails({ match }) {
       <div style={{ width: width1 > 700 ? "96%" : "100%", display: "flex" }}>
         <Paper
           sx={{
-            width: "calc(96% + 10px)",
+            // width: "calc(96% + 10px)",
+            width: "100%",
             padding: "0 2%",
             marginY: "7px",
             height: "60px",

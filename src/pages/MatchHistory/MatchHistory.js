@@ -53,7 +53,7 @@ export default function MatchHistory() {
       {matchKeys.slice(0, numberOfMatches).map((key) => (
         <div
           style={{
-            margin: "20px",
+            margin: "1%",
           }}
           key={key}
         >

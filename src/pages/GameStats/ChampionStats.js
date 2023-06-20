@@ -121,7 +121,7 @@ export default function ChampionStats({ champions }) {
 
   return (
     <Paper sx={{ margin: "20px", padding: "10px" }}>
-      <div style={{ width: "95%", maxWidth: "930px", margin: "10px auto" }}>
+      <div style={{ width: "95%", maxWidth: "940px", margin: "10px auto" }}>
         <DataGrid
           // sx={{ background: "rgba(255,255,255, 0.1)" }}
           rows={championsArray}
