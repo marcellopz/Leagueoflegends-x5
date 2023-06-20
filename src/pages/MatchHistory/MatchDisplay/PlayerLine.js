@@ -213,7 +213,7 @@ const PlayerLine = ({
           sx={{
             // width: "150px",
             textAlign: "center",
-            fontSize: width < 500 ? "10px" : "1rem",
+            fontSize: width < 300 ? "10px" : "1rem",
             marginRight: "20px",
             // fontSize: "10px",
           }}
@@ -246,11 +246,9 @@ const PlayerLine = ({
           color="rgb(240,245,100)"
         />
       )}
-      {width_ > 510 && (
+      {width_ > 420 && (
         <div style={{ display: "flex" }}>
-          <Typography
-            sx={{ width: "30px", textAlign: "center", marginLeft: "20px" }}
-          >
+          <Typography sx={{ width: "30px", textAlign: "center" }}>
             {player.stats.totalCs}
           </Typography>
           <Typography sx={{ marginLeft: "5px", marginRight: "5px" }}>
