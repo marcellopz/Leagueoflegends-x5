@@ -222,6 +222,9 @@ function PlayerChampionsTab({ champs }) {
             textAlign: "center",
             lineHeight: 1,
           },
+          "& .MuiDataGrid-columnHeaders": {
+            background: "rgba(255,255,255,0.08)",
+          },
         }}
       />
     </div>

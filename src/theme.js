@@ -26,7 +26,8 @@ export const themeOptions = {
     background: {
       bd: "#0B0C10",
       default: "#0B0C10",
-      paper: "#1F2833",
+      // paper: "#1F2833",
+      paper: "#081628",
       match: "#041218",
     },
     text: {

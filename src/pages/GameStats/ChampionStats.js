@@ -132,6 +132,11 @@ export default function ChampionStats({ champions }) {
           disableColumnSelector
           disableDensitySelector
           disableColumnMenu
+          sx={{
+            ".MuiDataGrid-columnHeaders": {
+              background: "rgba(255,255,255,0.08)",
+            },
+          }}
         />
       </div>
     </Paper>

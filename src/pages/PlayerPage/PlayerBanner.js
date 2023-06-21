@@ -1,6 +1,6 @@
 import React, { memo } from "react";
 import CardComponent from "../../common-components/CardDisplay/CardComponent";
-import { Box, Typography } from "@mui/material";
+import { Box, Tab, Tabs, Typography } from "@mui/material";
 import CircularProgressWithLabel from "./components/CircularProgressWithLabel";
 import { getChampionSplash } from "../../common-components/resources";
 import { theme } from "../../theme";
@@ -82,7 +82,13 @@ function PlayerBanner({
       <div
         style={{ display: "flex", justifyContent: "end", marginRight: "2%" }}
       >
-        <ul style={{ display: "flex" }}>
+        <Tabs onChange={(e, v) => setSelectedTab(v)} value={selectedTab}>
+          <Tab label="Summary" value={0} />
+          <Tab label="Champions" value={1} />
+          <Tab label="Stats" value={2} />
+          <Tab label="Records" value={3} />
+        </Tabs>
+        {/* <ul style={{ display: "flex" }}>
           <li
             style={{
               padding: "12px",
@@ -147,7 +153,7 @@ function PlayerBanner({
           >
             Records
           </li>
-        </ul>
+        </ul> */}
       </div>
     </div>
   );
