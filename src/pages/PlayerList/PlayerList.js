@@ -128,7 +128,7 @@ export default function PlayerList() {
         player_id: p,
       };
     });
-    setPlayersWithStats(ps);
+    setPlayersWithStats(ps.filter((p) => !p.hide));
   }, [players, playersSummary]);
 
   return (
