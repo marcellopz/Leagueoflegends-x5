@@ -63,9 +63,10 @@ export default function DisplayBox({ cards }) {
           position: "absolute",
           top: "45%",
           left: "50px",
-          color: "white",
+          color: theme.palette.primary.main,
           pointerEvents: "all",
           zIndex: 99,
+          background: "rgba(0,0,0,0.7)",
         }}
       >
         <KeyboardArrowLeftIcon fontSize="large" />
@@ -79,9 +80,10 @@ export default function DisplayBox({ cards }) {
           position: "absolute",
           top: "45%",
           right: "50px",
-          color: "white",
+          color: theme.palette.primary.main,
           pointerEvents: "all",
           zIndex: 99,
+          background: "rgba(0,0,0,0.7)",
         }}
       >
         <KeyboardArrowRightIcon fontSize="large" />
