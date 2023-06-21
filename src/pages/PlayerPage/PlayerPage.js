@@ -9,6 +9,14 @@ import PlayerChampionsTab from "./PlayerChampionsTab";
 import PlayerStatsTab from "./PlayerStatsTab";
 import PlayerRecordsTab from "./PlayerRecordsTab";
 
+function TabPanel({ children, value, index }) {
+  return (
+    <div role="tabpanel" hidden={value !== index}>
+      {children}
+    </div>
+  );
+}
+
 export default function PlayerPage() {
   const { player } = useParams();
   const [playerInfo, setPlayerInfo] = useState({});
@@ -58,38 +66,36 @@ export default function PlayerPage() {
         setSelectedTab={setSelectedTab}
         selectedTab={selectedTab}
       />
-      {selectedTab === 0 && (
+      <TabPanel index={0} value={selectedTab}>
         <PlayerSummaryTab
           champs={champs}
           playerInfo={playerInfo}
           playerKey={playerKey}
           selectedPlayerCardStats={selectedPlayerCardStats}
         />
-      )}
-      {selectedTab === 1 && (
-        <PlayerChampionsTab
-          champs={champs}
-          playerInfo={playerInfo}
-          playerKey={playerKey}
-          selectedPlayerCardStats={selectedPlayerCardStats}
-        />
-      )}
-      {selectedTab === 2 && (
+      </TabPanel>
+
+      <TabPanel index={1} value={selectedTab}>
+        <PlayerChampionsTab champs={champs} />
+      </TabPanel>
+
+      <TabPanel index={2} value={selectedTab}>
         <PlayerStatsTab
           champs={champs}
           playerInfo={playerInfo}
           playerKey={playerKey}
           selectedPlayerCardStats={selectedPlayerCardStats}
         />
-      )}
-      {selectedTab === 3 && (
+      </TabPanel>
+
+      <TabPanel index={3} value={selectedTab}>
         <PlayerRecordsTab
           champs={champs}
           playerInfo={playerInfo}
           playerKey={playerKey}
           selectedPlayerCardStats={selectedPlayerCardStats}
         />
-      )}
+      </TabPanel>
     </X5pageContentArea>
   );
 }

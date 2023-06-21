@@ -97,3 +97,7 @@ export function convertSecondsToMinutesAndSeconds(seconds) {
 export function getKDA(obj) {
   return ((obj.kills + obj.assists) / obj.deaths).toFixed(1) || null;
 }
+
+export function formatNumber(number) {
+  return new Intl.NumberFormat().format(number);
+}

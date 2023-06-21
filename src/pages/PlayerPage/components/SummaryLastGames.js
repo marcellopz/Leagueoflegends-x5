@@ -127,13 +127,13 @@ export default function SummaryLastGames({ games }) {
               const champId = champ[0].championId;
               const n = champ.length;
               let champWins = 0;
-              let champKills = 0;
-              let champDeaths = 0;
-              let champAssists = 0;
+              // let champKills = 0;
+              // let champDeaths = 0;
+              // let champAssists = 0;
               champ.forEach((match) => {
-                champKills += match.stats.kills;
-                champDeaths += match.stats.deaths;
-                champAssists += match.stats.assists;
+                // champKills += match.stats.kills;
+                // champDeaths += match.stats.deaths;
+                // champAssists += match.stats.assists;
                 champWins += match.stats.win;
               });
               return (
@@ -156,6 +156,7 @@ export default function SummaryLastGames({ games }) {
                     <img
                       src={`${CHAMPIONICONURL}${champId}.png`}
                       alt={champId}
+                      style={{ maxWidth: "100%" }}
                     />
                   </div>
                   <div style={{ display: "flex" }}>

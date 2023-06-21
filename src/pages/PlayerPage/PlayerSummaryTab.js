@@ -1,20 +1,21 @@
-import React, { useMemo, useState } from "react";
+import React, { memo, useMemo, useState } from "react";
 import PersonalChampionStats from "./components/PersonalChampionStats";
 import { Button, Grid } from "@mui/material";
 import SummaryLastGames from "./components/SummaryLastGames";
 import SummaryMatches from "./components/SummaryMatches";
 
-export default function PlayerSummaryTab({
+function PlayerSummaryTab({
   champs,
   playerInfo,
-  playerKey,
-  selectedPlayerCardStats,
+  // playerKey,
+  // selectedPlayerCardStats,
 }) {
   const [showAllChamps, setShowAllChamps] = useState(false);
   const last20Matches = useMemo(() => {
     const keys = Object.keys(playerInfo.matches).slice(-20);
     return keys.map((key) => playerInfo.matches[key]);
   }, [playerInfo]);
+  console.log("xd");
 
   return (
     <Grid container style={{ padding: "20px" }} spacing={2}>
@@ -81,3 +82,5 @@ export default function PlayerSummaryTab({
     </Grid>
   );
 }
+
+export default memo(PlayerSummaryTab);

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import CardComponent from "../../common-components/CardDisplay/CardComponent";
 import { Box, Typography } from "@mui/material";
 import CircularProgressWithLabel from "./components/CircularProgressWithLabel";
@@ -6,7 +6,7 @@ import { getChampionSplash } from "../../common-components/resources";
 import { theme } from "../../theme";
 import { floatToPercentageString } from "../../utils/utils";
 
-export default function PlayerBanner({
+function PlayerBanner({
   champs,
   playerKey,
   playerInfo,
@@ -152,3 +152,5 @@ export default function PlayerBanner({
     </div>
   );
 }
+
+export default memo(PlayerBanner);
