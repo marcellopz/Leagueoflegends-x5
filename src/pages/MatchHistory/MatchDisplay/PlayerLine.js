@@ -211,7 +211,7 @@ const PlayerLine = ({
       {width > 320 && (
         <Typography
           sx={{
-            // width: "150px",
+            width: "120px",
             textAlign: "center",
             fontSize: width < 350 ? "10px" : "1rem",
             marginRight: "20px",

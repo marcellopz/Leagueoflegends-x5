@@ -12,6 +12,7 @@ import {
   turretWinUrl,
 } from "../../../common-components/resources";
 import { theme } from "../../../theme";
+import { formatNumber } from "../../../utils/utils";
 
 const BaronDragonTurretBans = ({ win, baron, dragon, turret }) => {
   const baronIcon = win ? baronWinUrl : baronLoseUrl;
@@ -50,7 +51,14 @@ const BaronDragonTurretBans = ({ win, baron, dragon, turret }) => {
   );
 };
 
-const ProgressBar = ({ value, maxValue, leftColor, rightColor, text }) => {
+const ProgressBar = ({
+  value,
+  maxValue,
+  leftColor,
+  rightColor,
+  text,
+  showValues,
+}) => {
   const progressPercentage = (value / maxValue) * 100;
 
   return (
@@ -75,30 +83,35 @@ const ProgressBar = ({ value, maxValue, leftColor, rightColor, text }) => {
           >
             {text}
           </Typography>
-          <Typography
-            style={{
-              textAlign: "start",
-              fontSize: "12px",
-              position: "absolute",
-              zIndex: 10,
-              width: "100%",
-              marginLeft: "5px",
-            }}
-          >
-            {value}
-          </Typography>
-          <Typography
-            style={{
-              textAlign: "end",
-              fontSize: "12px",
-              position: "absolute",
-              zIndex: 10,
-              width: "100%",
-              transform: "translate(-5px)",
-            }}
-          >
-            {maxValue - value}
-          </Typography>
+          {showValues && (
+            <>
+              <Typography
+                style={{
+                  textAlign: "start",
+                  fontSize: "12px",
+                  position: "absolute",
+                  zIndex: 10,
+                  width: "100%",
+                  marginLeft: "5px",
+                }}
+              >
+                {formatNumber(value)}
+              </Typography>
+              <Typography
+                style={{
+                  textAlign: "end",
+                  fontSize: "12px",
+                  position: "absolute",
+                  zIndex: 10,
+                  width: "100%",
+                  transform: "translate(-5px)",
+                }}
+              >
+                {formatNumber(maxValue - value)}
+              </Typography>
+            </>
+          )}
+
           <div
             style={{
               width: `${progressPercentage}%`,
@@ -249,13 +262,15 @@ export default function MatchDetails({ match }) {
               maxValue={blueTotalDamage + redTotalDamage}
               value={blueTotalDamage}
               text="Total damage"
+              showValues={width1 > 700}
             />
             <ProgressBar
               leftColor={blueWin ? "#4694c5" : "rgb(211 65 65)"}
               rightColor={redWin ? "#4694c5" : "rgb(211 65 65)"}
               maxValue={blueTotalKills + redTotalKills}
               value={blueTotalKills}
-              text="Total gold"
+              text="Kills"
+              showValues={true}
             />
           </div>
 

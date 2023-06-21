@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { theme } from "../../theme";
 import { AuthContext } from "../authContext";
 import RequestButton from "./RequestButton";
@@ -27,14 +27,23 @@ function Navbar({ children }) {
     isAdmin,
     isNull,
     signInAsGuest,
+    loadStoreAuth,
   } = useContext(AuthContext);
   const { windowSize } = useContext(NavbarContext);
   const [requestDialogOpen, setRequestDialogOpen] = useState(false);
   const [hover, setHover] = useState("");
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
+  useEffect(() => {
+    if (isNull) {
+      if (loadStoreAuth()) {
+        return () => {};
+      }
+      signInAsGuest();
+    }
+  }, [isNull]);
+
   if (isNull) {
-    signInAsGuest();
     return null;
   }
 

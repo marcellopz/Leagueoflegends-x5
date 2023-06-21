@@ -7,6 +7,9 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signInAnonymously,
+  setPersistence,
+  browserLocalPersistence,
+  // browserLocalPersistence,
 } from "firebase/auth";
 import { app } from "../services/firebaseConfig";
 import { Navigate } from "react-router-dom";
@@ -28,17 +31,20 @@ export const AuthProvider = ({ children }) => {
   });
   const auth = getAuth(app);
 
-  useEffect(() => {
-    const loadStoreAuth = () => {
-      const sessionToken = sessionStorage.getItem("@AuthFirebase:token");
-      const sessionUser = sessionStorage.getItem("@AuthFirebase:user");
+  const loadStoreAuth = () => {
+    const sessionToken = localStorage.getItem("@AuthFirebase:token");
+    const sessionUser = localStorage.getItem("@AuthFirebase:user");
 
-      if (sessionToken && sessionUser) {
-        setUser(sessionUser);
-      } else {
-        setUser(undefined);
-      }
-    };
+    if (sessionToken && sessionUser) {
+      setUser(sessionUser);
+      return true;
+    } else {
+      setUser(undefined);
+      return false;
+    }
+  };
+
+  useEffect(() => {
     loadStoreAuth();
   }, []);
 
@@ -72,23 +78,24 @@ export const AuthProvider = ({ children }) => {
         const user_ = credential.user;
         const token = user_.accessToken;
         setUser(user_);
-        sessionStorage.setItem("@AuthFirebase:token", token);
-        sessionStorage.setItem("@AuthFirebase:user", JSON.stringify(user_));
+        localStorage.setItem("@AuthFirebase:token", token);
+        localStorage.setItem("@AuthFirebase:user", JSON.stringify(user_));
       })
       .catch((error) => {
         console.log(error);
       });
   };
 
-  const signInGoogle = () => {
+  const signInGoogle = async () => {
+    await setPersistence(auth, browserLocalPersistence);
     signInWithPopup(auth, provider)
       .then((result) => {
         const credential = GoogleAuthProvider.credentialFromResult(result);
         const token = credential.accessToken;
         const user_ = result.user;
         setUser(user_);
-        sessionStorage.setItem("@AuthFirebase:token", token);
-        sessionStorage.setItem("@AuthFirebase:user", JSON.stringify(user_));
+        localStorage.setItem("@AuthFirebase:token", token);
+        localStorage.setItem("@AuthFirebase:user", JSON.stringify(user_));
       })
       .catch((error) => {
         console.log(error);
@@ -98,7 +105,7 @@ export const AuthProvider = ({ children }) => {
   const signOutx5 = () => {
     signOut(auth)
       .then(() => {
-        sessionStorage.clear();
+        localStorage.clear();
         setUser(null);
       })
       .catch((error) => {
@@ -107,14 +114,15 @@ export const AuthProvider = ({ children }) => {
     return <Navigate to="/" />;
   };
 
-  const signInUsernamePwd = (email, password) => {
+  const signInUsernamePwd = async (email, password) => {
+    await setPersistence(auth, browserLocalPersistence);
     signInWithEmailAndPassword(auth, email, password)
       .then((credential) => {
         const token = credential.accessToken;
         const user_ = credential.user;
         setUser(user_);
-        sessionStorage.setItem("@AuthFirebase:token", token);
-        sessionStorage.setItem("@AuthFirebase:user", JSON.stringify(user_));
+        localStorage.setItem("@AuthFirebase:token", token);
+        localStorage.setItem("@AuthFirebase:user", JSON.stringify(user_));
       })
       .catch((error) => {
         console.log(error);
@@ -127,8 +135,8 @@ export const AuthProvider = ({ children }) => {
         const token = credential.accessToken;
         const user_ = credential.user;
         setUser(user_);
-        sessionStorage.setItem("@AuthFirebase:token", token);
-        sessionStorage.setItem("@AuthFirebase:user", JSON.stringify(user_));
+        localStorage.setItem("@AuthFirebase:token", token);
+        localStorage.setItem("@AuthFirebase:user", JSON.stringify(user_));
       })
       .catch((error) => {
         console.log(error);
@@ -142,6 +150,7 @@ export const AuthProvider = ({ children }) => {
         userObj,
         loading,
         signInGoogle,
+        loadStoreAuth,
         signInAsGuest,
         signUpUsernamePwd,
         signInUsernamePwd,
