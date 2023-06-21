@@ -112,9 +112,9 @@ const columns = [
     width: 150,
     renderCell: (params) => (
       <div style={{ textAlign: "center" }}>
-        <div style={{ fontWeight: 600 }}>{`${params.row.kda.toFixed(
-          1
-        )}:1`}</div>
+        <div style={{ fontWeight: 600 }}>{`${
+          params.row.kda.toFixed?.(1) ?? "∞"
+        }:1`}</div>
         <div>{`${params.row.AveragePerMatch.kills.toFixed(
           1
         )} / ${params.row.AveragePerMatch.deaths.toFixed(
