@@ -213,7 +213,7 @@ const PlayerLine = ({
           sx={{
             // width: "150px",
             textAlign: "center",
-            fontSize: width < 300 ? "10px" : "1rem",
+            fontSize: width < 350 ? "10px" : "1rem",
             marginRight: "20px",
             // fontSize: "10px",
           }}
