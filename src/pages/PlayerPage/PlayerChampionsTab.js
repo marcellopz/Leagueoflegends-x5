@@ -203,7 +203,7 @@ function PlayerChampionsTab({ champs }) {
     [champs]
   );
   return (
-    <div style={{ width: "100%", maxWidth: "1140px" }}>
+    <div style={{ width: "100%", maxWidth: "1140px", margin: "auto" }}>
       <DataGrid
         rows={championsArray}
         columns={columns}
