@@ -3,7 +3,6 @@ import CardComponent from "../../common-components/CardDisplay/CardComponent";
 import { Box, Tab, Tabs, Typography } from "@mui/material";
 import CircularProgressWithLabel from "./components/CircularProgressWithLabel";
 import { getChampionSplash } from "../../common-components/resources";
-import { theme } from "../../theme";
 import { floatToPercentageString } from "../../utils/utils";
 
 function PlayerBanner({
@@ -88,72 +87,6 @@ function PlayerBanner({
           <Tab label="Stats" value={2} />
           <Tab label="Records" value={3} />
         </Tabs>
-        {/* <ul style={{ display: "flex" }}>
-          <li
-            style={{
-              padding: "12px",
-              backgroundColor:
-                selectedTab === 0
-                  ? theme.palette.background.paper
-                  : theme.palette.background.bd,
-              border: "1px solid black",
-              width: "120px",
-              textAlign: "center",
-              cursor: "pointer",
-            }}
-            onClick={() => setSelectedTab(0)}
-          >
-            Summary
-          </li>
-          <li
-            style={{
-              padding: "12px",
-              backgroundColor:
-                selectedTab === 1
-                  ? theme.palette.background.paper
-                  : theme.palette.background.bd,
-              border: "1px solid black",
-              width: "120px",
-              textAlign: "center",
-              cursor: "pointer",
-            }}
-            onClick={() => setSelectedTab(1)}
-          >
-            Champions
-          </li>
-          <li
-            style={{
-              padding: "12px",
-              backgroundColor:
-                selectedTab === 2
-                  ? theme.palette.background.paper
-                  : theme.palette.background.bd,
-              border: "1px solid black",
-              width: "120px",
-              textAlign: "center",
-              cursor: "pointer",
-            }}
-            onClick={() => setSelectedTab(2)}
-          >
-            Stats
-          </li>
-          <li
-            style={{
-              padding: "12px",
-              backgroundColor:
-                selectedTab === 3
-                  ? theme.palette.background.paper
-                  : theme.palette.background.bd,
-              border: "1px solid black",
-              width: "120px",
-              textAlign: "center",
-              cursor: "pointer",
-            }}
-            onClick={() => setSelectedTab(3)}
-          >
-            Records
-          </li>
-        </ul> */}
       </div>
     </div>
   );

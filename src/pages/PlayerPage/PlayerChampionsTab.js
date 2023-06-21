@@ -203,7 +203,7 @@ function PlayerChampionsTab({ champs }) {
     [champs]
   );
   return (
-    <div>
+    <div style={{ width: "100%", maxWidth: "1140px" }}>
       <DataGrid
         rows={championsArray}
         columns={columns}
@@ -215,7 +215,6 @@ function PlayerChampionsTab({ champs }) {
         disableColumnMenu
         sx={{
           margin: "10px auto",
-          width: "1140px",
           "& .MuiDataGrid-columnHeaderTitle": {
             textOverflow: "clip",
             whiteSpace: "break-spaces",
