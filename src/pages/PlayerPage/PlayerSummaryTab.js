@@ -15,7 +15,6 @@ function PlayerSummaryTab({
     const keys = Object.keys(playerInfo.matches).slice(-20);
     return keys.map((key) => playerInfo.matches[key]);
   }, [playerInfo]);
-  console.log("xd");
 
   return (
     <Grid container style={{ padding: "20px" }} spacing={2}>
