@@ -1,5 +1,5 @@
 import { dbRef } from "./firebaseConfig";
-import { get, child, set, push } from "firebase/database";
+import { get, child, set } from "firebase/database";
 // import { getDatabase, ref, set, get, onValue, child } from "firebase/database";
 
 export async function getPlayer(name) {
@@ -68,10 +68,6 @@ export async function sendReducedMatchJson(match) {
   });
 }
 
-export async function addMatchId(id) {
-  await push(child(dbRef, "pre-processed-data/match-ids"), `match${id}`);
-}
-
 export async function getMatches() {
   const re = await get(child(dbRef, `pre-processed-data/all-reduced`));
   const matches = await re.val();
@@ -121,4 +117,17 @@ export async function getOverallStats() {
   const re = await get(child(dbRef, `pre-processed-data/overall-stats`));
   const stats = await re.val();
   return stats;
+}
+
+export async function setRoles(roles, matchId) {
+  await set(
+    child(dbRef, `pre-processed-data/match-roles/match${matchId}`),
+    roles
+  );
+}
+
+export async function getMatchRoles() {
+  const re = await get(child(dbRef, `pre-processed-data/match-roles/`));
+  const roles = await re.val();
+  return roles;
 }

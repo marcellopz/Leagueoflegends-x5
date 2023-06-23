@@ -1,11 +1,17 @@
 import { Box, Paper } from "@mui/material";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import PlayerLine from "./PlayerLine";
 import useMatchData from "./useMatchData";
 import { ExpandLess, ExpandMore } from "@mui/icons-material";
 import { theme } from "../../../theme";
+import { AuthContext } from "../../../contexts/authContext";
 
-export default function MatchSummary({ match, expanded, toggleExpanded }) {
+export default function MatchSummary({
+  match,
+  expanded,
+  toggleExpanded,
+  openDialog,
+}) {
   const {
     blueTeam,
     redTeam,
@@ -25,6 +31,7 @@ export default function MatchSummary({ match, expanded, toggleExpanded }) {
     gameDate,
     gameDurationStr,
   } = useMatchData(match);
+  const { isAdmin } = useContext(AuthContext);
   const ref = useRef(null);
   const [summaryWidth, setSummaryWidth] = useState();
 
@@ -36,7 +43,15 @@ export default function MatchSummary({ match, expanded, toggleExpanded }) {
   }, []);
 
   return (
-    <div style={{ width: "100%", color: "gainsboro" }}>
+    <div style={{ width: "100%", color: "gainsboro", position: "relative" }}>
+      {isAdmin && (
+        <div
+          style={{ position: "absolute", right: "15px", cursor: "pointer" }}
+          onClick={() => openDialog(blueTeam, redTeam, match.gameId)}
+        >
+          edit
+        </div>
+      )}
       <div
         style={{
           color: "rgba(255,255,255,0.5)",

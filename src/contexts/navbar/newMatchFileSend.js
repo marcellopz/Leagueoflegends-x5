@@ -1,5 +1,4 @@
 import {
-  addMatchId,
   sendFullMatchJson,
   sendReducedMatchJson,
 } from "../../services/firebaseDatabase";
@@ -10,7 +9,6 @@ export const sendFile = (fileContent) => {
   sendFullMatchJson(matchObj);
   const reducedMatch = reduceFile(matchObj);
   sendReducedMatchJson(reducedMatch);
-  // addMatchId(matchObj.gameId);
 };
 
 const reduceFile = (matchObj) => {
