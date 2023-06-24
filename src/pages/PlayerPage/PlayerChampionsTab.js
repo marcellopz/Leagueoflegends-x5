@@ -203,7 +203,13 @@ function PlayerChampionsTab({ champs }) {
     [champs]
   );
   return (
-    <div style={{ width: "100%", maxWidth: "1140px", margin: "auto" }}>
+    <div
+      style={{
+        width: "100%",
+        maxWidth: "1140px",
+        margin: "auto",
+      }}
+    >
       <DataGrid
         rows={championsArray}
         columns={columns}
@@ -213,6 +219,7 @@ function PlayerChampionsTab({ champs }) {
         disableColumnSelector
         disableDensitySelector
         disableColumnMenu
+        autoHeight
         sx={{
           margin: "10px auto",
           "& .MuiDataGrid-columnHeaderTitle": {

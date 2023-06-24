@@ -134,3 +134,11 @@ export async function getMatchRoles() {
   const roles = await re.val();
   return roles;
 }
+
+export async function addPlayer(player) {
+  await set(child(dbRef, `players/${player.name.toLowerCase()}`), player);
+}
+
+export async function addPlayerPhoto(photo, name) {
+  await set(child(dbRef, `player-data/${name}/photo`), photo);
+}

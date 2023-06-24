@@ -16,7 +16,6 @@ function PlayerBanner({
   setSelectedTab,
   selectedTab,
 }) {
-  console.log(playerInfo);
   return (
     <div
       style={{
@@ -50,7 +49,6 @@ function PlayerBanner({
             sx={{
               height: "300px",
               width: "216px",
-              // transform: "translateY(15px)",
             }}
           />
           <div style={{ margin: "20px", height: "70px", width: "180px" }}>
@@ -92,7 +90,7 @@ function PlayerBanner({
             }}
           >
             {roles.map((role, i) => (
-              <div style={{ display: "flex" }}>
+              <div style={{ display: "flex" }} key={i}>
                 <img src={lanes[i]} alt={role} width={37} height={37} />
                 <Tooltip title={`${playerInfo.roleMatches[role].games} games`}>
                   <p style={{ alignSelf: "center", marginLeft: "5px" }}>
