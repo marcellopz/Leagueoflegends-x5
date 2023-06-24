@@ -4,6 +4,7 @@ import { getPlayerData } from "../../services/firebaseDatabase";
 import { MiscContext } from "../../contexts/miscContext";
 import { motion } from "framer-motion";
 import { CircularProgress } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 function CardComponent({ name, ranks, sx, label, onLoad }) {
   const canvasRef = useRef(null);
@@ -11,6 +12,7 @@ function CardComponent({ name, ranks, sx, label, onLoad }) {
   const [loading, setLoading] = useState(true);
   const [loading2, setLoading2] = useState(true);
   const { cardBackground, getCardbackground } = useContext(MiscContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!cardBackground) {
@@ -82,6 +84,9 @@ function CardComponent({ name, ranks, sx, label, onLoad }) {
 
   return (
     <motion.div
+      onClick={() => {
+        navigate("/player/" + name);
+      }}
       style={{ height: "100%", ...sx }}
       initial="initial"
       animate="animate"

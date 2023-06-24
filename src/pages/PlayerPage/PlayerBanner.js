@@ -21,7 +21,7 @@ function PlayerBanner({
       style={{
         // height: "355px",
         width: "100%",
-        padding: "10px 10px 0px 10px",
+        padding: "10px 40px",
         overflow: "hidden",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
@@ -44,7 +44,6 @@ function PlayerBanner({
       >
         <div
           style={{
-            marginLeft: "40px",
             display: "flex",
             flexWrap: "wrap",
             marginRight: "auto",
@@ -69,7 +68,7 @@ function PlayerBanner({
           </div>
         </div>
 
-        <div style={{ margin: "auto 0", marginRight: "20px", display: "flex" }}>
+        <div style={{ margin: "auto 0", display: "flex" }}>
           <Box
             sx={{
               background: "rgba(0,0,0,0.8)",
@@ -90,7 +89,7 @@ function PlayerBanner({
             sx={{
               background: "rgba(0,0,0,0.8)",
               padding: "20px",
-              margin: "20px 20px 20px 5px",
+              margin: "20px 0 20px 5px",
               borderRadius: "5px",
               display: "flex",
               flexDirection: "column",
