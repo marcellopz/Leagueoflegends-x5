@@ -37,11 +37,19 @@ function PlayerBanner({
       <div
         style={{
           display: "flex",
-          justifyContent: "space-between",
+          justifyContent: "center",
           flexWrap: "wrap",
+          gap: "20px",
         }}
       >
-        <div style={{ marginLeft: "20px", display: "flex", flexWrap: "wrap" }}>
+        <div
+          style={{
+            marginLeft: "40px",
+            display: "flex",
+            flexWrap: "wrap",
+            marginRight: "auto",
+          }}
+        >
           <CardComponent
             name={playerKey}
             ranks={selectedPlayerCardStats}
@@ -51,7 +59,7 @@ function PlayerBanner({
               width: "216px",
             }}
           />
-          <div style={{ margin: "20px", height: "70px", width: "180px" }}>
+          <div style={{ margin: "20px", height: "70px" }}>
             <Typography sx={{ fontSize: 25, marginBottom: "10px" }}>
               {playerInfo.summonerName}
             </Typography>
