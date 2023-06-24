@@ -28,21 +28,6 @@ export default function AddPlayerDialog({ open, onClose }) {
   });
   const [photoB64, setPhotoB64] = useState("");
 
-  //   const handleNameChange = (event) => {
-  //     setName(event.target.value);
-  //   };
-
-  //   const handleAgeChange = (event) => {
-  //     setAge(event.target.value);
-  //   };
-
-  //   const handleGenderChange = (event) => {
-  //     setGender(event.target.value);
-  //   };
-  //   const handleCountryChange = (event) => {
-  //     setCountry(event.target.value);
-  //   };
-
   const fieldChange = (fname) => (e) => {
     setFields((prev) => ({ ...prev, [fname]: e.target.value }));
   };
@@ -50,7 +35,6 @@ export default function AddPlayerDialog({ open, onClose }) {
   const handleSubmit = async (event) => {
     event.preventDefault();
     // Perform form submission logic here
-    console.log(fields);
     if (fields.accountId) {
       fields.accountId = +fields.accountId;
     }

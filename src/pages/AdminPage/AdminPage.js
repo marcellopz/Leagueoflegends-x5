@@ -4,6 +4,7 @@ import { Button } from "@mui/material";
 import AddMatchDialog from "./Components/AddMatchDialog";
 import RecalculateStatsDialog from "./Components/RecalculateStatsDialog";
 import AddPlayerDialog from "./Components/AddPlayerDialog";
+import EditPlayerDialog from "./Components/EditPlayerDialog";
 
 const workInProgressAlert = () => {
   alert("Work in progress");
@@ -13,9 +14,14 @@ export default function AdminPage() {
   const [addMatchDialogOpen, setAddMatchDialogOpen] = useState(false);
   const [recalculateStatsDialog, setRecalculateStatsDialog] = useState(false);
   const [addPlayerDialogOpen, setAddPlayerDialogOpen] = useState(false);
+  const [editPlayerDialogOpen, setEditPlayerDialogOpen] = useState(false);
 
   return (
     <>
+      <EditPlayerDialog
+        open={editPlayerDialogOpen}
+        onClose={() => setEditPlayerDialogOpen(false)}
+      />
       <AddMatchDialog
         open={addMatchDialogOpen}
         onClose={() => setAddMatchDialogOpen(false)}
@@ -54,7 +60,7 @@ export default function AdminPage() {
           <Button
             variant="outlined"
             sx={{ marginRight: "10px" }}
-            onClick={workInProgressAlert}
+            onClick={() => setEditPlayerDialogOpen(true)}
           >
             Edit player
           </Button>

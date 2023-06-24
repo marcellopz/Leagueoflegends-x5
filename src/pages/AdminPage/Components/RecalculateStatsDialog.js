@@ -23,7 +23,6 @@ const RecalculateStats = async () => {
 
   const allMatches = await getMatches();
   const processedDataAll = processDataAll(allMatches);
-  console.log(processedDataAll);
 
   await saveOverallStats(processedDataAll);
 
