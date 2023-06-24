@@ -160,7 +160,7 @@ export const AuthProvider = ({ children }) => {
         isNerd: permissions.nerd,
         isAdmin: permissions.admin,
         userUid: userObj?.uid,
-        isNull: auth.currentUser === null,
+        isNull: userObj === null,
       }}
     >
       {children}

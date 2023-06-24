@@ -4,7 +4,7 @@ import { AuthContext } from "../authContext";
 import RequestButton from "./RequestButton";
 import { requestToBeANerd } from "../../services/firebaseDatabase";
 import Sidebar from "./Sidebar";
-import { Button, IconButton } from "@mui/material";
+import { Button, CircularProgress, IconButton } from "@mui/material";
 import { Menu } from "@mui/icons-material";
 import { NavbarContext } from "../navbarContext";
 import { Link } from "react-router-dom";
@@ -41,10 +41,16 @@ function Navbar({ children }) {
       }
       signInAsGuest();
     }
-  }, [isNull]);
+  }, [isNull, loadStoreAuth, signInAsGuest]);
 
   if (isNull) {
-    return <div>n foi</div>;
+    return (
+      <div style={{ display: "flex", marginTop: "100px" }}>
+        <div style={{ margin: "auto" }}>
+          <CircularProgress />
+        </div>
+      </div>
+    );
   }
 
   const requestToBeNerd = (name) => {
