@@ -3,6 +3,7 @@ import X5pageContentArea from "../../common-components/X5pageContentArea";
 import { Button } from "@mui/material";
 import AddMatchDialog from "./Components/AddMatchDialog";
 import RecalculateStatsDialog from "./Components/RecalculateStatsDialog";
+import AddPlayerDialog from "./Components/AddPlayerDialog";
 
 const workInProgressAlert = () => {
   alert("Work in progress");
@@ -11,6 +12,8 @@ const workInProgressAlert = () => {
 export default function AdminPage() {
   const [addMatchDialogOpen, setAddMatchDialogOpen] = useState(false);
   const [recalculateStatsDialog, setRecalculateStatsDialog] = useState(false);
+  const [addPlayerDialogOpen, setAddPlayerDialogOpen] = useState(false);
+
   return (
     <>
       <AddMatchDialog
@@ -20,6 +23,10 @@ export default function AdminPage() {
       <RecalculateStatsDialog
         open={recalculateStatsDialog}
         onClose={() => setRecalculateStatsDialog(false)}
+      />
+      <AddPlayerDialog
+        open={addPlayerDialogOpen}
+        onClose={() => setAddPlayerDialogOpen(false)}
       />
       <X5pageContentArea title={"Admin page"}>
         <div style={{ margin: "20px", display: "flex" }}>
@@ -40,7 +47,7 @@ export default function AdminPage() {
           <Button
             variant="outlined"
             sx={{ marginRight: "10px" }}
-            onClick={workInProgressAlert}
+            onClick={() => setAddPlayerDialogOpen(true)}
           >
             Add player
           </Button>

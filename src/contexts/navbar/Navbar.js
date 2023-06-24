@@ -44,7 +44,7 @@ function Navbar({ children }) {
   }, [isNull]);
 
   if (isNull) {
-    return null;
+    return <div>n foi</div>;
   }
 
   const requestToBeNerd = (name) => {
