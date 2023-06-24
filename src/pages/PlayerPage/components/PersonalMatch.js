@@ -69,7 +69,7 @@ const TeamSection = ({ players, playerId }) => {
   const blueTeam = players.filter((p) => p.teamId === 100);
   const redTeam = players.filter((p) => p.teamId === 200);
   return (
-    <div style={{ display: "flex", fontSize: 10 }}>
+    <div style={{ display: "flex", fontSize: 10, margin: "5px" }}>
       <div style={{ width: "100px", marginRight: "5px" }}>
         {blueTeam.map((p, i) => (
           <div
@@ -169,7 +169,7 @@ export default function PersonalMatch({ game, gameId }) {
   return (
     <div
       style={{
-        height: "140px",
+        minHeight: "140px",
         background: game.stats.win ? colorWin : colorLose,
         borderRadius: "5px",
       }}
@@ -197,9 +197,11 @@ export default function PersonalMatch({ game, gameId }) {
       <div
         style={{
           alignItems: "center",
-          height: "116px",
+          minHeight: "116px",
+          flexWrap: "wrap",
           display: "flex",
-          justifyContent: "space-between",
+          justifyContent: "space-evenly",
+          gap: "5px",
         }}
       >
         <div style={{ display: "flex" }}>
@@ -277,14 +279,20 @@ export default function PersonalMatch({ game, gameId }) {
           ).toFixed(2)} KDA`}</div>
         </div> */}
         <ItemsSection game={game} />
-        <div style={{ display: "flex" }}>
-          <TeamSection players={game.participants} playerId={game.summonerId} />
-          <Link to={`/match/${gameId}`} style={{ margin: "auto" }}>
-            <IconButton>
-              <ArrowRight />
-            </IconButton>
-          </Link>
-        </div>
+        <TeamSection players={game.participants} playerId={game.summonerId} />
+        <Link
+          to={`/match/${gameId}`}
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <IconButton>
+            <ArrowRight />
+          </IconButton>
+          <div>Details</div>
+        </Link>
       </div>
     </div>
   );
