@@ -1,6 +1,7 @@
 import { Button, Dialog, DialogContent, DialogTitle } from "@mui/material";
 import React from "react";
 import {
+  getMatchRoles,
   getMatches,
   getMatchesByPlayer,
   saveOverallStats,
@@ -10,17 +11,19 @@ import processDataPlayer from "./ProcessDataScripts/processDataPlayer";
 import processDataAll from "./ProcessDataScripts/processDataAll";
 
 const RecalculateStats = async () => {
+  const matchRoles = await getMatchRoles();
   const players = await getMatchesByPlayer();
   const playerIds = Object.keys(players);
-  const processedDataPerChamp = playerIds.map((playerId) =>
-    processDataPlayer(players[playerId].matches)
+  const processedDataPerPlayer = playerIds.map((playerId) =>
+    processDataPlayer(players[playerId].matches, matchRoles)
   );
-  processedDataPerChamp.forEach(async (player) => {
+  processedDataPerPlayer.forEach(async (player) => {
     await savePlayerStats(player);
   });
 
   const allMatches = await getMatches();
   const processedDataAll = processDataAll(allMatches);
+  console.log(processedDataAll);
 
   await saveOverallStats(processedDataAll);
 

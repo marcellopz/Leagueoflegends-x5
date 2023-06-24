@@ -1,9 +1,12 @@
 import React, { memo } from "react";
 import CardComponent from "../../common-components/CardDisplay/CardComponent";
-import { Box, Tab, Tabs, Typography } from "@mui/material";
+import { Box, Tab, Tabs, Tooltip, Typography } from "@mui/material";
 import CircularProgressWithLabel from "./components/CircularProgressWithLabel";
 import { getChampionSplash } from "../../common-components/resources";
 import { floatToPercentageString } from "../../utils/utils";
+import lanes from "../../assets/images/lanes";
+
+const roles = ["top", "jungle", "mid", "adc", "support"];
 
 function PlayerBanner({
   champs,
@@ -13,6 +16,7 @@ function PlayerBanner({
   setSelectedTab,
   selectedTab,
 }) {
+  console.log(playerInfo);
   return (
     <div
       style={{
@@ -59,13 +63,13 @@ function PlayerBanner({
           </div>
         </div>
 
-        <div style={{ margin: "auto 0", marginRight: "20px" }}>
+        <div style={{ margin: "auto 0", marginRight: "20px", display: "flex" }}>
           <Box
             sx={{
               background: "rgba(0,0,0,0.8)",
               height: "fit-content",
               padding: "20px",
-              margin: "20px",
+              margin: "20px 10px 20px 0px",
               borderRadius: "5px",
             }}
           >
@@ -75,6 +79,31 @@ function PlayerBanner({
               label={`${floatToPercentageString(playerInfo.winRate)} Win rate`}
               labelFontSize={25}
             />
+          </Box>
+          <Box
+            sx={{
+              background: "rgba(0,0,0,0.8)",
+              padding: "20px",
+              margin: "20px 20px 20px 5px",
+              borderRadius: "5px",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-between",
+            }}
+          >
+            {roles.map((role, i) => (
+              <div style={{ display: "flex" }}>
+                <img src={lanes[i]} alt={role} width={37} height={37} />
+                <Tooltip title={`${playerInfo.roleMatches[role].games} games`}>
+                  <p style={{ alignSelf: "center", marginLeft: "5px" }}>
+                    {floatToPercentageString(
+                      playerInfo.roleMatches[role].wins /
+                        playerInfo.roleMatches[role].games
+                    )}
+                  </p>
+                </Tooltip>
+              </div>
+            ))}
           </Box>
         </div>
       </div>

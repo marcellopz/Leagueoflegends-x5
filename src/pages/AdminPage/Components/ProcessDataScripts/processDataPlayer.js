@@ -1,6 +1,13 @@
-export default function processDataPlayer(playerMatches) {
+export default function processDataPlayer(playerMatches, matchRoles) {
   let wins = 0;
   const championMatches = {};
+  const roleMatches = {
+    top: { wins: 0, games: 0 },
+    jungle: { wins: 0, games: 0 },
+    mid: { wins: 0, games: 0 },
+    adc: { wins: 0, games: 0 },
+    support: { wins: 0, games: 0 },
+  };
 
   const playerMatchesIds = Object.keys(playerMatches);
   const numberOfMatches = playerMatchesIds.length;
@@ -10,8 +17,17 @@ export default function processDataPlayer(playerMatches) {
     playerMatches[playerMatchesIds[numberOfMatches - 1]].summonerId;
 
   playerMatchesIds.forEach((matchId) => {
+    let matchRole = matchRoles[matchId]?.[summonerId];
+    if (matchRole) {
+      roleMatches[matchRole].games += 1;
+    }
+
     let match = playerMatches[matchId];
     wins = wins + match.stats.win;
+    if (matchRole) {
+      roleMatches[matchRole].wins += match.stats.win;
+    }
+
     let champions = Object.keys(championMatches);
     let championId = match.championId.toString();
     if (champions.includes(championId)) {
@@ -89,5 +105,6 @@ export default function processDataPlayer(playerMatches) {
     numberOfMatches: numberOfMatches,
     championStats,
     playerMatchesIds,
+    roleMatches,
   };
 }
