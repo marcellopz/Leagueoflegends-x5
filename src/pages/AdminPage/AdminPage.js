@@ -51,13 +51,6 @@ export default function AdminPage() {
           >
             Edit player
           </Button>
-          <Button
-            variant="outlined"
-            sx={{ marginRight: "10px" }}
-            onClick={workInProgressAlert}
-          >
-            Add new patch note
-          </Button>
         </div>
       </X5pageContentArea>
     </>

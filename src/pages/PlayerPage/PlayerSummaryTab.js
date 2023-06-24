@@ -18,7 +18,7 @@ function PlayerSummaryTab({
 
   return (
     <Grid container style={{ padding: "20px" }} spacing={2}>
-      <Grid item md={5} xs={12} lg={4}>
+      <Grid item xs={12} lg={4}>
         {/* champs summary */}
         <div
           style={{
@@ -72,7 +72,7 @@ function PlayerSummaryTab({
       </Grid>
 
       {/* matches summary */}
-      <Grid item md={7} xs={12} lg={8}>
+      <Grid item xs={12} lg={8}>
         <div>
           <SummaryLastGames games={last20Matches} />
           <SummaryMatches games={playerInfo.matches} />

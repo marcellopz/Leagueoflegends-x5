@@ -12,6 +12,8 @@ import {
 import Chip from "@mui/material/Chip";
 import Tooltip from "@mui/material/Tooltip";
 import { Link } from "react-router-dom";
+import { IconButton } from "@mui/material";
+import { ArrowRight } from "@mui/icons-material";
 
 const ItemsSection = ({ game }) => {
   const itemList = [
@@ -31,7 +33,7 @@ const ItemsSection = ({ game }) => {
     <div
       style={{
         display: "flex",
-        width: "120px",
+        width: "150px",
         flexWrap: "wrap",
         justifyContent: "center",
       }}
@@ -40,8 +42,8 @@ const ItemsSection = ({ game }) => {
         <div
           style={{
             background: "rgba(255,255,255,0.2)",
-            width: "34px",
-            height: "34px",
+            width: "44px",
+            height: "44px",
             borderRadius: "3px",
             marginRight: "2px",
           }}
@@ -54,7 +56,7 @@ const ItemsSection = ({ game }) => {
               style={{
                 margin: "2px",
               }}
-              width="30px"
+              width="40px"
             />
           )}
         </div>
@@ -161,7 +163,7 @@ const MultiKillChips = ({ largestKillingSpree, largestMultiKill }) => {
   }
 };
 
-export default function PersonalMatch({ game }) {
+export default function PersonalMatch({ game, gameId }) {
   const colorWin = "rgba(0,60,120,0.4)";
   const colorLose = "rgba(140,0,0,0.4)";
   return (
@@ -258,7 +260,7 @@ export default function PersonalMatch({ game }) {
           />
         </div>
 
-        <div
+        {/* <div
           style={{
             textAlign: "center",
             fontSize: 14,
@@ -273,12 +275,16 @@ export default function PersonalMatch({ game }) {
             (game.stats.kills + game.stats.assists) /
             game.stats.deaths
           ).toFixed(2)} KDA`}</div>
-        </div>
-        <div style={{ display: "flex", flexWrap: "wrap" }}>
-          <div></div>
-        </div>
+        </div> */}
         <ItemsSection game={game} />
-        <TeamSection players={game.participants} playerId={game.summonerId} />
+        <div style={{ display: "flex" }}>
+          <TeamSection players={game.participants} playerId={game.summonerId} />
+          <Link to={`/match/${gameId}`} style={{ margin: "auto" }}>
+            <IconButton>
+              <ArrowRight />
+            </IconButton>
+          </Link>
+        </div>
       </div>
     </div>
   );

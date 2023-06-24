@@ -9,6 +9,7 @@ import AdminPage from "../pages/AdminPage/AdminPage";
 import PlayerList from "../pages/PlayerList/PlayerList";
 import PlayerPage from "../pages/PlayerPage/PlayerPage";
 import GameStats from "../pages/GameStats/GameStats";
+import PageNotFoundComponent from "./PageNotFoundComponent";
 
 export default function AppRoutes() {
   return (
@@ -26,7 +27,7 @@ export default function AppRoutes() {
           <Route element={<PrivateRoutes />}>
             <Route path="admin" element={<AdminPage />} />
           </Route>
-          <Route path="*" element={<Navigate to="/home" />} />
+          <Route path="*" element={<PageNotFoundComponent />} />
         </Route>
       </Routes>
     </BrowserRouter>

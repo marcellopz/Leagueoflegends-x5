@@ -155,7 +155,7 @@ export default function PlayerList() {
             },
             marginBottom: "20px",
           }}
-          onRowClick={(a) => Navigate("/player/" + a.row.account_id)}
+          onRowClick={(a) => Navigate("/player/" + a.row.player_id)}
         />
       </div>
     </X5pageContentArea>

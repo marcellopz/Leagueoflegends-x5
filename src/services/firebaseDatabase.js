@@ -120,6 +120,9 @@ export async function getOverallStats() {
 }
 
 export async function setRoles(roles, matchId) {
+  if (matchId === null) {
+    return;
+  }
   await set(
     child(dbRef, `pre-processed-data/match-roles/match${matchId}`),
     roles

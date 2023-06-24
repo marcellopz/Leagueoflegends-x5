@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import X5pageContentArea from "../../common-components/X5pageContentArea";
 import { getPlayer, getPlayerInfo } from "../../services/firebaseDatabase";
-import { isObjEmpty } from "../../utils/utils";
 import PlayerBanner from "./PlayerBanner";
 import PlayerSummaryTab from "./PlayerSummaryTab";
 import PlayerChampionsTab from "./PlayerChampionsTab";
@@ -20,7 +19,6 @@ function TabPanel({ children, value, index }) {
 export default function PlayerPage() {
   const { player } = useParams();
   const [playerInfo, setPlayerInfo] = useState({});
-  const [playerCardStats, setPlayerCardStats] = useState({});
   const [selectedPlayerCardStats, setSelectedPlayerCardStats] = useState({});
   const [playerKey, setPlayerKey] = useState("");
   const [champs, setChamps] = useState([]);
@@ -28,33 +26,45 @@ export default function PlayerPage() {
   const [selectedTab, setSelectedTab] = useState(0);
 
   useEffect(() => {
-    (async () => {
-      const _playerInfo = await getPlayerInfo(player);
-      setPlayerInfo(_playerInfo);
-    })();
-    (async () => {
-      const _playerCardStats = await getPlayer("");
-      setPlayerCardStats(_playerCardStats);
-    })();
+    if (isNaN(player)) {
+      // "player" is name, not a number
+      setPlayerKey(player);
+    } else {
+      getPlayer("").then((ps) => {
+        // "player" is a number
+        for (const [key, value] of Object.entries(ps)) {
+          if (value.account_id === +player) {
+            setPlayerKey(key);
+            return;
+          }
+        }
+        setPlayerKey("error");
+      });
+    }
   }, [player]);
 
   useEffect(() => {
-    if (isObjEmpty(playerCardStats)) {
+    if (!playerKey) {
       return;
     }
-    Object.keys(playerCardStats).forEach((key) => {
-      if (playerCardStats[key].account_id === +player) {
-        setSelectedPlayerCardStats(playerCardStats[key]);
-        setPlayerKey(key);
-      }
-    });
+    getPlayer(playerKey)
+      .then((r) => {
+        setSelectedPlayerCardStats(r);
+        return getPlayerInfo(r.account_id);
+      })
+      .then((info) => {
+        setPlayerInfo(info);
+        let champs_ = [];
+        champs_ = Object.values(info.championStats);
+        champs_.sort((a, b) => b.numberOfMatches - a.numberOfMatches);
+        setChamps(champs_);
+        setLoading(false);
+      });
+  }, [playerKey]);
 
-    let champs_ = [];
-    champs_ = Object.values(playerInfo.championStats);
-    champs_.sort((a, b) => b.numberOfMatches - a.numberOfMatches);
-    setChamps(champs_);
-    setLoading(false);
-  }, [playerCardStats, playerInfo, player]);
+  if (selectedPlayerCardStats === null) {
+    return <div>player not found</div>;
+  }
 
   return (
     <X5pageContentArea loading={loading} removeMarginTop>
@@ -70,8 +80,8 @@ export default function PlayerPage() {
         <PlayerSummaryTab
           champs={champs}
           playerInfo={playerInfo}
-          playerKey={playerKey}
-          selectedPlayerCardStats={selectedPlayerCardStats}
+          // playerKey={playerKey}
+          // selectedPlayerCardStats={selectedPlayerCardStats}
         />
       </TabPanel>
 
