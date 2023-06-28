@@ -123,6 +123,7 @@ export default function PlayerSelectionStep({ setIsOk }) {
               borderRadius: "20px",
               justifyContent: "space-evenly",
               minHeight: "800px",
+              gap: "10px",
             }}
           >
             {cards.map((card) => (
@@ -140,14 +141,12 @@ export default function PlayerSelectionStep({ setIsOk }) {
                 }}
                 style={{
                   padding: "5px",
-                  height: "300px",
-                  marginBottom: "15px",
                   justifyContent: "center",
                   borderRadius: "5px",
                   display: cards.length > cardReadyCounter ? "none" : "block",
                 }}
               >
-                {card.card}
+                <div style={{ height: "300px" }}>{card.card}</div>
               </Box>
             ))}
             {cards.length > cardReadyCounter && (

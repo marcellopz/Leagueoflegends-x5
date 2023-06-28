@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 import { CircularProgress } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
-function CardComponent({ name, ranks, sx, label, onLoad }) {
+function CardComponent({ name, ranks, sx, label, onLoad, clickable = true }) {
   const canvasRef = useRef(null);
   const [photoSrc, setPhotoSrc] = useState("");
   const [loading, setLoading] = useState(true);
@@ -85,7 +85,9 @@ function CardComponent({ name, ranks, sx, label, onLoad }) {
   return (
     <motion.div
       onClick={() => {
-        navigate("/player/" + name);
+        if (clickable) {
+          navigate("/player/" + name);
+        }
       }}
       style={{ height: "100%", ...sx }}
       initial="initial"

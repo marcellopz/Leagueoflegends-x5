@@ -48,6 +48,7 @@ export const MatchMakingProvider = ({ children }) => {
               key={player}
               sx={{ height: "inherit" }}
               onLoad={handleCardLoad}
+              clickable={false}
             />
           ),
         }))
