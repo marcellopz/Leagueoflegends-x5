@@ -78,7 +78,7 @@ export default function MatchHistory() {
       );
       setLoading(false);
     } else {
-      setFilteredMatchKeys(Object.keys(matches));
+      setFilteredMatchKeys(Object.keys(matches).reverse());
     }
   }, [championFilter, playerFilter, matches, players]);
 
