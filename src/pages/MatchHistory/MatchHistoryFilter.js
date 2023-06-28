@@ -41,14 +41,38 @@ function Filters({
   };
 
   return (
-    <div style={{ alignSelf: "center", display: "flex" }}>
-      <motion.div
-        initial={{ opacity: 0, scale: 0 }}
-        animate={{ opacity: +open, scale: `${+open}, 1` }}
-        transition={{ duration: 0.2 }}
-        style={{ transformOrigin: "right" }}
+    <div
+      style={{
+        alignSelf: "center",
+        display: "flex",
+        flexWrap: "wrap",
+        gap: "10px",
+        justifyContent: "right",
+      }}
+    >
+      {" "}
+      <IconButton
+        onClick={() => setOpen((prev) => !prev)}
+        sx={{ marginLeft: "10px" }}
       >
-        <FormControl sx={{ width: 300, marginRight: "15px" }}>
+        <TuneIcon fontSize="large" />
+      </IconButton>
+      <motion.div
+        initial={{ opacity: 0, scale: 0, display: "none" }}
+        animate={{
+          opacity: +open,
+          scale: `${+open}, 1`,
+          display: open ? "flex" : "none",
+        }}
+        transition={{ duration: 0.2 }}
+        style={{
+          transformOrigin: "right",
+          flexWrap: "wrap",
+          gap: "10px",
+          //   display: "flex",
+        }}
+      >
+        <FormControl sx={{ width: 300 }}>
           <InputLabel>Player Filter</InputLabel>
           <Select
             multiple
@@ -125,12 +149,6 @@ function Filters({
           </Select>
         </FormControl>
       </motion.div>
-      <IconButton
-        onClick={() => setOpen((prev) => !prev)}
-        sx={{ marginLeft: "10px" }}
-      >
-        <TuneIcon fontSize="large" />
-      </IconButton>
     </div>
   );
 }

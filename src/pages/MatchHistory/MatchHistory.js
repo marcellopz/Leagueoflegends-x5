@@ -74,6 +74,7 @@ export default function MatchHistory() {
             )
           )
           .map(([id, match]) => id)
+          .reverse()
       );
       setLoading(false);
     } else {
@@ -101,21 +102,20 @@ export default function MatchHistory() {
       <X5pageContentArea loading={loading}>
         <div
           style={{
-            margin: "20px 20px 40px 20px",
+            margin: "20px 20px 20px 20px",
             display: "flex",
             justifyContent: "space-between",
+            flexWrap: "wrap",
           }}
         >
           <Typography fontSize={35}>Match history</Typography>
-          <div>
-            <Filters
-              championFilter={championFilter}
-              setChampionFilter={setChampionFilter}
-              playerFilter={playerFilter}
-              setPlayerFilter={setPlayerFilter}
-              players={players}
-            />
-          </div>
+          <Filters
+            championFilter={championFilter}
+            setChampionFilter={setChampionFilter}
+            playerFilter={playerFilter}
+            setPlayerFilter={setPlayerFilter}
+            players={players}
+          />
         </div>
         {filteredMatchKeys.slice(0, numberOfMatches).map((key) => (
           <div
