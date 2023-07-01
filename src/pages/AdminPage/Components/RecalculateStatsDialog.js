@@ -5,10 +5,13 @@ import {
   getMatches,
   getMatchesByPlayer,
   saveOverallStats,
+  savePlayerPairs,
   savePlayerStats,
 } from "../../../services/firebaseDatabase";
 import processDataPlayer from "./ProcessDataScripts/processDataPlayer";
-import processDataAll from "./ProcessDataScripts/processDataAll";
+import processDataAll, {
+  processPlayerPairs,
+} from "./ProcessDataScripts/processDataAll";
 
 const RecalculateStats = async () => {
   const matchRoles = await getMatchRoles();
@@ -25,6 +28,9 @@ const RecalculateStats = async () => {
   const processedDataAll = processDataAll(allMatches);
 
   await saveOverallStats(processedDataAll);
+
+  const processedPairs = processPlayerPairs(allMatches);
+  await savePlayerPairs(processedPairs);
 
   alert("stats saved");
 };

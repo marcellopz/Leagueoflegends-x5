@@ -207,7 +207,7 @@ function PlayerChampionsTab({ champs }) {
       style={{
         width: "100%",
         maxWidth: "1140px",
-        margin: "auto",
+        margin: "20px auto",
       }}
     >
       <DataGrid

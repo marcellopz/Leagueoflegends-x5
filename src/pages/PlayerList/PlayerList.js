@@ -121,7 +121,7 @@ export default function PlayerList() {
       return {
         ...players[p],
         winRate: playersSummary[players[p].account_id]?.winRate ?? 0,
-        summonerName: playersSummary[players[p].account_id]?.summonerId ?? "",
+        summonerName: playersSummary[players[p].account_id]?.summonerName ?? "",
         numberOfMatches:
           playersSummary[players[p].account_id]?.numberOfMatches ?? 0,
         id: i,

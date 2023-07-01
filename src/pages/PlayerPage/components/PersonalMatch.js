@@ -172,6 +172,7 @@ export default function PersonalMatch({ game, gameId }) {
         minHeight: "140px",
         background: game.stats.win ? colorWin : colorLose,
         borderRadius: "5px",
+        border: "1px solid rgba(255, 255, 255, 0.1)",
       }}
     >
       <div

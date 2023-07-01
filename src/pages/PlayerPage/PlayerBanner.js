@@ -21,7 +21,7 @@ function PlayerBanner({
       style={{
         // height: "355px",
         width: "100%",
-        padding: "10px 40px",
+        padding: "10px 40px 0px 40px",
         overflow: "hidden",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",

@@ -1,5 +1,39 @@
 import { championIds as champIds } from "../../../../common-components/resources";
 
+export const processPlayerPairs = (matches) => {
+  const pairs = {};
+  Object.values(matches).forEach((match) => {
+    const winnerTeam = match.teams.filter((t) => t.win === "Win")[0].teamId;
+    match.participants.forEach((p1) => {
+      let p1id = p1.summonerId;
+      if (!pairs.hasOwnProperty(p1id)) {
+        pairs[p1id] = {};
+      }
+      match.participants.forEach((p2) => {
+        let p2id = p2.summonerId;
+        if (p1id === p2id) {
+          return;
+        }
+        if (!pairs[p1id].hasOwnProperty(p2id)) {
+          pairs[p1id][p2id] = {
+            same_team: { wins: 0, games: 0 },
+            opposite_team: { wins: 0, games: 0 },
+          };
+        }
+        if (p1.teamId === p2.teamId) {
+          pairs[p1id][p2id].same_team.games += 1;
+          pairs[p1id][p2id].same_team.wins += p1.teamId === winnerTeam;
+        } else {
+          pairs[p1id][p2id].opposite_team.games += 1;
+          pairs[p1id][p2id].opposite_team.wins += p1.teamId === winnerTeam;
+        }
+      });
+    });
+  });
+
+  return pairs;
+};
+
 export default function processDataAll(matches) {
   let gameDurationTotal = 0;
   const blueSide = {

@@ -1,6 +1,5 @@
 import React, { useMemo } from "react";
 import { floatToPercentageString } from "../../../utils/utils";
-import { theme } from "../../../theme";
 import CircularProgressWithLabel from "./CircularProgressWithLabel";
 import { Typography } from "@mui/material";
 import { CHAMPIONICONURL } from "../../../common-components/resources";
@@ -68,9 +67,9 @@ export default function SummaryLastGames({ games }) {
   return (
     <div
       style={{
-        background: theme.palette.background.paper,
         borderRadius: "5px",
         boxShadow: "2px 2px 2px 2px rgba(0, 0, 0, 0.3)",
+        border: "1px solid rgba(255, 255, 255, 0.2)",
       }}
     >
       <div style={{ padding: "10px 20px" }}>

@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import X5pageContentArea from "../../common-components/X5pageContentArea";
-import { getPlayer, getPlayerInfo } from "../../services/firebaseDatabase";
+import {
+  getPlayer,
+  getPlayerInfo,
+  getPlayerPairs,
+} from "../../services/firebaseDatabase";
 import PlayerBanner from "./PlayerBanner";
 import PlayerSummaryTab from "./PlayerSummaryTab";
 import PlayerChampionsTab from "./PlayerChampionsTab";
@@ -19,11 +23,15 @@ function TabPanel({ children, value, index }) {
 export default function PlayerPage() {
   const { player } = useParams();
   const [playerInfo, setPlayerInfo] = useState({});
+  const [playerPairs, setPlayerPairs] = useState({});
   const [selectedPlayerCardStats, setSelectedPlayerCardStats] = useState({});
   const [playerKey, setPlayerKey] = useState("");
   const [champs, setChamps] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedTab, setSelectedTab] = useState(0);
+
+  // console.log(playerInfo);
+  // console.log(playerPairs);
 
   useEffect(() => {
     if (isNaN(player)) {
@@ -59,7 +67,9 @@ export default function PlayerPage() {
         champs_.sort((a, b) => b.numberOfMatches - a.numberOfMatches);
         setChamps(champs_);
         setLoading(false);
-      });
+        return getPlayerPairs(info.summonerId);
+      })
+      .then((ps) => setPlayerPairs(ps));
   }, [playerKey]);
 
   if (selectedPlayerCardStats === null) {
@@ -77,12 +87,7 @@ export default function PlayerPage() {
         selectedTab={selectedTab}
       />
       <TabPanel index={0} value={selectedTab}>
-        <PlayerSummaryTab
-          champs={champs}
-          playerInfo={playerInfo}
-          // playerKey={playerKey}
-          // selectedPlayerCardStats={selectedPlayerCardStats}
-        />
+        <PlayerSummaryTab champs={champs} playerInfo={playerInfo} />
       </TabPanel>
 
       <TabPanel index={1} value={selectedTab}>
@@ -90,21 +95,11 @@ export default function PlayerPage() {
       </TabPanel>
 
       <TabPanel index={2} value={selectedTab}>
-        <PlayerStatsTab
-          champs={champs}
-          playerInfo={playerInfo}
-          playerKey={playerKey}
-          selectedPlayerCardStats={selectedPlayerCardStats}
-        />
+        <PlayerStatsTab playerInfo={playerInfo} playerPairs={playerPairs} />
       </TabPanel>
 
       <TabPanel index={3} value={selectedTab}>
-        <PlayerRecordsTab
-          champs={champs}
-          playerInfo={playerInfo}
-          playerKey={playerKey}
-          selectedPlayerCardStats={selectedPlayerCardStats}
-        />
+        <PlayerRecordsTab records={playerInfo.records} />
       </TabPanel>
     </X5pageContentArea>
   );

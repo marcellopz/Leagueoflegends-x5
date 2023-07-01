@@ -91,7 +91,7 @@ export async function savePlayerStats(player) {
     child(dbRef, `pre-processed-data/player-summary/${player.summonerId}`),
     {
       winRate: player.winRate,
-      summonerId: player.summonerName,
+      summonerName: player.summonerName,
       numberOfMatches: player.numberOfMatches,
     }
   );
@@ -141,4 +141,15 @@ export async function addPlayer(player) {
 
 export async function addPlayerPhoto(photo, name) {
   await set(child(dbRef, `player-data/${name}/photo`), photo);
+}
+
+export async function savePlayerPairs(pairs) {
+  await set(child(dbRef, `pre-processed-data/pairs`), pairs);
+}
+
+export async function getPlayerPairs(key) {
+  console.log(key);
+  const re = await get(child(dbRef, `pre-processed-data/pairs/${key}`));
+  const pairs = await re.val();
+  return pairs;
 }
