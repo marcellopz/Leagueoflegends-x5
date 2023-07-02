@@ -3,6 +3,7 @@ import React, { memo } from "react";
 import { floatToPercentageString } from "../../utils/utils";
 import { DataGrid } from "@mui/x-data-grid";
 import WinRateChart from "./components/WinRateChart";
+import { useNavigate } from "react-router-dom";
 
 const SmallBox = ({ title, value, numberOfGames }) => (
   <div
@@ -80,6 +81,8 @@ const columns = [
 ];
 
 const WinRatePerPlayerList = ({ players }) => {
+  const navigate = useNavigate();
+  console.log(players);
   return (
     <div style={{ display: "flex", justifyContent: "center" }}>
       <div style={{ minWidth: "335px", height: "470px" }}>
@@ -93,6 +96,7 @@ const WinRatePerPlayerList = ({ players }) => {
           disableDensitySelector
           disableColumnMenu
           getRowId={(i) => i.summonerName}
+          onRowClick={(a) => navigate("/player/" + a.row.summonerId)}
           sx={{
             "& .MuiDataGrid-cell:focus": {
               outline: "none",
@@ -113,6 +117,7 @@ function PlayerStatsTab({ playerInfo, playerPairs, playerSummary }) {
       games: v.same_team.games,
       wins: v.same_team.wins,
       summonerName: playerSummary[k] ? playerSummary[k].summonerName : k,
+      summonerId: k,
     }))
     .sort((a, b) => (a.games > b.games ? -1 : 1));
   const oppositeTeam = Object.entries(playerPairs)
@@ -120,6 +125,7 @@ function PlayerStatsTab({ playerInfo, playerPairs, playerSummary }) {
       games: v.opposite_team.games,
       wins: v.opposite_team.wins,
       summonerName: playerSummary[k] ? playerSummary[k].summonerName : k,
+      summonerId: k,
     }))
     .sort((a, b) => (a.games > b.games ? -1 : 1));
   return (
