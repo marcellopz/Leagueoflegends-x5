@@ -65,6 +65,7 @@ const columns = [
     field: "wins",
     headerName: "Win rate",
     type: "number",
+    align: "center",
     sortable: true,
     flex: 1,
     valueGetter: (params) => params.row.wins / params.row.games || "-",
@@ -75,6 +76,7 @@ const columns = [
     field: "games",
     flex: 1,
     headerName: "Games",
+    align: "center",
     sortable: true,
     type: "number",
   },
@@ -82,7 +84,6 @@ const columns = [
 
 const WinRatePerPlayerList = ({ players }) => {
   const navigate = useNavigate();
-  console.log(players);
   return (
     <div style={{ display: "flex", justifyContent: "center" }}>
       <div style={{ minWidth: "335px", height: "470px" }}>
