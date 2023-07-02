@@ -1,3 +1,40 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Hide the default scrollbars */
+/* ::-webkit-scrollbar {
+    display: none;
+  } */
+  
+  /* Style the scrollbar track */
+  ::-webkit-scrollbar-track {
+    background-color: rgba(255,255,255,0.1);
+  }
+  
+  /* Style the scrollbar thumb */
+  ::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 5px;
+  }
+  
+  /* Customize the size and width of the scrollbar */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    width: 10px;
+  }
+  
+  /* Change the color when the scrollbar is hovered */
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+  }
+  
+  /* Change the color when the scrollbar is active (clicked) */
+  ::-webkit-scrollbar-thumb:active {
+    background-color: #333;
+  }
+  

@@ -148,7 +148,6 @@ export async function savePlayerPairs(pairs) {
 }
 
 export async function getPlayerPairs(key) {
-  console.log(key);
   const re = await get(child(dbRef, `pre-processed-data/pairs/${key}`));
   const pairs = await re.val();
   return pairs;

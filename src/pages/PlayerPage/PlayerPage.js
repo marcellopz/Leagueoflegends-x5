@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import X5pageContentArea from "../../common-components/X5pageContentArea";
 import {
   getPlayer,
   getPlayerInfo,
   getPlayerPairs,
+  getPlayerSummaryList,
 } from "../../services/firebaseDatabase";
 import PlayerBanner from "./PlayerBanner";
 import PlayerSummaryTab from "./PlayerSummaryTab";
@@ -29,9 +30,8 @@ export default function PlayerPage() {
   const [champs, setChamps] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedTab, setSelectedTab] = useState(0);
-
-  // console.log(playerInfo);
-  // console.log(playerPairs);
+  const [playerSummary, setPlayerSummary] = useState({});
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (isNaN(player)) {
@@ -42,7 +42,7 @@ export default function PlayerPage() {
         // "player" is a number
         for (const [key, value] of Object.entries(ps)) {
           if (value.account_id === +player) {
-            setPlayerKey(key);
+            navigate("/player/" + key);
             return;
           }
         }
@@ -66,10 +66,16 @@ export default function PlayerPage() {
         champs_ = Object.values(info.championStats);
         champs_.sort((a, b) => b.numberOfMatches - a.numberOfMatches);
         setChamps(champs_);
-        setLoading(false);
         return getPlayerPairs(info.summonerId);
       })
-      .then((ps) => setPlayerPairs(ps));
+      .then((ps) => {
+        setPlayerPairs(ps);
+        return getPlayerSummaryList();
+      })
+      .then((psl) => setPlayerSummary(psl))
+      .then(() => {
+        setLoading(false);
+      });
   }, [playerKey]);
 
   if (selectedPlayerCardStats === null) {
@@ -95,7 +101,11 @@ export default function PlayerPage() {
       </TabPanel>
 
       <TabPanel index={2} value={selectedTab}>
-        <PlayerStatsTab playerInfo={playerInfo} playerPairs={playerPairs} />
+        <PlayerStatsTab
+          playerInfo={playerInfo}
+          playerPairs={playerPairs}
+          playerSummary={playerSummary}
+        />
       </TabPanel>
 
       <TabPanel index={3} value={selectedTab}>

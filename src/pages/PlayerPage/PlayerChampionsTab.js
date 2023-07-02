@@ -205,9 +205,9 @@ function PlayerChampionsTab({ champs }) {
   return (
     <div
       style={{
-        width: "100%",
-        maxWidth: "1140px",
+        width: "1140px",
         margin: "20px auto",
+        height: "1000px",
       }}
     >
       <DataGrid
