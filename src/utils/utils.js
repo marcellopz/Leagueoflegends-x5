@@ -94,6 +94,15 @@ export function convertSecondsToMinutesAndSeconds(seconds) {
   return formattedMinutes + ":" + formattedSeconds;
 }
 
+export function convertSecondsToMinutesAndSeconds2(seconds) {
+  var minutes = Math.floor(seconds / 60);
+  var remainingSeconds = seconds % 60;
+  var formattedMinutes = minutes < 10 ? "0" + minutes : minutes;
+  var formattedSeconds =
+    remainingSeconds < 10 ? "0" + remainingSeconds : remainingSeconds;
+  return formattedMinutes + "m  " + formattedSeconds + "s";
+}
+
 export function getKDA(obj) {
   return ((obj.kills + obj.assists) / obj.deaths).toFixed(1) || null;
 }

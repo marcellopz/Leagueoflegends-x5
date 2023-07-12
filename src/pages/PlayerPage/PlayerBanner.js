@@ -49,15 +49,17 @@ function PlayerBanner({
             marginRight: "auto",
           }}
         >
-          <CardComponent
-            name={playerKey}
-            ranks={selectedPlayerCardStats}
-            label={selectedPlayerCardStats.name}
-            sx={{
-              height: "300px",
-              width: "216px",
-            }}
-          />
+          {selectedPlayerCardStats && (
+            <CardComponent
+              name={playerKey}
+              ranks={selectedPlayerCardStats}
+              label={selectedPlayerCardStats.name}
+              sx={{
+                height: "300px",
+                width: "216px",
+              }}
+            />
+          )}
           <div style={{ margin: "20px", height: "70px" }}>
             <Typography sx={{ fontSize: 25, marginBottom: "10px" }}>
               {playerInfo.summonerName}

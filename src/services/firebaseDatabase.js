@@ -152,3 +152,9 @@ export async function getPlayerPairs(key) {
   const pairs = await re.val();
   return pairs;
 }
+
+export async function getMatchesFullMatch(id) {
+  const re = await get(child(dbRef, `full-json-matches/${id}`));
+  const match = await re.val();
+  return match;
+}

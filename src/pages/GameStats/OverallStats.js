@@ -31,11 +31,13 @@ const ProgressBar = ({ value, maxValue, color }) => {
 };
 
 const SideStatBox = ({ title, redSideStat, blueSideStat }) => (
-  <Paper
-    sx={{
-      background: "rgba(255,255,255, 0.1)",
+  <div
+    style={{
+      background: "transparent",
+      border: "1px solid rgba(255, 255, 255, 0.2)",
       padding: "13px",
       width: "100%",
+      borderRadius: "4px",
     }}
   >
     <Typography>{title}</Typography>
@@ -80,7 +82,7 @@ const SideStatBox = ({ title, redSideStat, blueSideStat }) => (
         {blueSideStat}
       </div>
     </div>
-  </Paper>
+  </div>
 );
 
 export default function OverallStats({ stats }) {
@@ -166,7 +168,14 @@ export default function OverallStats({ stats }) {
     ];
   });
   return (
-    <Paper sx={{ margin: "20px" }}>
+    <div
+      style={{
+        background: "transparent",
+        border: "1px solid rgba(255, 255, 255, 0.2)",
+        borderRadius: "4px",
+        margin: "20px",
+      }}
+    >
       <div
         style={{
           padding: "15px",
@@ -175,6 +184,7 @@ export default function OverallStats({ stats }) {
         <Paper
           sx={{
             background: "rgba(255,255,255, 0.1)",
+            border: "1px solid rgba(255, 255, 255, 0.2)",
             padding: "1px 0",
             marginBottom: "15px",
           }}
@@ -193,6 +203,6 @@ export default function OverallStats({ stats }) {
           ))}
         </Grid>
       </div>
-    </Paper>
+    </div>
   );
 }

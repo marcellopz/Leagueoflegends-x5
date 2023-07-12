@@ -46,10 +46,10 @@ export default function PlayerPage() {
             return;
           }
         }
-        setPlayerKey("error");
+        setPlayerKey(player);
       });
     }
-  }, [player]);
+  }, [player, navigate]);
 
   useEffect(() => {
     if (!playerKey) {
@@ -58,6 +58,9 @@ export default function PlayerPage() {
     getPlayer(playerKey)
       .then((r) => {
         setSelectedPlayerCardStats(r);
+        if (r === null) {
+          return getPlayerInfo(playerKey);
+        }
         return getPlayerInfo(r.account_id);
       })
       .then((info) => {
@@ -73,14 +76,10 @@ export default function PlayerPage() {
         return getPlayerSummaryList();
       })
       .then((psl) => setPlayerSummary(psl))
-      .then(() => {
+      .finally(() => {
         setLoading(false);
       });
   }, [playerKey]);
-
-  if (selectedPlayerCardStats === null) {
-    return <div>player not found</div>;
-  }
 
   return (
     <X5pageContentArea loading={loading} removeMarginTop>

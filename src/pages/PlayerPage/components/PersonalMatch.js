@@ -70,7 +70,7 @@ const TeamSection = ({ players, playerId }) => {
   const redTeam = players.filter((p) => p.teamId === 200);
   return (
     <div style={{ display: "flex", fontSize: 10, margin: "5px" }}>
-      <div style={{ width: "100px", marginRight: "5px" }}>
+      <div style={{ width: "120px", marginRight: "5px" }}>
         {blueTeam.map((p, i) => (
           <div
             style={{
@@ -88,7 +88,7 @@ const TeamSection = ({ players, playerId }) => {
             <Link
               to={`/player/${p.summonerId}`}
               style={{
-                width: "100px",
+                // width: "100px",
                 marginLeft: "2px",
                 textOverflow: "ellipsis",
                 whiteSpace: "nowrap",
@@ -102,7 +102,7 @@ const TeamSection = ({ players, playerId }) => {
           </div>
         ))}
       </div>
-      <div>
+      <div style={{ width: "120px" }}>
         {redTeam.map((p, i) => (
           <div style={{ display: "flex", alignItems: "center" }} key={i}>
             <img
@@ -147,6 +147,9 @@ const MultiKillChips = ({ largestKillingSpree, largestMultiKill }) => {
         break;
       case 5:
         text = "Penta kill";
+        break;
+      default:
+        text = "";
     }
     return (
       <div style={{ display: "flex", marginTop: "5px" }}>

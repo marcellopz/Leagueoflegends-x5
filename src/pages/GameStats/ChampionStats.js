@@ -88,6 +88,7 @@ const columns = [
         : (params.row.assists / params.row.picks).toFixed(1),
   },
   {
+    field: "kda",
     type: "string",
     headerName: "KDA",
     align: "center",
@@ -120,7 +121,15 @@ export default function ChampionStats({ champions }) {
   }));
 
   return (
-    <Paper sx={{ margin: "20px", padding: "10px" }}>
+    <div
+      style={{
+        background: "transparent",
+        border: "1px solid rgba(255, 255, 255, 0.2)",
+        borderRadius: "4px",
+        margin: "20px",
+        padding: "10px",
+      }}
+    >
       <div style={{ width: "95%", maxWidth: "940px", margin: "10px auto" }}>
         <DataGrid
           // sx={{ background: "rgba(255,255,255, 0.1)" }}
@@ -139,6 +148,6 @@ export default function ChampionStats({ champions }) {
           }}
         />
       </div>
-    </Paper>
+    </div>
   );
 }

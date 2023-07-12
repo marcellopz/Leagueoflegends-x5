@@ -10,6 +10,7 @@ import PlayerList from "../pages/PlayerList/PlayerList";
 import PlayerPage from "../pages/PlayerPage/PlayerPage";
 import GameStats from "../pages/GameStats/GameStats";
 import PageNotFoundComponent from "./PageNotFoundComponent";
+import MatchPage from "../pages/MatchPage/MatchPage";
 
 export default function AppRoutes() {
   return (
@@ -24,6 +25,7 @@ export default function AppRoutes() {
           <Route path="player/:player" element={<PlayerPage />} />
           <Route path="home" element={<Home />} />
           <Route path="gamestats" element={<GameStats />} />
+          <Route path="match/:matchid" element={<MatchPage />} />
           <Route element={<PrivateRoutes />}>
             <Route path="admin" element={<AdminPage />} />
           </Route>
