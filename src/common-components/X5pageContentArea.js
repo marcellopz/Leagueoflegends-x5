@@ -24,7 +24,7 @@ export default function X5pageContentArea({
             background: theme.palette.background.bd,
             borderRadius: "15px",
             marginTop: "20px",
-            border: "2px solid black",
+            border: "1px solid rgba(255, 255, 255, 0.1)",
             position: "relative",
             overflow: "hidden",
             paddingTop: removeMarginTop ? "" : "20px",
