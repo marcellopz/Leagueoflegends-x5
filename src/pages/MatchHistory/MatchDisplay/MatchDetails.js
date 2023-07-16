@@ -19,7 +19,7 @@ const BaronDragonTurretBans = ({ win, baron, dragon, turret }) => {
   const dragonIcon = win ? dragonWinUrl : dragonLoseUrl;
   const turretIcon = win ? turretWinUrl : turretLoseUrl;
   return (
-    <div style={{ display: "flex" }}>
+    <div style={{ display: "flex", alignItems: "center" }}>
       <div style={{ display: "flex", marginRight: "12px" }}>
         <img
           src={baronIcon}
