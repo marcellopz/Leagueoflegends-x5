@@ -1,8 +1,9 @@
-import { Grid, Tooltip } from "@mui/material";
+import { CircularProgress, Divider, Grid, Tooltip } from "@mui/material";
 import React from "react";
 import useSingleMatchData from "./useSingleMatchData";
 import {
   CHAMPIONICONURL,
+  ITEMICONURL,
   baronLoseUrl,
   baronWinUrl,
   dragonLoseUrl,
@@ -12,6 +13,12 @@ import {
   turretLoseUrl,
   turretWinUrl,
 } from "../../common-components/resources";
+import {
+  capitalizeFirstLetter,
+  floatToPercentageString,
+  formatNumber,
+} from "../../utils/utils";
+import { Link } from "react-router-dom";
 
 const KDA = ({ kills, deaths, assists }) => (
   <div className="self-center flex gap-2 text-gray-300 justify-center">
@@ -66,8 +73,62 @@ const BaronDragonTurretBans = ({ win, baron, dragon, turret }) => {
   );
 };
 
-const PlayerRow = ({ player }) => (
-  <span className="flex items-center p-2">
+const ItemsSection = ({ game }) => {
+  const itemList = [
+    game.stats.item0,
+    game.stats.item1,
+    game.stats.item2,
+    game.stats.item3,
+    game.stats.item4,
+    game.stats.item5,
+  ];
+  const filteredList = itemList.filter((i) => i > 0);
+  while (filteredList.length < 6) {
+    filteredList.push(0);
+  }
+
+  return (
+    <div
+      style={{
+        display: "flex",
+        width: "130px",
+        flexWrap: "wrap",
+        justifyContent: "center",
+        gap: "4px",
+      }}
+    >
+      {filteredList.map((item, i) => (
+        <div
+          style={{
+            background: "rgba(255,255,255,0.2)",
+            width: "35px",
+            height: "35px",
+            borderRadius: "3px",
+            marginRight: "2px",
+          }}
+          key={i}
+        >
+          {item > 0 && (
+            <img
+              src={`${ITEMICONURL}${item}.png`}
+              alt={item}
+              style={{
+                margin: "2px",
+              }}
+              width="31px"
+            />
+          )}
+        </div>
+      ))}
+    </div>
+  );
+};
+
+const PlayerRow = ({ player, role, totalKills }) => (
+  <span
+    className="flex items-center p-2 flex-wrap justify-between"
+    style={{ borderBottom: "1px solid rgba(255,255,255,0.2)" }}
+  >
     {/* Champion + spells icons */}
     <div className="flex">
       <div className="relative">
@@ -116,19 +177,56 @@ const PlayerRow = ({ player }) => (
     </div>
 
     {/* Name, KDA, Position */}
-    <div className="w-52 text-center">
-      <p style={{ fontSize: "16px" }}>{player.identity.player.summonerName}</p>
+    <div className="w-36 text-center">
+      <Link to={`/player/${player.identity.player.summonerId}`}>
+        <p style={{ fontSize: "16px" }}>
+          {player.identity.player.summonerName}
+        </p>
+      </Link>
+
       <KDA
         kills={player.stats.kills}
         deaths={player.stats.deaths}
         assists={player.stats.assists}
       />
+      <p className="opacity-50" style={{ fontSize: "14px" }}>
+        {capitalizeFirstLetter(role)}
+      </p>
+    </div>
+
+    {/* General information */}
+    <div className="w-40 text-center" style={{ fontSize: "14px" }}>
+      <p>{`Lv ${player.stats.champLevel} | ${formatNumber(
+        player.stats.goldEarned
+      )} G`}</p>
+      <p>
+        {`${
+          player.stats.totalMinionsKilled + player.stats.neutralMinionsKilled
+        } CS | ${player.stats.visionScore} VS`}
+      </p>
+      <p>{`Kill participation: ${floatToPercentageString(
+        (player.stats.kills + player.stats.assists) / totalKills
+      )}`}</p>
+    </div>
+
+    {/* Itens */}
+    <div>
+      <ItemsSection game={player} />
     </div>
   </span>
 );
 
-const TeamMatch = ({ team }) => (
+const roles = {
+  top: 1,
+  jungle: 2,
+  mid: 3,
+  adc: 4,
+  support: 5,
+};
+
+const TeamMatch = ({ team, matchRoles }) => (
   <div className="text-xl">
+    {/* primeira linha, Team 1: Victory ... KDA */}
     <div className="flex justify-between p-2">
       <div className="flex">
         <div className="mr-2">{`Team ${team.teamId / 100}: `}</div>
@@ -145,8 +243,9 @@ const TeamMatch = ({ team }) => (
       />
     </div>
 
+    {/* segunda linha, dragões e bans */}
     <div
-      className="p-2 px-4 flex justify-between"
+      className="p-2 px-4 flex justify-between flex-wrap gap-2"
       style={{ background: "rgba(255,255,255,0.1)" }}
     >
       <BaronDragonTurretBans
@@ -155,7 +254,7 @@ const TeamMatch = ({ team }) => (
         turret={team.teamStats.towerKills}
         win={team.teamId === 100}
       />
-      <div className="flex gap-1">
+      <div className="flex gap-1 self-end">
         <p className="self-center opacity-30 text-lg mr-2">bans: </p>
         {team.teamStats.bans
           .sort((a, b) => a.pickTurn - b.pickTurn)
@@ -184,23 +283,44 @@ const TeamMatch = ({ team }) => (
     </div>
 
     <div>
-      {team.players.map((p) => (
-        <PlayerRow player={p} />
-      ))}
+      {team.players
+        .sort(
+          (a, b) =>
+            roles[matchRoles[a.identity.player.summonerId]] -
+            roles[matchRoles[b.identity.player.summonerId]]
+        )
+        .map((p) => (
+          <PlayerRow
+            player={p}
+            role={matchRoles[p.identity.player.summonerId]}
+            totalKills={team.stats.kills}
+            key={p.championId}
+          />
+        ))}
     </div>
   </div>
 );
 
-export default function MatchComponent({ matchData }) {
+export default function MatchComponent({ matchData, matchRoles }) {
   const { blueTeam, redTeam } = useSingleMatchData(matchData);
-  console.log({ blueTeam, redTeam });
+
+  if (typeof matchData === "undefined" || typeof matchRoles === "undefined") {
+    return (
+      <div style={{ display: "flex" }}>
+        <div style={{ margin: "auto" }}>
+          <CircularProgress />
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div
       style={{ marginTop: "10px", border: "1px solid rgba(255,255,255,0.5)" }}
     >
       <Grid container>
         <Grid item xs={12} lg={6}>
-          <TeamMatch team={blueTeam} />
+          <TeamMatch team={blueTeam} matchRoles={matchRoles} />
         </Grid>
         <Grid
           item
@@ -217,7 +337,7 @@ export default function MatchComponent({ matchData }) {
             },
           }}
         >
-          <TeamMatch team={redTeam} />
+          <TeamMatch team={redTeam} matchRoles={matchRoles} />
         </Grid>
       </Grid>
     </div>

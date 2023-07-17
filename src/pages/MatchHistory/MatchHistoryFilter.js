@@ -50,7 +50,6 @@ function Filters({
         justifyContent: "right",
       }}
     >
-      {" "}
       <IconButton
         onClick={() => setOpen((prev) => !prev)}
         sx={{ marginLeft: "10px" }}
@@ -97,8 +96,8 @@ function Filters({
               </Box>
             )}
           >
-            {playerList.map(({ account_id, name, name_id }) => (
-              <MenuItem key={account_id} value={name_id} selected>
+            {playerList.map(({ name, name_id }) => (
+              <MenuItem key={name} value={name_id} selected>
                 <p style={{ marginLeft: 10 }}>{name}</p>
               </MenuItem>
             ))}

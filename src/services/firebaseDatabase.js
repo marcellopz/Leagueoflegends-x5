@@ -129,8 +129,8 @@ export async function setRoles(roles, matchId) {
   );
 }
 
-export async function getMatchRoles() {
-  const re = await get(child(dbRef, `pre-processed-data/match-roles/`));
+export async function getMatchRoles(match = "") {
+  const re = await get(child(dbRef, `pre-processed-data/match-roles/${match}`));
   const roles = await re.val();
   return roles;
 }
