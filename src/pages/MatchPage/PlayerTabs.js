@@ -35,7 +35,7 @@ const Tab = ({ setTabState, tabState, n, champId }) => (
 );
 
 const StatBox = ({ number, text }) => (
-  <div className="w-1/5 h-24 text-center py-4">
+  <div className="w-1/5 h-24 text-center py-4" style={{ minWidth: "100px" }}>
     <p style={{ fontSize: "24px" }}>{formatNumber(number)}</p>
     <p style={{ fontSize: "16px" }}> {text}</p>
   </div>
