@@ -1,150 +1,34 @@
-import { Tooltip, Typography } from "@mui/material";
+import { Box, Tooltip, Typography } from "@mui/material";
 import {
   CHAMPIONICONURL,
   summonerSpells,
   summonerSpellsUrl,
 } from "../../../common-components/resources";
-import { ITEMICONURL } from "../../../common-components/resources";
 import { Link } from "react-router-dom";
 
-const ItemsSection = ({ player, small }) => {
-  const itemList = [
-    player.stats.item0,
-    player.stats.item1,
-    player.stats.item2,
-    player.stats.item3,
-    player.stats.item4,
-    player.stats.item5,
-  ];
-  const filteredList = itemList.filter((i) => i > 0);
-  while (filteredList.length < 6) {
-    filteredList.push(0);
-  }
-
+const PlayerLine = ({ player, totalKills, gameDuration }) => {
   return (
     <div
       style={{
         display: "flex",
-        marginRight: "20px",
-        flexWrap: "wrap",
-        width: small ? "51px" : "",
-      }}
-    >
-      {filteredList.map((item, i) => (
-        <div
-          style={{
-            background: "rgba(255,255,255,0.2)",
-            width: small ? "15px" : "34px",
-            height: small ? "15px" : "34px",
-            borderRadius: small ? "1px" : "3px",
-            marginRight: "2px",
-            marginTop: "1px",
-          }}
-          key={i}
-        >
-          {item > 0 && (
-            <img
-              src={`${ITEMICONURL}${item}.png`}
-              alt={item}
-              style={{
-                margin: small ? "1px" : "2px",
-              }}
-              width={small ? "13px" : "30px"}
-            />
-          )}
-        </div>
-      ))}
-    </div>
-  );
-};
-
-const ProgressBar = ({
-  value,
-  maxValue,
-  tooltip,
-  color = "rgba(255,255,255,0.7)",
-}) => {
-  const progressPercentage = (value / maxValue) * 100;
-
-  // eslint-disable-next-line
-  String.prototype.format = function () {
-    let formatted = this;
-    for (let i = 0; i < arguments.length; i++) {
-      let regexp = new RegExp("\\{" + i + "\\}", "gi");
-      formatted = formatted.replace(regexp, arguments[i]);
-    }
-    return formatted;
-  };
-
-  return (
-    <Tooltip
-      title={
-        <div>
-          {tooltip
-            .format(value, maxValue)
-            .split("\\n")
-            .map((line) => (
-              <div key={line}>{line}</div>
-            ))}
-        </div>
-      }
-      arrow
-    >
-      <div style={{ height: "100%", marginLeft: "20px" }}>
-        <div style={{ padding: "5px 0" }}>
-          <Typography style={{ textAlign: "center", fontSize: "12px" }}>
-            {value}
-          </Typography>
-          <div
-            style={{
-              width: "60px",
-              height: "8px",
-              backgroundColor: "rgba(0,0,0,0.5)",
-            }}
-          >
-            <div
-              style={{
-                width: `${progressPercentage}%`,
-                height: "100%",
-                backgroundColor: color,
-              }}
-            ></div>
-          </div>
-        </div>
-      </div>
-    </Tooltip>
-  );
-};
-
-const PlayerLine = ({
-  player,
-  totalKills,
-  maxDamage,
-  maxGold,
-  maxTank,
-  gameDuration,
-  width,
-  showItems,
-}) => {
-  let width_ = width;
-  if (showItems) {
-    width_ = width - 236;
-  }
-
-  return (
-    <div
-      style={{
-        display: "flex",
-        height: "35px",
-        background: "rgba(255,255,255,0.15)",
-        marginTop: "2px",
-        marginBottom: "2px",
+        height: "40px",
+        background: "rgba(255,255,255,0.1)",
+        marginTop: "3px",
+        marginBottom: "3px",
         borderRadius: "10px",
         alignItems: "center",
         justifyContent: "space-between",
+        paddingRight: "5%",
       }}
     >
-      <div style={{ display: "flex", alignItems: "center" }}>
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          width: { xs: "150px", md: "200px", xl: "250px" },
+          maxWidth: "100%",
+        }}
+      >
         <div style={{ position: "relative" }}>
           <div
             style={{
@@ -162,8 +46,6 @@ const PlayerLine = ({
           </div>
           <div
             style={{
-              width: "30px",
-              height: "30px",
               overflow: "hidden",
               borderRadius: "15px",
               marginLeft: "5px",
@@ -172,8 +54,8 @@ const PlayerLine = ({
           >
             <img
               src={`${CHAMPIONICONURL}${player.championId}.png`}
-              width={"30px"}
-              height={"30px"}
+              width={"35px"}
+              height={"35px"}
               alt={player.championName}
             />
           </div>
@@ -193,93 +75,71 @@ const PlayerLine = ({
           component={Link}
           to={`/player/${player.summonerId}`}
           sx={{
-            width: width_ > 390 ? "150px" : "100px",
-            maxWidth: "50%",
+            fontSize: { xs: "0.7rem", md: "1rem" },
             color: "white",
             overflow: "hidden",
             height: "100%",
             whiteSpace: "nowrap",
             textOverflow: "ellipsis",
-            fontSize: width_ > 390 ? "1rem" : "0.7rem",
             flexGrow: 1,
           }}
         >
           {player.summonerName}
         </Typography>
-      </div>
+      </Box>
 
-      {width > 320 && (
-        <Typography
-          sx={{
-            width: "120px",
-            textAlign: "center",
-            fontSize: width < 350 ? "10px" : "1rem",
-            marginRight: "20px",
-            // fontSize: "10px",
-          }}
-        >{`${player.stats.kills}/${player.stats.deaths}/${
-          player.stats.assists
-        } (${parseInt(
-          (100 * (player.stats.kills + player.stats.assists)) / totalKills
-        )}%)`}</Typography>
-      )}
-      {width_ > 700 && (
-        <ProgressBar
-          value={player.stats.totalDamageDealtToChampions}
-          maxValue={maxDamage}
-          tooltip="Damage dealt to champions: {0}\nHighest damage dealt by the team: {1}"
-          color="rgb(245,100,100)"
-        />
-      )}
-      {width_ > 900 && (
-        <ProgressBar
-          value={player.stats.totalDamageTaken}
-          maxValue={maxTank}
-          tooltip="Damage taken: {0}\nMost damage taken on team: {1}"
-        />
-      )}
-      {width_ > 780 && (
-        <ProgressBar
-          value={player.stats.goldEarned}
-          maxValue={maxGold}
-          tooltip="Gold earned: {0}\nMost gold earned on team: {1}"
-          color="rgb(240,245,100)"
-        />
-      )}
-      {width_ > 420 && (
-        <div style={{ display: "flex" }}>
-          <Typography sx={{ width: "30px", textAlign: "center" }}>
-            {player.stats.totalCs}
-          </Typography>
-          <Typography sx={{ marginLeft: "5px", marginRight: "5px" }}>
-            ({((60 * player.stats.totalCs) / gameDuration).toFixed(1)})
-          </Typography>
-          <Tooltip title="Creep Score">
+      <Typography
+        sx={{
+          textAlign: "center",
+          fontSize: { xs: "0.7rem", md: "1rem" },
+          display: { xs: "none", sm: "block" },
+          width: "120px",
+        }}
+      >{`${player.stats.kills}/${player.stats.deaths}/${
+        player.stats.assists
+      } (${parseInt(
+        (100 * (player.stats.kills + player.stats.assists)) / totalKills
+      )}%)`}</Typography>
+
+      <Box
+        sx={{
+          display: { xs: "none", lg: "block" },
+          width: "110px",
+        }}
+      >
+        <Tooltip title="Creep Score">
+          <div className="flex justify-end">
+            <Typography sx={{ width: "30px", textAlign: "center" }}>
+              {player.stats.totalCs}
+            </Typography>
+            <Typography sx={{ marginLeft: "5px", marginRight: "5px" }}>
+              ({((60 * player.stats.totalCs) / gameDuration).toFixed(1)})
+            </Typography>
             <img
               width="20px"
               src="https://static.wikia.nocookie.net/leagueoflegends/images/3/30/Minion_icon.png"
-              style={{ filter: "invert(30%)", marginRight: "20px" }}
+              style={{ filter: "invert(30%)" }}
               alt="cs"
             />
-          </Tooltip>
-        </div>
-      )}
-      {width_ > 580 && (
-        <div style={{ display: "flex" }}>
-          <Typography sx={{ width: "30px", textAlign: "center" }}>
-            {player.stats.visionScore}
-          </Typography>
-          <Tooltip title="Vision Score">
+          </div>
+        </Tooltip>
+      </Box>
+
+      <Box sx={{ display: { xs: "none", xl: "block" } }}>
+        <Tooltip title="Vision Score">
+          <div style={{ width: "50px", display: "flex" }}>
+            <Typography sx={{ width: "30px", textAlign: "center" }}>
+              {player.stats.visionScore}
+            </Typography>
             <img
               width="20px"
               src="https://static.wikia.nocookie.net/leagueoflegends/images/f/f1/Ward_icon.png/"
-              style={{ filter: "invert(30%)", marginRight: "20px" }}
+              style={{ filter: "invert(30%)" }}
               alt="vision score"
-            />
-          </Tooltip>
-        </div>
-      )}
-      {showItems && <ItemsSection player={player} small={width_ < 320} />}
+            />{" "}
+          </div>
+        </Tooltip>
+      </Box>
     </div>
   );
 };

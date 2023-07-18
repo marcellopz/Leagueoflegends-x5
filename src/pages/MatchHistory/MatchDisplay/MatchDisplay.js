@@ -1,7 +1,5 @@
-import { Accordion, AccordionDetails, AccordionSummary } from "@mui/material";
-import { theme } from "../../../theme";
+import { Paper } from "@mui/material";
 import MatchSummary from "./MatchSummary";
-import MatchDetails from "./MatchDetails";
 import { useCallback, useMemo, useState } from "react";
 
 export default function MatchDisplay({ match, openDialog, roles }) {
@@ -24,11 +22,11 @@ export default function MatchDisplay({ match, openDialog, roles }) {
   const toggleExpand = useCallback(() => setExpanded((prev) => !prev), []);
 
   return (
-    <Accordion
-      expanded={expanded}
+    <Paper
       sx={{
-        backgroundColor: theme.palette.background.match,
-        padding: "5px",
+        background: "transparent",
+        border: "1px solid rgba(255,255,255,0.3)",
+        padding: { xs: "5px", md: "15px" },
         "&.MuiPaper-root": {
           borderRadius: "7px",
           cursor: "default",
@@ -41,19 +39,12 @@ export default function MatchDisplay({ match, openDialog, roles }) {
         },
       }}
     >
-      <AccordionSummary>
-        <MatchSummary
-          match={matchMemo}
-          expanded={expanded}
-          toggleExpanded={toggleExpand}
-          openDialog={openDialog}
-        />
-      </AccordionSummary>
-      <AccordionDetails
-        sx={{ backgroundColor: theme.palette.background.paper }}
-      >
-        <MatchDetails match={matchMemo} />
-      </AccordionDetails>
-    </Accordion>
+      <MatchSummary
+        match={matchMemo}
+        expanded={expanded}
+        toggleExpanded={toggleExpand}
+        openDialog={openDialog}
+      />
+    </Paper>
   );
 }

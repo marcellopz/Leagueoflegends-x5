@@ -13,45 +13,41 @@ const useMatchData = (match) => {
   );
 
   const blueTeamObj = useMemo(
-    () => match.teams.filter((t) => t.teamId === 100)[0]
+    () => match.teams.filter((t) => t.teamId === 100)[0],
+    [match]
   );
 
   const redTeamObj = useMemo(
-    () => match.teams.filter((t) => t.teamId === 200)[0]
+    () => match.teams.filter((t) => t.teamId === 200)[0],
+    [match]
   );
 
   const blueKills = useMemo(() => {
-    let i = 0;
-    return blueTeam.reduce((a, b) => a + b.stats.kills, i);
+    return blueTeam.reduce((a, b) => a + b.stats.kills, 0);
   }, [blueTeam]);
 
-  const redKils = useMemo(() => {
-    let i = 0;
-    return redTeam.reduce((a, b) => a + b.stats.kills, i);
+  const blueDeaths = useMemo(() => {
+    return blueTeam.reduce((a, b) => a + b.stats.deaths, 0);
+  }, [blueTeam]);
+
+  const blueAssists = useMemo(() => {
+    return blueTeam.reduce((a, b) => a + b.stats.assists, 0);
+  }, [blueTeam]);
+
+  const redKills = useMemo(() => {
+    return redTeam.reduce((a, b) => a + b.stats.kills, 0);
+  }, [redTeam]);
+
+  const redDeaths = useMemo(() => {
+    return redTeam.reduce((a, b) => a + b.stats.deaths, 0);
+  }, [redTeam]);
+
+  const redAssists = useMemo(() => {
+    return redTeam.reduce((a, b) => a + b.stats.assists, 0);
   }, [redTeam]);
 
   const blueWin = blueTeam[0].stats.win;
   const redWin = redTeam[0].stats.win;
-
-  const blueMaxDamage = useMemo(
-    () => Math.max(...blueTeam.map((p) => p.stats.totalDamageDealtToChampions)),
-    [blueTeam]
-  );
-
-  const redMaxDamage = useMemo(
-    () => Math.max(...redTeam.map((p) => p.stats.totalDamageDealtToChampions)),
-    [redTeam]
-  );
-
-  const blueMaxGold = useMemo(
-    () => Math.max(...blueTeam.map((p) => p.stats.goldEarned)),
-    [blueTeam]
-  );
-
-  const redMaxGold = useMemo(
-    () => Math.max(...redTeam.map((p) => p.stats.goldEarned)),
-    [redTeam]
-  );
 
   const blueMaxTanked = useMemo(
     () => Math.max(...blueTeam.map((p) => p.stats.totalDamageTaken)),
@@ -62,29 +58,6 @@ const useMatchData = (match) => {
     () => Math.max(...redTeam.map((p) => p.stats.totalDamageTaken)),
     [redTeam]
   );
-
-  const blueTotalDamage = useMemo(() => {
-    let i = 0;
-    return blueTeam.reduce(
-      (a, b) => a + b.stats.totalDamageDealtToChampions,
-      i
-    );
-  }, [blueTeam]);
-
-  const redTotalDamage = useMemo(() => {
-    let i = 0;
-    return redTeam.reduce((a, b) => a + b.stats.totalDamageDealtToChampions, i);
-  }, [redTeam]);
-
-  const blueTotalKills = useMemo(() => {
-    let i = 0;
-    return blueTeam.reduce((a, b) => a + b.stats.kills, i);
-  }, [blueTeam]);
-
-  const redTotalKills = useMemo(() => {
-    let i = 0;
-    return redTeam.reduce((a, b) => a + b.stats.kills, i);
-  }, [redTeam]);
 
   const gameDurationStr = useMemo(
     () => convertSecondsToMinutesAndSeconds(match.gameDuration),
@@ -107,23 +80,17 @@ const useMatchData = (match) => {
     redTeamObj,
     blueMaxTanked,
     redMaxTanked,
-    redKils,
+    redKills,
+    redDeaths,
+    redAssists,
     blueKills,
-    redMaxDamage,
-    redMaxGold,
-    blueMaxDamage,
-    blueMaxGold,
+    blueDeaths,
+    blueAssists,
     blueWin,
     redWin,
-    blueTotalDamage,
-    redTotalDamage,
-    blueTotalKills,
-    redTotalKills,
     gameDuration: match.gameDuration,
     gameDurationStr,
     gameDate,
-    colorWin: "rgba(0,60,120,0.4)",
-    colorLose: "rgba(140,0,0,0.4)",
   };
 };
 

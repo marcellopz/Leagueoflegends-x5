@@ -1,46 +1,30 @@
 import { Box, Paper } from "@mui/material";
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext } from "react";
 import PlayerLine from "./PlayerLine";
 import useMatchData from "./useMatchData";
-import { ExpandLess, ExpandMore } from "@mui/icons-material";
+import { KeyboardArrowRight } from "@mui/icons-material";
 import { theme } from "../../../theme";
 import { AuthContext } from "../../../contexts/authContext";
+import { Link } from "react-router-dom";
+import { KDA } from "../../MatchPage/MatchComponent";
 
-export default function MatchSummary({
-  match,
-  expanded,
-  toggleExpanded,
-  openDialog,
-}) {
+export default function MatchSummary({ match, toggleExpanded, openDialog }) {
   const {
     blueTeam,
     redTeam,
-    blueMaxTanked,
-    redMaxTanked,
-    redKils,
+    redKills,
+    redDeaths,
+    redAssists,
     blueKills,
-    redMaxDamage,
-    redMaxGold,
-    blueMaxDamage,
-    blueMaxGold,
+    blueDeaths,
+    blueAssists,
     blueWin,
     redWin,
     gameDuration,
-    colorWin,
-    colorLose,
     gameDate,
     gameDurationStr,
   } = useMatchData(match);
   const { isAdmin } = useContext(AuthContext);
-  const ref = useRef(null);
-  const [summaryWidth, setSummaryWidth] = useState();
-
-  useEffect(() => {
-    window.addEventListener("resize", () => {
-      setSummaryWidth(ref.current?.clientWidth);
-    });
-    setSummaryWidth(ref.current?.clientWidth);
-  }, []);
 
   return (
     <div style={{ width: "100%", color: "gainsboro", position: "relative" }}>
@@ -67,95 +51,102 @@ export default function MatchSummary({
           width: "100%",
           display: "flex",
           justifyContent: "space-between",
+          gap: "10px",
         }}
       >
         <Paper
           sx={{
             borderRadius: "7px",
-            background: blueWin ? colorWin : colorLose,
-            width: summaryWidth > 350 ? "47%" : "49%",
+            background: "transparent",
+            flexGrow: 1,
             padding: "5px",
             color: theme.palette.text.primary,
+            border: "1px solid rgba(255,255,255,0.3)",
+            maxWidth: "50%",
           }}
-          ref={ref}
         >
+          <div className="flex p-1 text-xl justify-between pr-4">
+            <div className="flex">
+              <p className="mr-2">Team 1:</p>
+              <p
+                style={{
+                  color: blueWin ? "rgb(85,255,75)" : "rgb(255,75,75)",
+                }}
+              >
+                {blueWin ? "Victory" : "Defeat"}
+              </p>
+            </div>
+            <Box sx={{ display: { xs: "none", md: "flex" } }}>
+              <KDA
+                kills={blueKills}
+                deaths={blueDeaths}
+                assists={blueAssists}
+              />
+            </Box>
+          </div>
           {blueTeam.map((p) => (
             <PlayerLine
               player={p}
               key={p.participantId}
               totalKills={blueKills}
-              maxDamage={blueMaxDamage}
-              maxGold={blueMaxGold}
-              maxTank={blueMaxTanked}
               gameDuration={gameDuration}
-              width={summaryWidth}
             />
           ))}
         </Paper>
         <Paper
           sx={{
             borderRadius: "7px",
-            background: redWin ? colorWin : colorLose,
-            width: summaryWidth > 350 ? "47%" : "49%",
+            background: "transparent",
+            flexGrow: 1,
             padding: "5px",
             color: theme.palette.text.primary,
+            border: "1px solid rgba(255,255,255,0.3)",
+            maxWidth: "50%",
           }}
         >
+          <div className="flex p-1 text-xl justify-between pr-4">
+            <div className="flex">
+              <p className="mr-2">Team 2:</p>
+              <p
+                style={{
+                  color: redWin ? "rgb(85,255,75)" : "rgb(255,75,75)",
+                }}
+              >
+                {redWin ? "Victory" : "Defeat"}
+              </p>
+            </div>
+            <Box sx={{ display: { xs: "none", md: "flex" } }}>
+              <KDA kills={redKills} deaths={redDeaths} assists={redAssists} />
+            </Box>
+          </div>
           {redTeam.map((p) => (
             <PlayerLine
               player={p}
               key={p.participantId}
-              totalKills={redKils}
-              maxDamage={redMaxDamage}
-              maxGold={redMaxGold}
-              maxTank={redMaxTanked}
+              totalKills={redKills}
               gameDuration={gameDuration}
-              width={summaryWidth}
             />
           ))}
         </Paper>
-        {summaryWidth > 350 && (
-          <Box
-            sx={{
-              width: "3%",
-              backgroundColor: "rgba(255,255,255,0.05)",
-              borderRadius: "7px",
-              display: "flex",
-              ":hover": {
-                cursor: "pointer",
-              },
-            }}
-            onClick={toggleExpanded}
-          >
-            {expanded ? (
-              <ExpandLess sx={{ margin: "auto" }} />
-            ) : (
-              <ExpandMore sx={{ margin: "auto" }} />
-            )}
-          </Box>
-        )}
-      </Box>
-      {summaryWidth < 350 && (
         <Box
+          component={Link}
+          to={`/match/match${match.gameId}`}
           sx={{
-            backgroundColor: "rgba(255,255,255,0.1)",
+            width: "3%",
+            minWidth: "30px",
+            backgroundColor: "rgba(255,255,255,0.05)",
+            border: "1px solid rgba(255,255,255,0.2)",
             borderRadius: "7px",
             display: "flex",
             ":hover": {
               cursor: "pointer",
             },
-            margin: "7px 0",
-            height: "30px",
           }}
           onClick={toggleExpanded}
         >
-          {expanded ? (
-            <ExpandLess sx={{ margin: "auto" }} />
-          ) : (
-            <ExpandMore sx={{ margin: "auto" }} />
-          )}
+          <KeyboardArrowRight sx={{ margin: "auto" }} />
         </Box>
-      )}
+      </Box>
     </div>
   );
 }

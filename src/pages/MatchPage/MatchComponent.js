@@ -1,4 +1,4 @@
-import { CircularProgress, Divider, Grid, Tooltip } from "@mui/material";
+import { CircularProgress, Grid, Tooltip } from "@mui/material";
 import React from "react";
 import useSingleMatchData from "./useSingleMatchData";
 import {
@@ -20,7 +20,7 @@ import {
 } from "../../utils/utils";
 import { Link } from "react-router-dom";
 
-const KDA = ({ kills, deaths, assists }) => (
+export const KDA = ({ kills, deaths, assists }) => (
   <div className="self-center flex gap-2 text-gray-300 justify-center">
     <p>{kills}</p>
     <p>/</p>
@@ -179,7 +179,13 @@ const PlayerRow = ({ player, role, totalKills }) => (
     {/* Name, KDA, Position */}
     <div className="w-36 text-center">
       <Link to={`/player/${player.identity.player.summonerId}`}>
-        <p style={{ fontSize: "16px" }}>
+        <p
+          style={{
+            fontSize: "16px",
+            textOverflow: "ellipsis",
+            whiteSpace: "nowrap",
+          }}
+        >
           {player.identity.player.summonerName}
         </p>
       </Link>
@@ -231,9 +237,13 @@ const TeamMatch = ({ team, matchRoles }) => (
       <div className="flex">
         <div className="mr-2">{`Team ${team.teamId / 100}: `}</div>
         {team.win ? (
-          <div className="self-center text-green-400 opacity-70">Victory</div>
+          <div className="self-center" style={{ color: "rgb(85,255,75)" }}>
+            Victory
+          </div>
         ) : (
-          <div className="self-center text-red-600 opacity-70">Defeat</div>
+          <div className="self-center" style={{ color: "rgb(255,75,75)" }}>
+            Defeat
+          </div>
         )}
       </div>
       <KDA
