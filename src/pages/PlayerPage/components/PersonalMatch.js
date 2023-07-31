@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   convertSecondsToMinutesAndSeconds,
   timeSince,
@@ -14,6 +14,7 @@ import Tooltip from "@mui/material/Tooltip";
 import { Link } from "react-router-dom";
 import { IconButton } from "@mui/material";
 import { ArrowRight } from "@mui/icons-material";
+import { getMatchRoles } from "../../../services/firebaseDatabase";
 
 const ItemsSection = ({ game }) => {
   const itemList = [
@@ -65,9 +66,27 @@ const ItemsSection = ({ game }) => {
   );
 };
 
-const TeamSection = ({ players, playerId }) => {
-  const blueTeam = players.filter((p) => p.teamId === 100);
-  const redTeam = players.filter((p) => p.teamId === 200);
+const roles = {
+  top: 1,
+  jungle: 2,
+  mid: 3,
+  adc: 4,
+  support: 5,
+};
+
+const TeamSection = ({ players, playerId, matchRoles }) => {
+  const blueTeam = players
+    .filter((p) => p.teamId === 100)
+    .sort(
+      (a, b) =>
+        roles[matchRoles[a.summonerId]] - roles[matchRoles[b.summonerId]]
+    );
+  const redTeam = players
+    .filter((p) => p.teamId === 200)
+    .sort(
+      (a, b) =>
+        roles[matchRoles[a.summonerId]] - roles[matchRoles[b.summonerId]]
+    );
   return (
     <div style={{ display: "flex", fontSize: 10, margin: "5px" }}>
       <div style={{ width: "120px", marginRight: "5px" }}>
@@ -167,6 +186,13 @@ const MultiKillChips = ({ largestKillingSpree, largestMultiKill }) => {
 };
 
 export default function PersonalMatch({ game, gameId }) {
+  const [matchRoles, setMatchRoles] = useState({});
+
+  useEffect(() => {
+    getMatchRoles(gameId).then((r) => setMatchRoles(r));
+    return () => {};
+  }, [gameId]);
+
   const colorWin = "rgba(0,60,120,0.4)";
   const colorLose = "rgba(140,0,0,0.4)";
   return (
@@ -283,7 +309,11 @@ export default function PersonalMatch({ game, gameId }) {
           ).toFixed(2)} KDA`}</div>
         </div> */}
         <ItemsSection game={game} />
-        <TeamSection players={game.participants} playerId={game.summonerId} />
+        <TeamSection
+          players={game.participants}
+          playerId={game.summonerId}
+          matchRoles={matchRoles}
+        />
         <Link
           to={`/match/${gameId}`}
           style={{
