@@ -1,70 +1,41 @@
-# Getting Started with Create React App
+# Website for League of Legends Match Customization and Analytics
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Website link: [http://x5dosnerds.vercel.app/](http://x5dosnerds.vercel.app/)
 
-## Available Scripts
+This website is a dedicated platform designed to provide me and my friends with a convenient and efficient way to balance our matche, track our individual performance and review past match history. 
+Developed using React and integrated with the Google Firebase Realtime Database, this website does something we used to have to do manually, balancing our custom games and calculating basic statistics such as win rate and other performance stats.
 
-In the project directory, you can run:
+## Key Features:
 
-### `npm start`
+* Player Stat Tracking: Easily monitor and analyze the performance of each player with detailed player statistics. Keep track of essential metrics such as win rates, KDA ratios, vision scores and other key indicators to gauge your progress and identify areas for improvement.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+* Match History: Access detailed information about previous matches, including game details, individual performances, and strategic choices made during gameplay.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+* User-Friendly Interface: The website features a user-friendly interface that allows for easy navigation and quick access to your stats and match history. The intuitive design ensures a hassle-free experience while exploring your gaming data.
 
-### `npm test`
+* Respect of my friends privacy: The public version of the website contains generic versions of each "card", logging in and requesting permission can grant you permission to see the pictures used for each player.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+* Front-End Development: Built with React, the website offers a responsive and interactive interface.
 
-### `npm run build`
+* Data Storage: The integration of the Google Firebase Realtime Database ensures reliable data storage and synchronization, providing real-time updates to keep your statistics and match history up to date.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+This website serves as a personalized tool for me and my friends to track our stats and review past custom matches played. It aims to provide a convenient and centralized platform for us to gain insights into their performance and make data-driven decisions to enhance our fun and gameplay strategies.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Screenshots:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+![ss1](https://i.imgur.com/azuzr2G.png)
 
-### `npm run eject`
+![ss2](https://i.imgur.com/dydXtCH.png)
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+![ss3](https://i.imgur.com/zC1pdkE.png)
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+![ss4](https://i.imgur.com/01voAA0.png)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+![ss5](https://i.imgur.com/6EN8Gnh.png)
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+![ss6](https://i.imgur.com/1TNfcu5.png)
 
-## Learn More
+![ss7](https://i.imgur.com/ZPNZDpA.png)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+![ss8](https://i.imgur.com/RNh8mqU.png)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
