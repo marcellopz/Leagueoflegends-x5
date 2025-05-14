@@ -77,6 +77,9 @@ export default function processDataAll(matches) {
         creepsKilled: 0,
       })
   );
+  const gamesPerMonth = {};
+  let earliestDate = null;
+  let latestDate = null;
 
   Object.values(matches).forEach((match) => {
     gameDurationTotal += match.gameDuration;
@@ -117,9 +120,104 @@ export default function processDataAll(matches) {
     red.bans?.forEach((b) => {
       champions[b.championId].bans += 1;
     });
+
+    const gameDateString = match?.date;
+
+    if (gameDateString) {
+      try {
+        const date = new Date(gameDateString);
+
+        // Check if the date is valid
+        if (!isNaN(date.getTime())) {
+          const year = date.getFullYear();
+          const month = date.getMonth() + 1; // getMonth() is 0-indexed
+          const monthYear = `${year}-${month.toString().padStart(2, "0")}`; // Format as YYYY-MM
+
+          gamesPerMonth[monthYear] = (gamesPerMonth[monthYear] || 0) + 1;
+
+          // Update earliest and latest date (using timestamps for comparison)
+          if (!earliestDate || date.getTime() < earliestDate.getTime()) {
+            earliestDate = date;
+          }
+          if (!latestDate || date.getTime() > latestDate.getTime()) {
+            latestDate = date;
+          }
+        } else {
+          console.error(
+            `Invalid date string for match ${match.gameId}: ${gameDateString}`
+          );
+        }
+      } catch (error) {
+        console.error(
+          `Error processing date for match ${match.gameId}: ${gameDateString}`,
+          error
+        );
+      }
+    } else {
+      console.error(
+        `No gameCreationDate for match ${match.gameId} - ${match.gameDateString}`
+      );
+    }
   });
 
+  // Fill in missing months and add padding
+  const paddedGamesPerMonth = {};
+
+  if (
+    earliestDate &&
+    latestDate &&
+    !isNaN(earliestDate.getTime()) &&
+    !isNaN(latestDate.getTime())
+  ) {
+    // Get the year and month of the earliest and latest months
+    const earliestYear = earliestDate.getFullYear();
+    const earliestMonthIndex = earliestDate.getMonth(); // 0-indexed
+
+    const latestYear = latestDate.getFullYear();
+    const latestMonthIndex = latestDate.getMonth(); // 0-indexed
+
+    let startYear = earliestYear;
+    let startMonthIndex = earliestMonthIndex - 1;
+    if (startMonthIndex < 0) {
+      startYear--;
+      startMonthIndex = 11; // December
+    }
+
+    let endYear = latestYear;
+    let endMonthIndex = latestMonthIndex + 1;
+    if (endMonthIndex > 11) {
+      endYear++;
+      endMonthIndex = 0; // January
+    }
+
+    let currentYear = startYear;
+    let currentMonthIndex = startMonthIndex;
+
+    // Iterate through all months in the padded range
+    while (
+      currentYear < endYear ||
+      (currentYear === endYear && currentMonthIndex <= endMonthIndex)
+    ) {
+      const monthYear = `${currentYear}-${(currentMonthIndex + 1)
+        .toString()
+        .padStart(2, "0")}`;
+
+      // Use the count from gamesPerMonth, default to 0 if missing
+      paddedGamesPerMonth[monthYear] = gamesPerMonth[monthYear] || 0;
+
+      // Move to the next month
+      currentMonthIndex++;
+      if (currentMonthIndex > 11) {
+        currentYear++;
+        currentMonthIndex = 0;
+      }
+    }
+  } else {
+    console.error("No valid dates found for padding.");
+  }
+
   return {
+    gamesPerMonth: paddedGamesPerMonth,
     blueSide,
     redSide,
     champions,

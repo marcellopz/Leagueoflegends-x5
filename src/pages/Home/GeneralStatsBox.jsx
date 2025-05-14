@@ -1,7 +1,33 @@
-import { Box, Divider, Typography, useMediaQuery } from "@mui/material";
-import React, { useState, useEffect } from "react";
+import { Box, Typography } from "@mui/material";
+import React from "react";
 
 const TitleValueBox = ({ title, value }) => {
+  const [displayValue, setDisplayValue] = React.useState(0);
+
+  React.useEffect(() => {
+    const duration = 1000; // Total animation duration in milliseconds
+    const steps = 50; // Number of steps for the animation
+    const increment = (value - displayValue) / steps;
+    const intervalTime = duration / steps;
+
+    const interval = setInterval(() => {
+      setDisplayValue((prev) => {
+        const nextValue = prev + increment;
+        if (
+          (increment > 0 && nextValue >= value) ||
+          (increment < 0 && nextValue <= value)
+        ) {
+          clearInterval(interval);
+          return value;
+        }
+        return nextValue;
+      });
+    }, intervalTime);
+
+    return () => clearInterval(interval);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [value]);
+
   return (
     <Box
       sx={{
@@ -15,7 +41,7 @@ const TitleValueBox = ({ title, value }) => {
       }}
     >
       <Typography variant="h6">{title}</Typography>
-      <Typography variant="h3">{value}</Typography>
+      <Typography variant="h3">{Math.round(displayValue)}</Typography>
     </Box>
   );
 };

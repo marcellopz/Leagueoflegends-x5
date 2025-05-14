@@ -5,6 +5,11 @@ import { useTheme } from "@emotion/react";
 
 const ProgressBar = ({ value, maxValue, color }) => {
   const progressPercentage = (value / maxValue) * 100;
+  const [currentProgress, setCurrentProgress] = React.useState(0);
+
+  React.useEffect(() => {
+    setCurrentProgress(progressPercentage);
+  }, [progressPercentage]);
 
   return (
     <div style={{ height: "100%", width: "100%", margin: "8px 0" }}>
@@ -18,7 +23,8 @@ const ProgressBar = ({ value, maxValue, color }) => {
         >
           <div
             style={{
-              width: `${progressPercentage}%`,
+              transition: "width 1s ease-in-out",
+              width: `${currentProgress}%`,
               height: "100%",
               backgroundColor: color,
               position: "absolute",
@@ -60,7 +66,7 @@ const SideStatBox = ({ title, redSideStat, blueSideStat }) => {
           <ProgressBar
             value={redSideStat}
             maxValue={redSideStat > blueSideStat ? redSideStat : blueSideStat}
-            color={theme.palette.error.dark}
+            color={theme.palette.error.main}
           />
         </div>
         <div
@@ -82,7 +88,7 @@ const SideStatBox = ({ title, redSideStat, blueSideStat }) => {
           <ProgressBar
             value={blueSideStat}
             maxValue={redSideStat > blueSideStat ? redSideStat : blueSideStat}
-            color={theme.palette.primary.dark}
+            color={theme.palette.primary.main}
           />
         </div>
         <div
@@ -121,9 +127,6 @@ export default function OverallStats({ stats, hideMainStats }) {
   }, [stats]);
 
   const sideRelatedItems = useMemo(() => {
-    if (isObjEmpty(stats)) {
-      return [];
-    }
     return [
       <SideStatBox
         title="Wins"
@@ -176,7 +179,8 @@ export default function OverallStats({ stats, hideMainStats }) {
         blueSideStat={stats.blueSide.firstTower}
       />,
     ];
-  });
+  }, [stats]);
+
   return (
     <div
       className="red-blue-comparison-box"

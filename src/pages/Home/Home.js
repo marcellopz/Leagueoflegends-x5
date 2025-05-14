@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../../contexts/authContext";
 import { getOverallStats, getPlayer } from "../../services/firebaseDatabase";
 import { MiscContext } from "../../contexts/miscContext";
 import CardDisplay from "../../common-components/CardDisplay/CardDisplay";
@@ -11,7 +10,7 @@ import GeneralStatsBox from "./GeneralStatsBox";
 import GamesGraph from "./GamesGraph";
 
 export default function Home() {
-  const { signed, isAnonymous } = useContext(AuthContext);
+  // const { signed, isAnonymous } = useContext(AuthContext);
   const { getCardbackground } = useContext(MiscContext);
   const [players, setPlayers] = useState(null);
   const [stats, setStats] = useState({});
@@ -29,22 +28,20 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    if (signed) {
-      (async () => {
-        const players_ = await getPlayer("");
-        setPlayers(players_);
-      })();
-      getCardbackground();
-    }
-  }, [signed, getCardbackground]);
+    (async () => {
+      const players_ = await getPlayer("");
+      setPlayers(players_);
+    })();
+    getCardbackground();
+  }, [getCardbackground]);
 
   return (
     <X5pageContentArea noBackground removeMarginTop loading={loading}>
-      {isAnonymous && (
+      {/* {isAnonymous && (
         <div style={{ marginBottom: "10px" }}>
           To get the full experience log in and request to be a nerd
         </div>
-      )}
+      )} */}
       <Box className="grid-container">
         <Box
           className="grid-item big-item"
@@ -58,7 +55,7 @@ export default function Home() {
           <CardDisplay players={players} />
         </Box>
         <GeneralStatsBox stats={stats} players={players} />
-        <GamesGraph />
+        <GamesGraph stats={stats} />
       </Box>
       <OverallStats stats={stats} hideMainStats />
     </X5pageContentArea>

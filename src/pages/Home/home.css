@@ -16,6 +16,7 @@
   height: 100%;
   border-right: 1px solid rgba(255, 255, 255, 0.25);
   width: "0px";
+  margin: 0 1rem;
 }
 
 .grid-item {
@@ -27,8 +28,11 @@
 }
 
 .graph-item {
+  display: flex;
+  flex-direction: column;
   grid-row: 2 / 4;
-  min-height: 320px;
+  min-height: 300px;
+  max-height: 350px;
 }
 
 /* --- Desktop Layout (Larger Screens) --- */
@@ -60,6 +64,7 @@
 
   .small-item {
     flex-direction: column;
+    justify-content: space-between;
   }
 
   .small-item-divider {

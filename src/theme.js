@@ -26,11 +26,11 @@ export const themeOptions = {
       match: "#0d1a22",
     },
     text: {
-      primary: "#e0e0e0",
+      primary: "#e0f7fa",
     },
     navbar: {
       background: "#05070d",
-      text: "#e0e0e0",
+      text: "#e0f7fa",
     },
   },
   typography: {

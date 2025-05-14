@@ -174,11 +174,6 @@ function Navbar({ children }) {
                   initial={{ borderBottom: "4px solid transparent" }}
                   transition={{ duration: 0.2 }}
                   animate={{
-                    opacity:
-                      window.location.pathname === item.url ||
-                      hover === item.url
-                        ? 1
-                        : 0.9,
                     borderBottom:
                       window.location.pathname === item.url ||
                       hover === item.url
