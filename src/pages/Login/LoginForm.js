@@ -60,7 +60,7 @@ export default function LoginForm() {
         variant="outlined"
         sx={{ width: "350px", marginBottom: "0.5rem", maxWidth: "90%" }}
         type="submit"
-        color="secondary"
+        color="info"
       >
         Log In
       </Button>
@@ -74,7 +74,7 @@ export default function LoginForm() {
         }
         sx={{ width: "350px", marginBottom: "0.5rem", maxWidth: "90%" }}
         onClick={handleGoogleLogin}
-        color="secondary"
+        color="info"
       >
         <Typography>Log in with Google</Typography>
       </Button>
@@ -82,7 +82,7 @@ export default function LoginForm() {
         variant="outlined"
         startIcon={<Person />}
         sx={{ width: "350px", marginBottom: "2rem", maxWidth: "90%" }}
-        color="secondary"
+        color="info"
         component={Link}
         to="/home"
       >
