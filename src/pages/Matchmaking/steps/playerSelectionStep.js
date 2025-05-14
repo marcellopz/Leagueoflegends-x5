@@ -76,7 +76,7 @@ export default function PlayerSelectionStep({ setIsOk }) {
 
   useEffect(() => {
     setIsOk(!error);
-  }, [error]);
+  }, [error, setIsOk]);
 
   return (
     <div>

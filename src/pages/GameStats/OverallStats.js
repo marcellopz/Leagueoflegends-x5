@@ -1,6 +1,7 @@
 import { Divider, Grid, Paper, Typography } from "@mui/material";
 import React, { useMemo } from "react";
 import { isObjEmpty } from "../../utils/utils";
+import { useTheme } from "@emotion/react";
 
 const ProgressBar = ({ value, maxValue, color }) => {
   const progressPercentage = (value / maxValue) * 100;
@@ -30,62 +31,71 @@ const ProgressBar = ({ value, maxValue, color }) => {
   );
 };
 
-const SideStatBox = ({ title, redSideStat, blueSideStat }) => (
-  <div
-    style={{
-      background: "transparent",
-      border: "1px solid rgba(255, 255, 255, 0.2)",
-      padding: "13px",
-      width: "100%",
-      borderRadius: "4px",
-    }}
-  >
-    <Typography>{title}</Typography>
-    <Divider sx={{ marginY: "5px" }} />
-    <div style={{ display: "flex" }}>
-      <div
-        style={{
-          alignSelf: "center",
-          width: "80px",
-        }}
-      >
-        Red side:
+const SideStatBox = ({ title, redSideStat, blueSideStat }) => {
+  const theme = useTheme();
+  return (
+    <div
+      style={{
+        background: "transparent",
+        border: "1px solid rgba(255, 255, 255, 0.25)",
+        padding: "13px",
+        width: "100%",
+        borderRadius: "4px",
+      }}
+    >
+      <Typography>{title}</Typography>
+      <Divider
+        sx={{ marginY: "5px", borderColor: "rgba(255, 255, 255, 0.25)" }}
+      />
+      <div style={{ display: "flex" }}>
+        <div
+          style={{
+            alignSelf: "center",
+            width: "80px",
+          }}
+        >
+          Red side:
+        </div>
+        <div style={{ flexGrow: 1 }}>
+          <ProgressBar
+            value={redSideStat}
+            maxValue={redSideStat > blueSideStat ? redSideStat : blueSideStat}
+            color={theme.palette.error.dark}
+          />
+        </div>
+        <div
+          style={{ textAlign: "center", width: "50px", alignSelf: "center" }}
+        >
+          {redSideStat}
+        </div>
       </div>
-      <div style={{ flexGrow: 1 }}>
-        <ProgressBar
-          value={redSideStat}
-          maxValue={redSideStat > blueSideStat ? redSideStat : blueSideStat}
-          color="rgb(211 65 65)"
-        />
-      </div>
-      <div style={{ textAlign: "center", width: "50px", alignSelf: "center" }}>
-        {redSideStat}
+      <div style={{ display: "flex" }}>
+        <div
+          style={{
+            alignSelf: "center",
+            width: "80px",
+          }}
+        >
+          Blue side:
+        </div>
+        <div style={{ flexGrow: 1 }}>
+          <ProgressBar
+            value={blueSideStat}
+            maxValue={redSideStat > blueSideStat ? redSideStat : blueSideStat}
+            color={theme.palette.primary.dark}
+          />
+        </div>
+        <div
+          style={{ textAlign: "center", width: "50px", alignSelf: "center" }}
+        >
+          {blueSideStat}
+        </div>
       </div>
     </div>
-    <div style={{ display: "flex" }}>
-      <div
-        style={{
-          alignSelf: "center",
-          width: "80px",
-        }}
-      >
-        Blue side:
-      </div>
-      <div style={{ flexGrow: 1 }}>
-        <ProgressBar
-          value={blueSideStat}
-          maxValue={redSideStat > blueSideStat ? redSideStat : blueSideStat}
-          color="#4694c5"
-        />
-      </div>
-      <div style={{ textAlign: "center", width: "50px", alignSelf: "center" }}>
-        {blueSideStat}
-      </div>
-    </div>
-  </div>
-);
+  );
+};
 
-export default function OverallStats({ stats }) {
+export default function OverallStats({ stats, hideMainStats }) {
   const generalItems = useMemo(() => {
     if (isObjEmpty(stats)) {
       return [];
@@ -169,9 +179,9 @@ export default function OverallStats({ stats }) {
   });
   return (
     <div
+      className="red-blue-comparison-box"
       style={{
-        background: "transparent",
-        border: "1px solid rgba(255, 255, 255, 0.2)",
+        border: "1px solid rgba(255, 255, 255, 0.3)",
         borderRadius: "4px",
         margin: "20px",
       }}
@@ -181,20 +191,22 @@ export default function OverallStats({ stats }) {
           padding: "15px",
         }}
       >
-        <Paper
-          sx={{
-            background: "rgba(255,255,255, 0.1)",
-            border: "1px solid rgba(255, 255, 255, 0.2)",
-            padding: "1px 0",
-            marginBottom: "15px",
-          }}
-        >
-          {generalItems.map((item, i) => (
-            <div style={{ margin: "15px" }} key={i}>
-              {item}
-            </div>
-          ))}
-        </Paper>
+        {!hideMainStats && (
+          <Paper
+            sx={{
+              background: "rgba(255,255,255, 0.1)",
+              border: "1px solid rgba(255, 255, 255, 0.2)",
+              padding: "1px 0",
+              marginBottom: "15px",
+            }}
+          >
+            {generalItems.map((item, i) => (
+              <div style={{ margin: "15px" }} key={i}>
+                {item}
+              </div>
+            ))}
+          </Paper>
+        )}
         <Grid container spacing={2}>
           {sideRelatedItems.map((i, j) => (
             <Grid item key={j} xs={12} sm={6} md={4} lg={3}>

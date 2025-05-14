@@ -18,7 +18,8 @@ function CardBox({ card, scale, offset, zIndex }) {
       style={{
         position: "absolute",
         left: `50%`,
-        top: "15%",
+        top: "50%",
+        translateY: "-50%",
         zIndex: zIndex,
         boxShadow: 10,
       }}
@@ -42,15 +43,11 @@ export default function DisplayBox({ cards }) {
   return (
     <div
       style={{
-        width: "80%",
-        // minWidth: "700px",
-        height: "450px",
+        width: "100%",
+        height: "400px",
         border: "2px solid black",
         borderRadius: 10,
-        margin: "auto",
-        // marginTop: "10px",
         background: "black",
-        // "linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(77,77,77,1) 100%)",
         position: "relative",
         pointerEvents: "text",
         zIndex: 0,
@@ -61,7 +58,8 @@ export default function DisplayBox({ cards }) {
         onClick={() => setIndex((prev) => (prev === 0 ? prev : prev - 1))}
         style={{
           position: "absolute",
-          top: "45%",
+          top: "50%",
+          transform: "translateY(-50%)",
           left: "50px",
           color: theme.palette.primary.main,
           pointerEvents: "all",
@@ -78,7 +76,8 @@ export default function DisplayBox({ cards }) {
         }
         style={{
           position: "absolute",
-          top: "45%",
+          top: "50%",
+          transform: "translateY(-50%)",
           right: "50px",
           color: theme.palette.primary.main,
           pointerEvents: "all",
@@ -91,8 +90,8 @@ export default function DisplayBox({ cards }) {
       {cards.map((card, key) => {
         const abs = Math.abs(key - index);
         const zIndex = abs * -1;
-        const scale = 1.2 - abs * 0.2;
-        const offset = Math.sqrt(abs) * 200 * Math.sign(key - index);
+        const scale = 1.2 - abs * 0.1;
+        const offset = Math.sqrt(abs) * 180 * Math.sign(key - index);
         return (
           <CardBox
             key={key}

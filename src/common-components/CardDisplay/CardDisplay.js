@@ -6,6 +6,7 @@ export default function CardDisplay({ players }) {
   const cards = useMemo(() => {
     return players
       ? Object.keys(players)
+          .sort(() => Math.random() - 0.5)
           .filter((player) => !players[player].hide)
           .map((player) => (
             <CardComponent

@@ -77,7 +77,7 @@ function Navbar({ children }) {
           width: "100%",
           justifyContent: "space-between",
           fontSize: 20,
-          borderBottom: "1px solid rgba(255,255,255,0.1)",
+          borderBottom: "1px solid rgba(255,255,255,0.3)",
           boxSizing: "border-box",
           color: theme.palette.navbar.text,
         }}
@@ -178,7 +178,7 @@ function Navbar({ children }) {
                       window.location.pathname === item.url ||
                       hover === item.url
                         ? 1
-                        : 0.8,
+                        : 0.9,
                     borderBottom:
                       window.location.pathname === item.url ||
                       hover === item.url
@@ -218,7 +218,7 @@ function Navbar({ children }) {
                   }}
                 >
                   <Link to="admin">
-                    <Button variant="outlined" color="secondary">
+                    <Button variant="outlined" color="primary">
                       Admin page
                     </Button>
                   </Link>
@@ -244,16 +244,12 @@ function Navbar({ children }) {
               >
                 {isNull || isAnonymous ? (
                   <Link to="/auth/login">
-                    <Button variant="outlined" color="secondary">
+                    <Button variant="outlined" color="primary">
                       Log in
                     </Button>
                   </Link>
                 ) : (
-                  <Button
-                    onClick={signOut}
-                    variant="outlined"
-                    color="secondary"
-                  >
+                  <Button onClick={signOut} variant="outlined" color="primary">
                     Log out
                   </Button>
                 )}
@@ -294,7 +290,7 @@ function Navbar({ children }) {
                   }}
                 >
                   <Link to="admin">
-                    <Button variant="outlined" color="secondary">
+                    <Button variant="outlined" color="primary">
                       Admin page
                     </Button>
                   </Link>
@@ -302,12 +298,12 @@ function Navbar({ children }) {
               )}
               {isNull || isAnonymous ? (
                 <Link to="/auth/login">
-                  <Button variant="outlined" color="secondary">
+                  <Button variant="outlined" color="primary">
                     Log in
                   </Button>
                 </Link>
               ) : (
-                <Button onClick={signOut} variant="outlined" color="secondary">
+                <Button onClick={signOut} variant="outlined" color="primary">
                   Log out
                 </Button>
               )}

@@ -51,8 +51,8 @@ function CardComponent({ name, ranks, sx, label, onLoad, clickable = true }) {
       canvas.height = image.height;
       context.drawImage(photo, 40, 60);
       context.drawImage(image, 0, 0);
-      context.font = "bold italic 30px Papyrus";
-      context.fillStyle = "white";
+      context.font = "bold italic 25px Helvetica";
+      context.fillStyle = "#f0ffff";
 
       // area de texto do nome é de ~360 x 60
       // tamanho ideal de foto é de ~250 x 180
@@ -84,12 +84,17 @@ function CardComponent({ name, ranks, sx, label, onLoad, clickable = true }) {
 
   return (
     <motion.div
+      className="player-card"
       onClick={() => {
         if (clickable) {
           navigate("/player/" + name);
         }
       }}
-      style={{ height: "100%", ...sx }}
+      style={{
+        height: "100%",
+        cursor: "pointer",
+        ...sx,
+      }}
       initial="initial"
       animate="animate"
       variants={{

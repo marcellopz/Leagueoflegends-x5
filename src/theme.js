@@ -6,8 +6,8 @@ export const themeOptions = {
       styleOverrides: {
         tooltip: {
           fontSize: "1em",
-          color: "#f0fffe",
-          backgroundColor: "#0B0C10",
+          color: "#e0f7fa",
+          backgroundColor: "#1a1f25",
           whiteSpace: "nowrap",
           padding: "5px 10px",
         },
@@ -17,25 +17,20 @@ export const themeOptions = {
   palette: {
     mode: "dark",
     primary: {
-      // main: "#e65100",
-      main: "#66FCF1",
-    },
-    secondary: {
-      main: "#45A29E",
+      main: "#67e8f9",
     },
     background: {
-      bd: "#0B0C10",
-      default: "#0B0C10",
-      // paper: "#1F2833",
-      paper: "#081628",
-      match: "#041218",
+      bd: "#181e29",
+      default: "#12181d",
+      paper: "#1c2a35",
+      match: "#0d1a22",
     },
     text: {
-      primary: "#f0fffe",
+      primary: "#e0e0e0",
     },
     navbar: {
-      background: "#0B0C10",
-      text: "#f0fffe",
+      background: "#05070d",
+      text: "#e0e0e0",
     },
   },
   typography: {

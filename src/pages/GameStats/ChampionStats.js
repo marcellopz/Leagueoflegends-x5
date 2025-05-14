@@ -124,7 +124,7 @@ export default function ChampionStats({ champions }) {
     <div
       style={{
         background: "transparent",
-        border: "1px solid rgba(255, 255, 255, 0.2)",
+        border: "1px solid rgba(255, 255, 255, 0.3)",
         borderRadius: "4px",
         margin: "20px",
         padding: "10px",

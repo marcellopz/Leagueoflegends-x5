@@ -13,7 +13,6 @@ export default function CircularProgressWithLabel({
         display: "inline-flex",
         height: size,
         width: size,
-        color: "black",
       }}
     >
       <CircularProgress
@@ -26,7 +25,7 @@ export default function CircularProgressWithLabel({
       <CircularProgress
         variant="determinate"
         value={100}
-        color="secondary"
+        color="error"
         size={size}
       />
       <Box

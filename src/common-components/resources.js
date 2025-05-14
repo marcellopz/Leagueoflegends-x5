@@ -9,7 +9,7 @@ export const CHAMPIONICONURL =
 export const RUNEICONURL =
   "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/";
 export const CHAMPIONSPLASHURL =
-  "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champion-splashes/";
+  "https://raw.communitydragon.org/13.10/plugins/rcp-be-lol-game-data/global/default/v1/champion-splashes/";
 
 export const getChampionSplash = (champId) =>
   `${CHAMPIONSPLASHURL}${champId}/${champId}000.jpg`;
@@ -300,7 +300,7 @@ export const summonerSpellsUrl = {
   6: "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/data/spells/icons2d/summoner_haste.png",
   7: "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/data/spells/icons2d/summoner_heal.png",
   11: "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/data/spells/icons2d/summoner_smite.png",
-  12: "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/data/spells/icons2d/summoner_teleport.png",
+  12: "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/data/spells/icons2d/summoner_teleport_new.png",
   14: "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/data/spells/icons2d/summonerignite.png",
   21: "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/data/spells/icons2d/summonerbarrier.png",
 };
