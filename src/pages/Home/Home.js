@@ -8,9 +8,10 @@ import OverallStats from "../GameStats/OverallStats";
 import "./home.css";
 import GeneralStatsBox from "./GeneralStatsBox";
 import GamesGraph from "./GamesGraph";
+import { AuthContext } from "../../contexts/authContext";
 
 export default function Home() {
-  // const { signed, isAnonymous } = useContext(AuthContext);
+  const { isAnonymous } = useContext(AuthContext);
   const { getCardbackground } = useContext(MiscContext);
   const [players, setPlayers] = useState(null);
   const [stats, setStats] = useState({});
@@ -37,11 +38,6 @@ export default function Home() {
 
   return (
     <X5pageContentArea noBackground removeMarginTop loading={loading}>
-      {/* {isAnonymous && (
-        <div style={{ marginBottom: "10px" }}>
-          To get the full experience log in and request to be a nerd
-        </div>
-      )} */}
       <Box className="grid-container">
         <Box
           className="grid-item big-item"
@@ -53,6 +49,11 @@ export default function Home() {
             Legend Cards
           </Typography>
           <CardDisplay players={players} />
+          {isAnonymous && (
+            <span>
+              To see the card images, please log in and request permission.
+            </span>
+          )}
         </Box>
         <GeneralStatsBox stats={stats} players={players} />
         <GamesGraph stats={stats} />
