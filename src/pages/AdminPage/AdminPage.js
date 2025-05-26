@@ -50,7 +50,7 @@ export default function AdminPage() {
             variant="outlined"
             sx={{ marginRight: "10px" }}
             onClick={() => setRecalculateStatsDialog(true)}
-            disabled
+            // disabled
           >
             Recalculate stats
           </Button>
