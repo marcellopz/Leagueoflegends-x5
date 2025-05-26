@@ -158,3 +158,12 @@ export async function getMatchesFullMatch(id) {
   const match = await re.val();
   return match;
 }
+
+export async function clearPreProcessedData() {
+  await set(child(dbRef, `pre-processed-data/all-reduced`), {});
+  await set(child(dbRef, `pre-processed-data/players`), {});
+  await set(child(dbRef, `pre-processed-data/player-summary`), {});
+  await set(child(dbRef, `pre-processed-data/overall-stats`), {});
+  // await set(child(dbRef, `pre-processed-data/match-roles`), {});
+  await set(child(dbRef, `pre-processed-data/pairs`), {});
+}
