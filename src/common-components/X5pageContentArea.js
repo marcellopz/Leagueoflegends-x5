@@ -22,7 +22,7 @@ export default function X5pageContentArea({
             width: "100%",
             maxWidth: "1600px",
             borderRadius: "15px",
-            marginTop: "20px",
+            marginTop: "1rem",
 
             position: "relative",
             overflow: "hidden",

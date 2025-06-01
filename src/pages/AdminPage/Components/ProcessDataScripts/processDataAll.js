@@ -78,11 +78,59 @@ export default function processDataAll(matches) {
       })
   );
   const gamesPerMonth = {};
+  // Initialize weekDayDistribution object to track games by day of week
+  const weekDayDistribution = {
+    0: 0, // Sunday
+    1: 0, // Monday
+    2: 0, // Tuesday
+    3: 0, // Wednesday
+    4: 0, // Thursday
+    5: 0, // Friday
+    6: 0, // Saturday
+  };
+  // Initialize game duration histogram (grouped in 3-minute intervals)
+  const gameDurationHistogram = {};
+  // Initialize hourly distribution to track games by hour of day (0-23)
+  const hourlyDistribution = {
+    0: 0,
+    1: 0,
+    2: 0,
+    3: 0,
+    4: 0,
+    5: 0,
+    6: 0,
+    7: 0,
+    8: 0,
+    9: 0,
+    10: 0,
+    11: 0,
+    12: 0,
+    13: 0,
+    14: 0,
+    15: 0,
+    16: 0,
+    17: 0,
+    18: 0,
+    19: 0,
+    20: 0,
+    21: 0,
+    22: 0,
+    23: 0,
+  };
   let earliestDate = null;
   let latestDate = null;
 
   Object.values(matches).forEach((match) => {
     gameDurationTotal += match.gameDuration;
+
+    // Update game duration histogram (group in 3-minute intervals)
+    // Convert seconds to minutes and find the 3-minute interval
+    const durationMinutes = Math.floor(match.gameDuration / 60);
+    const intervalKey = Math.floor(durationMinutes / 3) * 3;
+    const intervalLabel = `${intervalKey}-${intervalKey + 3}`;
+    gameDurationHistogram[intervalLabel] =
+      (gameDurationHistogram[intervalLabel] || 0) + 1;
+
     match.participants.forEach((p) => {
       champions[p.championId].picks += 1;
       champions[p.championId].wins += p.stats.win;
@@ -142,6 +190,14 @@ export default function processDataAll(matches) {
           if (!latestDate || date.getTime() > latestDate.getTime()) {
             latestDate = date;
           }
+
+          // Update the weekday distribution
+          const dayOfWeek = date.getDay(); // 0 (Sunday) to 6 (Saturday)
+          weekDayDistribution[dayOfWeek] += 1;
+
+          // Update the hourly distribution
+          const hourOfDay = date.getHours(); // 0-23
+          hourlyDistribution[hourOfDay] += 1;
         } else {
           console.error(
             `Invalid date string for match ${match.gameId}: ${gameDateString}`
@@ -216,6 +272,19 @@ export default function processDataAll(matches) {
     console.error("No valid dates found for padding.");
   }
 
+  // Sort game duration histogram keys numerically
+  const sortedGameDurationHistogram = {};
+  Object.keys(gameDurationHistogram)
+    .map((key) => {
+      // Extract the first number from the interval (e.g., "6-9" becomes 6)
+      return parseInt(key.split("-")[0]);
+    })
+    .sort((a, b) => a - b)
+    .forEach((intervalStart) => {
+      const key = `${intervalStart}-${intervalStart + 3}`;
+      sortedGameDurationHistogram[key] = gameDurationHistogram[key];
+    });
+
   return {
     gamesPerMonth: paddedGamesPerMonth,
     blueSide,
@@ -223,5 +292,8 @@ export default function processDataAll(matches) {
     champions,
     gameDurationTotal,
     numberOfGames: Object.keys(matches).length,
+    weekDayDistribution, // Include the weekday distribution in the return value
+    gameDurationHistogram: sortedGameDurationHistogram, // Include sorted game duration histogram
+    hourlyDistribution, // Include games played per hour of day
   };
 }

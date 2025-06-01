@@ -1,0 +1,33 @@
+.playtime-section-container {
+  margin: 1rem;
+}
+
+.playtime-graphs-container {
+  display: grid;
+  gap: 1rem;
+}
+
+/* Desktop Layout (large screens) */
+@media (min-width: 1280px) {
+  .playtime-graphs-container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Tablet Layout (medium screens) */
+@media (min-width: 768px) and (max-width: 1279px) {
+  .playtime-graphs-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .game-duration-container {
+    grid-column: span 2;
+  }
+}
+
+/* Mobile Layout (small screens) */
+@media (max-width: 767px) {
+  .playtime-graphs-container {
+    grid-template-columns: 1fr;
+  }
+}

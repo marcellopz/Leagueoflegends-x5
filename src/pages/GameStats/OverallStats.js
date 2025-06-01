@@ -37,7 +37,7 @@ const ProgressBar = ({ value, maxValue, color }) => {
   );
 };
 
-const SideStatBox = ({ title, redSideStat, blueSideStat }) => {
+export const SideStatBox = ({ title, redSideStat, blueSideStat }) => {
   const theme = useTheme();
   return (
     <div

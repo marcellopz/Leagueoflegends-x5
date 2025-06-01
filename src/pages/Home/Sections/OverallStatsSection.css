@@ -1,0 +1,130 @@
+.overall-stats-section-container {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  padding: 0 1rem;
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.section-title {
+  text-align: center;
+  margin-bottom: 0.5rem !important;
+}
+
+.stats-grid-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.stats-category {
+  width: 100%;
+  padding: 1rem;
+  border-radius: 8px;
+  background-color: rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.stats-category {
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.category-title {
+  margin-bottom: 1rem !important;
+  font-weight: 500 !important;
+  text-align: left;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  padding-bottom: 0.5rem;
+}
+
+.stats-items-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.stat-item {
+  width: 100%;
+  transition: transform 0.2s, box-shadow 0.2s;
+  animation: fadeInItem 0.5s ease-in-out;
+  animation-fill-mode: both;
+}
+
+.stat-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Staggered animation for stat items */
+@keyframes fadeInItem {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Delay animation for each item */
+.stat-item:nth-child(1) {
+  animation-delay: 0.1s;
+}
+.stat-item:nth-child(2) {
+  animation-delay: 0.15s;
+}
+.stat-item:nth-child(3) {
+  animation-delay: 0.2s;
+}
+.stat-item:nth-child(4) {
+  animation-delay: 0.25s;
+}
+.stat-item:nth-child(5) {
+  animation-delay: 0.3s;
+}
+.stat-item:nth-child(6) {
+  animation-delay: 0.35s;
+}
+.stat-item:nth-child(7) {
+  animation-delay: 0.4s;
+}
+.stat-item:nth-child(8) {
+  animation-delay: 0.45s;
+}
+.stat-item:nth-child(9) {
+  animation-delay: 0.5s;
+}
+.stat-item:nth-child(10) {
+  animation-delay: 0.55s;
+}
+
+/* Desktop Layout (large screens) */
+@media (min-width: 1280px) {
+  .stats-items-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Tablet Layout (medium screens) */
+@media (min-width: 768px) and (max-width: 1279px) {
+  .stats-items-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Mobile Layout (small screens) */
+@media (max-width: 767px) {
+  .stats-items-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

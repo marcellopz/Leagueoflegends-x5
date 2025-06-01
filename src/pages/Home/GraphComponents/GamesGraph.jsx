@@ -60,6 +60,7 @@ const GamesGraph = ({ stats }) => {
       <ReactEcharts
         option={option}
         style={{
+          flexGrow: 1,
           width: "100%",
           height: "100%",
         }}
