@@ -70,6 +70,7 @@ function CardComponent({ name, ranks, sx, label, onLoad, clickable = true }) {
       context.fillText(ranks.support, 255, 379);
       setLoading2(false);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [label, photoSrc, ranks, cardBackground, loading]);
 
   if (loading) {
@@ -112,8 +113,8 @@ function CardComponent({ name, ranks, sx, label, onLoad, clickable = true }) {
       <canvas
         ref={canvasRef}
         style={{
-          border: "2px solid black",
-          borderRadius: 5,
+          border: "1px solid black",
+          borderRadius: 10,
           display: loading2 ? "none" : "block",
           ...sx,
         }}
