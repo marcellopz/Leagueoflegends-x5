@@ -1,15 +1,15 @@
 import React, { useContext, useEffect, useState } from "react";
-import { theme } from "../../theme";
 import { AuthContext } from "../authContext";
 import RequestButton from "./RequestButton";
 import { requestToBeANerd } from "../../services/firebaseDatabase";
 import Sidebar from "./Sidebar";
-import { Button, CircularProgress, IconButton } from "@mui/material";
+import { Button, IconButton, Typography } from "@mui/material";
 import { Menu } from "@mui/icons-material";
 import { NavbarContext } from "../navbarContext";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import grilhaIcon from "./grilhaIcon";
+import "./Navbar.css";
 
 const navbarItems = [
   { label: "match history", url: "/history" },
@@ -26,7 +26,6 @@ function Navbar({ children }) {
     isAnonymous,
     isAdmin,
     isNull,
-    signInAsGuest,
     loadStoreAuth,
   } = useContext(AuthContext);
   const { windowSize } = useContext(NavbarContext);
@@ -39,19 +38,19 @@ function Navbar({ children }) {
       if (loadStoreAuth()) {
         return () => {};
       }
-      signInAsGuest();
+      // signInAsGuest();
     }
-  }, [isNull, loadStoreAuth, signInAsGuest]);
+  }, [isNull, loadStoreAuth]);
 
-  if (isNull) {
-    return (
-      <div style={{ display: "flex", marginTop: "100px" }}>
-        <div style={{ margin: "auto" }}>
-          <CircularProgress />
-        </div>
-      </div>
-    );
-  }
+  // if (isNull) {
+  //   return (
+  //     <div style={{ display: "flex", marginTop: "100px" }}>
+  //       <div style={{ margin: "auto" }}>
+  //         <CircularProgress />
+  //       </div>
+  //     </div>
+  //   );
+  // }
 
   const requestToBeNerd = (name) => {
     if (isAnonymous) {
@@ -68,107 +67,48 @@ function Navbar({ children }) {
         open={sidebarOpen}
         setOpen={setSidebarOpen}
       />
-      <nav
-        style={{
-          backgroundColor: theme.palette.navbar.background,
-          height: "80px",
-          display: "flex",
-          zIndex: 10,
-          width: "100%",
-          justifyContent: "space-between",
-          fontSize: 20,
-          borderBottom: "1px solid rgba(255,255,255,0.3)",
-          boxSizing: "border-box",
-          color: theme.palette.navbar.text,
-        }}
-      >
-        <div
-          style={{
-            height: "100%",
-          }}
-        >
-          <ul
-            style={{
-              display: "flex",
-              paddingLeft: "20px",
-              margin: "0",
-              height: "100%",
-            }}
-          >
-            <li
-              style={{
-                listStyle: "none",
-                display: "flex",
-                alignItems: "center",
-                height: "100%",
-                marginRight: "50px",
-              }}
-            >
-              <Link
-                to="/home"
-                style={{
-                  color: "inherit",
-                  textDecoration: "none",
-                  display: "flex",
-                  alignItems: "center",
-                }}
-              >
-                <img
-                  src={grilhaIcon}
-                  style={{
-                    height: 60,
-                    marginRight: "10px",
-                    margin: "auto",
-                  }}
-                  alt="icon"
-                />
+      <nav className="navbar">
+        <div className="navbar-section">
+          <ul className="navbar-list">
+            <li className="navbar-item">
+              <Link to="/home" className="navbar-brand-link">
+                <div style={{ position: "relative" }}>
+                  <img src={grilhaIcon} className="navbar-logo" alt="icon" />
+                  <Typography
+                    sx={{
+                      position: "absolute",
+                      bottom: 2,
+                      left: -2,
+                      fontSize: "12px",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    Season 1
+                  </Typography>
+                </div>
 
-                <div style={{ marginLeft: "5px" }}>
-                  <h3
-                    style={{
-                      margin: 0,
-                      fontWeight: 600,
-                      lineHeight: 1.1,
-                      fontSize: 14,
-                    }}
-                  >
-                    x5
-                  </h3>
-                  <h3
-                    style={{
-                      margin: 0,
-                      fontWeight: 600,
-                      lineHeight: 1.1,
-                      fontSize: 14,
-                    }}
-                  >
-                    dos
-                  </h3>
-                  <h3
-                    style={{
-                      margin: 0,
-                      fontWeight: 600,
-                      lineHeight: 1.1,
-                      fontSize: 14,
-                    }}
-                  >
-                    nerds
-                  </h3>
+                <div className="navbar-brand-text">
+                  <h3 className="navbar-brand-line">x5</h3>
+                  <h3 className="navbar-brand-line">dos</h3>
+                  <h3 className="navbar-brand-line">nerds</h3>
                 </div>
               </Link>
+              <Button
+                LinkComponent={Link}
+                to="https://x5-season-2.vercel.app/"
+                variant="contained"
+                sx={{
+                  marginLeft: "16px",
+                }}
+              >
+                Go to season 2
+              </Button>
             </li>
             {windowSize.width > 1200 &&
               navbarItems.map((item) => (
                 <motion.li
                   key={item.label}
-                  style={{
-                    listStyle: "none",
-                    display: "flex",
-                    alignItems: "center",
-                    height: "100%",
-                    marginRight: "50px",
-                    boxSizing: "border-box",
-                  }}
+                  className="navbar-item"
                   onMouseEnter={() => setHover(item.url)}
                   onMouseLeave={() => setHover("")}
                   initial={{ borderBottom: "4px solid transparent" }}
@@ -181,13 +121,8 @@ function Navbar({ children }) {
                         : "4px solid transparent",
                   }}
                 >
-                  <Link
-                    to={item.url}
-                    style={{ color: "inherit", textDecoration: "none" }}
-                  >
-                    <h1 style={{ fontWeight: 400, letterSpacing: "0.02em" }}>
-                      {item.label}
-                    </h1>
+                  <Link to={item.url} className="navbar-link">
+                    <h1 className="navbar-link-title">{item.label}</h1>
                   </Link>
                 </motion.li>
               ))}
@@ -195,23 +130,9 @@ function Navbar({ children }) {
         </div>
         <div>
           {windowSize.width > 1200 ? (
-            <ul
-              style={{
-                display: "flex",
-                paddingLeft: "20px",
-                margin: "0",
-                height: "100%",
-              }}
-            >
+            <ul className="navbar-list">
               {isAdmin && (
-                <li
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    height: "100%",
-                    paddingRight: "20px",
-                  }}
-                >
+                <li className="navbar-right-item">
                   <Link to="admin">
                     <Button variant="outlined" color="primary">
                       Admin page
@@ -219,27 +140,13 @@ function Navbar({ children }) {
                   </Link>
                 </li>
               )}
-              <li
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  height: "100%",
-                  paddingRight: "20px",
-                }}
-              >
+              <li className="navbar-right-item">
                 <h1>{userObj?.displayName}</h1>
               </li>
-              <li
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  height: "100%",
-                  paddingRight: "20px",
-                }}
-              >
+              <li className="navbar-right-item">
                 {isNull || isAnonymous ? (
                   <Link to="/auth/login">
-                    <Button variant="outlined" color="primary">
+                    <Button variant="contained" color="primary">
                       Log in
                     </Button>
                   </Link>
@@ -250,14 +157,7 @@ function Navbar({ children }) {
                 )}
               </li>
               {!isNerd && !isAnonymous && (
-                <li
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    height: "100%",
-                    paddingRight: "20px",
-                  }}
-                >
+                <li className="navbar-right-item">
                   <RequestButton
                     open={requestDialogOpen}
                     setOpen={setRequestDialogOpen}
@@ -267,25 +167,11 @@ function Navbar({ children }) {
               )}
             </ul>
           ) : (
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                height: "100%",
-                paddingRight: "20px",
-              }}
-            >
+            <div className="navbar-mobile-controls">
               {isAdmin && (
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    height: "100%",
-                    paddingRight: "20px",
-                  }}
-                >
+                <div className="navbar-right-item">
                   <Link to="admin">
-                    <Button variant="outlined" color="primary">
+                    <Button variant="contained" color="primary">
                       Admin page
                     </Button>
                   </Link>
@@ -293,7 +179,7 @@ function Navbar({ children }) {
               )}
               {isNull || isAnonymous ? (
                 <Link to="/auth/login">
-                  <Button variant="outlined" color="primary">
+                  <Button variant="contained" color="primary">
                     Log in
                   </Button>
                 </Link>
@@ -305,7 +191,7 @@ function Navbar({ children }) {
 
               <IconButton
                 onClick={() => setSidebarOpen(true)}
-                sx={{ marginLeft: "10px" }}
+                className="navbar-mobile-button"
               >
                 <Menu fontSize="large" />
               </IconButton>

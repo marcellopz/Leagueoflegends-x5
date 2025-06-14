@@ -10,51 +10,19 @@ const MainSection = ({ stats, players }) => {
   const { isAnonymous } = useContext(AuthContext);
   return (
     <Box className="main-section-container" id="main-section">
-      <Box
-        className="grid-item big-item relative"
-        sx={{
-          minHeight: "470px",
-        }}
-      >
-        <Typography
-          variant="h5"
-          sx={{
-            position: "absolute",
-            top: 32,
-            left: "50%",
-            transform: "translateX(-50%)",
-            zIndex: 1,
-            fontWeight: 500,
-          }}
-        >
+      <Box className="mainsection-panel mainsection-large-panel mainsection-cards-container">
+        <Typography variant="h5" className="mainsection-cards-title">
           Legend Cards
         </Typography>
         {players && Object.keys(players).length > 0 ? (
           <CardDisplay players={players} />
         ) : (
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              height: "100%",
-              color: "#888",
-            }}
-          >
+          <Box className="mainsection-cards-loading">
             Loading player cards...
           </Box>
         )}
         {isAnonymous && (
-          <span
-            style={{
-              position: "absolute",
-              bottom: 16,
-              left: "50%",
-              transform: "translateX(-50%)",
-              color: "#888",
-              width: "100%",
-            }}
-          >
+          <span className="mainsection-anonymous-message">
             To see the card images, please log in and request permission.
           </span>
         )}

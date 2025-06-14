@@ -110,3 +110,12 @@ export function getKDA(obj) {
 export function formatNumber(number) {
   return new Intl.NumberFormat().format(number);
 }
+
+export function getTop3Rank(ranks) {
+  const { top, jungle, mid, adc, support } = ranks;
+  const arr = [top, jungle, mid, adc, support];
+  arr.sort((a, b) => b - a);
+  const top3 = arr.slice(0, 3);
+  const sum = top3.reduce((acc, val) => acc + val, 0);
+  return (sum / top3.length).toFixed(1);
+}

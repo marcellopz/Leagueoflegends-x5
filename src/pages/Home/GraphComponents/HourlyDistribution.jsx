@@ -52,7 +52,8 @@ const HourlyDistribution = ({ stats }) => {
         type: "bar",
         data: numbers,
         itemStyle: {
-          color: theme.palette.secondary.main,
+          color: theme.palette.primary.light,
+          borderRadius: [20, 20, 0, 0],
         },
       },
     ],

@@ -1,9 +1,9 @@
 import { Divider, Grid, Paper, Typography } from "@mui/material";
 import React, { useMemo } from "react";
 import { isObjEmpty } from "../../utils/utils";
-import { useTheme } from "@emotion/react";
+import "./OverallStats.css"; // Import component styles
 
-const ProgressBar = ({ value, maxValue, color }) => {
+const ProgressBar = ({ value, maxValue, color, isRed, isBlue }) => {
   const progressPercentage = (value / maxValue) * 100;
   const [currentProgress, setCurrentProgress] = React.useState(0);
 
@@ -12,23 +12,15 @@ const ProgressBar = ({ value, maxValue, color }) => {
   }, [progressPercentage]);
 
   return (
-    <div style={{ height: "100%", width: "100%", margin: "8px 0" }}>
-      <div style={{ width: "100%" }}>
-        <div
-          style={{
-            width: "100%",
-            height: "16px",
-            position: "relative",
-          }}
-        >
+    <div className="progress-bar-container">
+      <div className="progress-bar-wrapper">
+        <div className="progress-bar-track">
           <div
+            className={`progress-bar-indicator ${
+              isRed ? "progress-bar-red" : ""
+            } ${isBlue ? "progress-bar-blue" : ""}`}
             style={{
-              transition: "width 1s ease-in-out",
               width: `${currentProgress}%`,
-              height: "100%",
-              backgroundColor: color,
-              position: "absolute",
-              left: "0",
             }}
           ></div>
         </div>
@@ -38,64 +30,33 @@ const ProgressBar = ({ value, maxValue, color }) => {
 };
 
 export const SideStatBox = ({ title, redSideStat, blueSideStat }) => {
-  const theme = useTheme();
   return (
-    <div
-      style={{
-        background: "transparent",
-        border: "1px solid rgba(255, 255, 255, 0.25)",
-        padding: "13px",
-        width: "100%",
-        borderRadius: "4px",
-      }}
-    >
+    <div className="side-stat-box">
       <Typography>{title}</Typography>
-      <Divider
-        sx={{ marginY: "5px", borderColor: "rgba(255, 255, 255, 0.25)" }}
-      />
-      <div style={{ display: "flex" }}>
-        <div
-          style={{
-            alignSelf: "center",
-            width: "80px",
-          }}
-        >
-          Red side:
-        </div>
-        <div style={{ flexGrow: 1 }}>
+      <Divider className="side-stat-divider" />
+      <div className="side-stat-row">
+        <div className="side-stat-label red-team">Red side:</div>
+        <div className="side-stat-progress">
           <ProgressBar
             value={redSideStat}
             maxValue={redSideStat > blueSideStat ? redSideStat : blueSideStat}
-            color={theme.palette.error.main}
+            color="var(--red-vivid)"
+            isRed={true}
           />
         </div>
-        <div
-          style={{ textAlign: "center", width: "50px", alignSelf: "center" }}
-        >
-          {redSideStat}
-        </div>
+        <div className="side-stat-value red-team">{redSideStat}</div>
       </div>
-      <div style={{ display: "flex" }}>
-        <div
-          style={{
-            alignSelf: "center",
-            width: "80px",
-          }}
-        >
-          Blue side:
-        </div>
-        <div style={{ flexGrow: 1 }}>
+      <div className="side-stat-row">
+        <div className="side-stat-label blue-team">Blue side:</div>
+        <div className="side-stat-progress">
           <ProgressBar
             value={blueSideStat}
             maxValue={redSideStat > blueSideStat ? redSideStat : blueSideStat}
-            color={theme.palette.primary.main}
+            color="var(--blue-vivid)"
+            isBlue={true}
           />
         </div>
-        <div
-          style={{ textAlign: "center", width: "50px", alignSelf: "center" }}
-        >
-          {blueSideStat}
-        </div>
+        <div className="side-stat-value blue-team">{blueSideStat}</div>
       </div>
     </div>
   );
@@ -182,30 +143,12 @@ export default function OverallStats({ stats, hideMainStats }) {
   }, [stats]);
 
   return (
-    <div
-      className="red-blue-comparison-box"
-      style={{
-        border: "1px solid rgba(255, 255, 255, 0.3)",
-        borderRadius: "4px",
-        margin: "20px",
-      }}
-    >
-      <div
-        style={{
-          padding: "15px",
-        }}
-      >
+    <div className="stats-container">
+      <div className="stats-inner-container">
         {!hideMainStats && (
-          <Paper
-            sx={{
-              background: "rgba(255,255,255, 0.1)",
-              border: "1px solid rgba(255, 255, 255, 0.2)",
-              padding: "1px 0",
-              marginBottom: "15px",
-            }}
-          >
+          <Paper className="general-stats-paper">
             {generalItems.map((item, i) => (
-              <div style={{ margin: "15px" }} key={i}>
+              <div className="general-stat-item" key={i}>
                 {item}
               </div>
             ))}

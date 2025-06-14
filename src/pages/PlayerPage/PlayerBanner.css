@@ -1,0 +1,117 @@
+/* PlayerBanner Component Styles */
+
+.pb-banner {
+  width: 100%;
+  padding: 10px 40px 0px 40px;
+  overflow: hidden;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position-y: 20%;
+  position: relative;
+  border-bottom: 1px solid black;
+}
+
+.pb-content {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.pb-left-section {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: auto;
+}
+
+.pb-player-info {
+  margin: 20px;
+  margin-bottom: auto;
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 5px;
+  padding: 6px;
+}
+
+.pb-player-name {
+  font-size: 25px !important;
+  margin-bottom: 10px !important;
+}
+
+.pb-stats-container {
+  margin: auto 0;
+  display: flex;
+}
+
+.pb-winrate-box {
+  background: rgba(0, 0, 0, 0.8);
+  height: fit-content;
+  padding: 20px;
+  margin: 20px 10px 20px 0px;
+  border-radius: 5px;
+}
+
+.pb-roles-box {
+  background: rgba(0, 0, 0, 0.8);
+  padding: 20px;
+  margin: 20px 0 20px 5px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.pb-role-stat {
+  display: flex;
+}
+
+.pb-role-icon {
+  width: 37px;
+  height: 37px;
+}
+
+.pb-role-winrate {
+  align-self: center;
+  margin-left: 5px;
+}
+
+.pb-tabs-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 2%;
+}
+
+.pb-tabs-container > div {
+  background-color: rgba(0, 0, 0, 0.8);
+  border-radius: 5px 5px 0px 0px;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .pb-banner {
+    padding: 10px 20px 0px 20px;
+  }
+
+  .pb-content {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .pb-left-section {
+    margin-right: 0;
+    justify-content: center;
+  }
+
+  .pb-stats-container {
+    flex-direction: column;
+  }
+
+  .pb-winrate-box,
+  .pb-roles-box {
+    margin: 10px 0;
+  }
+
+  .pb-tabs-container {
+    justify-content: center;
+    margin-right: 0;
+  }
+}

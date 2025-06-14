@@ -4,11 +4,92 @@ import {
 } from "../../services/firebaseDatabase";
 import { championIds, summonerSpells } from "../../common-components/resources";
 
+/**
+ * Validates the match object against required criteria
+ * @param {Object} matchObj - The match object to validate
+ * @returns {Object} - Validation result with isValid flag and error messages
+ */
+const validateMatch = (matchObj) => {
+  const errors = [];
+
+  // Check gameType is CUSTOM_GAME
+  if (matchObj.gameType !== "CUSTOM_GAME") {
+    errors.push(
+      `Invalid gameType: ${matchObj.gameType}. Expected: CUSTOM_GAME`
+    );
+  }
+
+  // Check gameId is a number
+  if (!matchObj.gameId || typeof matchObj.gameId !== "number") {
+    errors.push(`Invalid gameId: ${matchObj.gameId}. Expected a number`);
+  }
+
+  // Check participant count is 10
+  if (
+    !matchObj.participantIdentities ||
+    matchObj.participantIdentities.length !== 10
+  ) {
+    errors.push(
+      `Invalid number of participants: ${
+        matchObj.participantIdentities?.length || 0
+      }. Expected: 10`
+    );
+  }
+
+  // Check gameMode is CLASSIC
+  if (matchObj.gameMode !== "CLASSIC") {
+    errors.push(`Invalid gameMode: ${matchObj.gameMode}. Expected: CLASSIC`);
+  }
+
+  // Check reply_type is lol-match-details
+  if (matchObj.reply_type !== "lol-match-details") {
+    errors.push(
+      `Invalid reply_type: ${matchObj.reply_type}. Expected: lol-match-details`
+    );
+  }
+
+  // Additional checks for required fields
+  if (!matchObj.gameCreationDate) {
+    errors.push("Missing gameCreationDate");
+  }
+
+  if (!matchObj.gameDuration || typeof matchObj.gameDuration !== "number") {
+    errors.push(
+      `Invalid gameDuration: ${matchObj.gameDuration}. Expected a number`
+    );
+  }
+
+  if (!matchObj.gameVersion) {
+    errors.push("Missing gameVersion");
+  }
+
+  return {
+    isValid: errors.length === 0,
+    errors,
+  };
+};
+
 export const sendFile = (fileContent) => {
-  const matchObj = JSON.parse(fileContent);
-  sendFullMatchJson(matchObj);
-  const reducedMatch = reduceFile(matchObj);
-  sendReducedMatchJson(reducedMatch);
+  try {
+    const matchObj = JSON.parse(fileContent);
+
+    // Validate the match object
+    const validation = validateMatch(matchObj);
+
+    if (!validation.isValid) {
+      console.error("Match validation failed:", validation.errors);
+      throw new Error(`Invalid match data: ${validation.errors.join(", ")}`);
+    }
+
+    sendFullMatchJson(matchObj);
+    const reducedMatch = reduceFile(matchObj);
+    sendReducedMatchJson(reducedMatch);
+
+    return { success: true };
+  } catch (error) {
+    console.error("Error processing match file:", error);
+    return { success: false, error: error.message };
+  }
 };
 
 const reduceFile = (matchObj) => {
@@ -24,7 +105,7 @@ const reduceFile = (matchObj) => {
   const participantIdentities = matchObj.participantIdentities.map((p) => ({
     participantId: p.participantId,
     summonerId: p.player.summonerId,
-    summonerName: p.player.summonerName,
+    summonerName: p.player.gameName,
   }));
 
   const participants = matchObj.participants.map((p) => ({

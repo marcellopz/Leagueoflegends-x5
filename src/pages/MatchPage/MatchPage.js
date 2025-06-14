@@ -13,9 +13,10 @@ import MatchComponent from "./MatchComponent";
 import { Grid } from "@mui/material";
 import DamageChart from "./DamageChart";
 import PlayerTabs from "./PlayerTabs";
+import "./MatchPage.css";
 
 const MatchDetails = ({ date, matchData }) => (
-  <div style={{ opacity: "0.7" }}>
+  <div className="match-details-container">
     <p>{`Match played on ${date.toLocaleDateString(undefined, {
       year: "numeric",
       month: "2-digit",
@@ -60,7 +61,7 @@ export default function MatchPage() {
 
   return (
     <X5pageContentArea title="Match details">
-      <div style={{ margin: "5px 20px 20px 20px" }}>
+      <div className="match-page-container">
         <MatchDetails date={date} matchData={matchData} />
         <MatchComponent matchData={matchData} matchRoles={matchRoles} />
         <ExtraInfo matchData={matchData} />

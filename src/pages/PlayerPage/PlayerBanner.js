@@ -5,6 +5,7 @@ import CircularProgressWithLabel from "./components/CircularProgressWithLabel";
 import { getChampionSplash } from "../../common-components/resources";
 import { floatToPercentageString } from "../../utils/utils";
 import lanes from "../../assets/images/lanes";
+import "./PlayerBanner.css";
 
 const roles = ["top", "jungle", "mid", "adc", "support"];
 
@@ -18,36 +19,16 @@ function PlayerBanner({
 }) {
   return (
     <div
+      className="pb-banner"
       style={{
-        width: "100%",
-        padding: "10px 40px 0px 40px",
-        overflow: "hidden",
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
-        backgroundPositionY: "20%",
-        position: "relative",
-        borderBottom: "1px solid black",
         backgroundImage:
           champs.length > 0
             ? `url(${getChampionSplash(champs[0].championId)})`
             : undefined,
       }}
     >
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          flexWrap: "wrap",
-          gap: "20px",
-        }}
-      >
-        <div
-          style={{
-            display: "flex",
-            flexWrap: "wrap",
-            marginRight: "auto",
-          }}
-        >
+      <div className="pb-content">
+        <div className="pb-left-section">
           {selectedPlayerCardStats && (
             <CardComponent
               name={playerKey}
@@ -59,8 +40,8 @@ function PlayerBanner({
               }}
             />
           )}
-          <div style={{ margin: "20px", height: "70px" }}>
-            <Typography sx={{ fontSize: 25, marginBottom: "10px" }}>
+          <div className="pb-player-info">
+            <Typography className="pb-player-name">
               {playerInfo.summonerName}
             </Typography>
             <Typography>
@@ -69,16 +50,8 @@ function PlayerBanner({
           </div>
         </div>
 
-        <div style={{ margin: "auto 0", display: "flex" }}>
-          <Box
-            sx={{
-              background: "rgba(0,0,0,0.8)",
-              height: "fit-content",
-              padding: "20px",
-              margin: "20px 10px 20px 0px",
-              borderRadius: "5px",
-            }}
-          >
+        <div className="pb-stats-container">
+          <Box className="pb-winrate-box">
             <CircularProgressWithLabel
               value={playerInfo.winRate}
               size={176}
@@ -86,22 +59,12 @@ function PlayerBanner({
               labelFontSize={25}
             />
           </Box>
-          <Box
-            sx={{
-              background: "rgba(0,0,0,0.8)",
-              padding: "20px",
-              margin: "20px 0 20px 5px",
-              borderRadius: "5px",
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "space-between",
-            }}
-          >
+          <Box className="pb-roles-box">
             {roles.map((role, i) => (
-              <div style={{ display: "flex" }} key={i}>
-                <img src={lanes[i]} alt={role} width={37} height={37} />
+              <div className="pb-role-stat" key={i}>
+                <img src={lanes[i]} alt={role} className="pb-role-icon" />
                 <Tooltip title={`${playerInfo.roleMatches[role].games} games`}>
-                  <p style={{ alignSelf: "center", marginLeft: "5px" }}>
+                  <p className="pb-role-winrate">
                     {floatToPercentageString(
                       playerInfo.roleMatches[role].wins /
                         playerInfo.roleMatches[role].games
@@ -113,10 +76,12 @@ function PlayerBanner({
           </Box>
         </div>
       </div>
-      <div
-        style={{ display: "flex", justifyContent: "end", marginRight: "2%" }}
-      >
-        <Tabs onChange={(e, v) => setSelectedTab(v)} value={selectedTab}>
+      <div className="pb-tabs-container">
+        <Tabs
+          onChange={(e, v) => setSelectedTab(v)}
+          value={selectedTab}
+          textColor="primary.light"
+        >
           <Tab label="Summary" value={0} />
           <Tab label="Champions" value={1} />
           <Tab label="Stats" value={2} />

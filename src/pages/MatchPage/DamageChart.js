@@ -2,28 +2,14 @@ import React, { useState } from "react";
 import { CHAMPIONICONURL } from "../../common-components/resources";
 import { floatToPercentageString, formatNumber } from "../../utils/utils";
 import { Tooltip } from "@mui/material";
+import "./DamageChart.css";
 
 const Tab = ({ setTabState, tabState, n, text }) => (
   <div
-    className="flex-1 text-center flex"
-    style={
-      tabState === n
-        ? {
-            borderTop: "1px solid rgba(255,255,255,0.5)",
-            borderLeft: "1px solid rgba(255,255,255,0.5)",
-            borderRight: "1px solid rgba(255,255,255,0.5)",
-          }
-        : {
-            background: "rgba(255,255,255,0.05)",
-            borderBottom: "1px solid rgba(255,255,255,0.5)",
-            borderTop: "1px solid rgba(255,255,255,0.3)",
-            borderLeft: "1px solid rgba(255,255,255,0.3)",
-            borderRight: "1px solid rgba(255,255,255,0.3)",
-          }
-    }
+    className={`tab ${tabState === n ? "tab-active" : "tab-inactive"}`}
     onClick={() => setTabState(n)}
   >
-    <p className="m-auto">{text}</p>
+    <p className="tab-text">{text}</p>
   </div>
 );
 
@@ -33,8 +19,6 @@ const tabKey = [
   "goldEarned",
 ];
 
-const colors = ["rgb(100 166 245)", "rgb(245, 100, 100)", "rgb(240, 245, 100)"];
-
 const sortFunctions = (t) => (a, b) => b.stats[tabKey[t]] - a.stats[tabKey[t]];
 
 export default function DamageChart({ matchData }) {
@@ -42,7 +26,7 @@ export default function DamageChart({ matchData }) {
 
   return (
     <div>
-      <div className="h-12 flex">
+      <div className="tab-container">
         <Tab
           setTabState={setTabState}
           tabState={tabState}
@@ -57,34 +41,32 @@ export default function DamageChart({ matchData }) {
         />
         <Tab setTabState={setTabState} tabState={tabState} n={2} text="Gold" />
       </div>
-      <ul
-        style={{
-          borderBottom: "1px solid rgba(255,255,255,0.5)",
-          borderLeft: "1px solid rgba(255,255,255,0.5)",
-          borderRight: "1px solid rgba(255,255,255,0.5)",
-          padding: "10px",
-        }}
-      >
+      <ul className="chart-content">
         {matchData.participants.sort(sortFunctions(tabState)).map((p, i) => {
           const max = Math.max(
             ...matchData.participants.map((o) => o.stats[tabKey[tabState]])
           );
           return (
-            <li className="p-4 px-6" key={i}>
-              <div className="flex">
+            <li className="chart-item" key={i}>
+              <div className="chart-item-content">
                 <img
                   src={`${CHAMPIONICONURL}${p.championId}.png`}
                   width={50}
                   height={50}
                   alt={p.championName}
                 />
-                <div className="flex-1 px-4 py-3.5">
+                <div className="chart-bar-container">
                   <Tooltip title={formatNumber(p.stats[tabKey[tabState]])}>
-                    <div className="h-5">
+                    <div className="chart-bar">
                       <div
+                        className={
+                          tabState === 0
+                            ? "damage-bar"
+                            : tabState === 1
+                            ? "damage-taken-bar"
+                            : "gold-bar"
+                        }
                         style={{
-                          background: colors[tabState],
-                          height: "100%",
                           width: floatToPercentageString(
                             p.stats[tabKey[tabState]] / max
                           ),

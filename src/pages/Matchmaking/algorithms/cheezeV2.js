@@ -1,3 +1,5 @@
+/* eslint-disable eqeqeq */
+/* eslint-disable no-unused-vars */
 export default function BalanceMatchCheezeV2(players, tolerance, fixed) {
   // The method to generate the solution uses Local Search which relies on restarts
   // Suppose if no good solutions exist, the function will keep restarting

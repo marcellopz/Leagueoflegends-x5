@@ -8,6 +8,7 @@ import X5pageContentArea from "../../common-components/X5pageContentArea";
 import {
   getWinRateClassName,
   floatToPercentageString,
+  getTop3Rank,
 } from "../../utils/utils";
 import {
   botB64,
@@ -17,13 +18,14 @@ import {
   topB64,
 } from "../../assets/images/lanes";
 import { useNavigate } from "react-router-dom";
+import "./PlayerList.css"; // Import component styles
 
 const columns = [
   {
     field: "name",
     headerName: "Name",
     type: "string",
-    width: 90,
+    width: 100,
     sortable: true,
   },
   {
@@ -59,7 +61,9 @@ const columns = [
     align: "center",
     width: 60,
     sortable: true,
-    renderHeader: () => <img src={topB64} width={50} alt="top" />,
+    renderHeader: () => (
+      <img src={topB64} width={40} alt="top" className="lane-icon" />
+    ),
   },
   {
     field: "jungle",
@@ -68,7 +72,9 @@ const columns = [
     align: "center",
     width: 60,
     sortable: true,
-    renderHeader: () => <img src={jngB64} width={50} alt="jungle" />,
+    renderHeader: () => (
+      <img src={jngB64} width={40} alt="jungle" className="lane-icon" />
+    ),
   },
   {
     field: "mid",
@@ -77,7 +83,9 @@ const columns = [
     align: "center",
     width: 60,
     sortable: true,
-    renderHeader: () => <img src={midB64} width={50} alt="mid" />,
+    renderHeader: () => (
+      <img src={midB64} width={40} alt="mid" className="lane-icon" />
+    ),
   },
   {
     field: "adc",
@@ -86,7 +94,9 @@ const columns = [
     align: "center",
     width: 60,
     sortable: true,
-    renderHeader: () => <img src={botB64} width={50} alt="bot" />,
+    renderHeader: () => (
+      <img src={botB64} width={40} alt="bot" className="lane-icon" />
+    ),
   },
   {
     field: "support",
@@ -95,7 +105,18 @@ const columns = [
     align: "center",
     width: 60,
     sortable: true,
-    renderHeader: () => <img src={supB64} width={50} alt="support" />,
+    renderHeader: () => (
+      <img src={supB64} width={40} alt="support" className="lane-icon" />
+    ),
+  },
+  {
+    field: "avg",
+    headerName: "Avg Top 3",
+    type: "number",
+    align: "center",
+    width: 85,
+    sortable: true,
+    valueGetter: (params) => getTop3Rank(params.row),
   },
 ];
 
@@ -112,7 +133,7 @@ export default function PlayerList() {
     })();
     (async () => {
       const players_ = await getPlayerSummaryList();
-      setPlayersSummary(players_);
+      setPlayersSummary(players_ ?? {});
     })();
   }, []);
 
@@ -120,10 +141,11 @@ export default function PlayerList() {
     const ps = Object.keys(players ?? {}).map((p, i) => {
       return {
         ...players[p],
-        winRate: playersSummary[players[p].account_id]?.winRate ?? 0,
-        summonerName: playersSummary[players[p].account_id]?.summonerName ?? "",
+        winRate: playersSummary[players[p]?.account_id]?.winRate ?? 0,
+        summonerName:
+          playersSummary[players[p]?.account_id]?.summonerName ?? "",
         numberOfMatches:
-          playersSummary[players[p].account_id]?.numberOfMatches ?? 0,
+          playersSummary[players[p]?.account_id]?.numberOfMatches ?? 0,
         id: i,
         player_id: p,
       };
@@ -136,7 +158,7 @@ export default function PlayerList() {
       title="Player List"
       loading={playersWithStats.length === 0}
     >
-      <div style={{ maxWidth: "703px", width: "95%", margin: "auto" }}>
+      <div className="player-list-grid-container">
         <DataGrid
           rows={playersWithStats}
           columns={columns}
@@ -146,14 +168,17 @@ export default function PlayerList() {
           disableColumnSelector
           disableDensitySelector
           disableColumnMenu
+          className="player-list-datagrid"
           sx={{
-            "& .MuiDataGrid-cell:focus": {
-              outline: "none",
-            },
             "& .MuiDataGrid-cell": {
-              cursor: "pointer",
+              borderColor: "var(--border-light)",
             },
-            marginBottom: "20px",
+            "& .MuiDataGrid-footerContainer": {
+              borderTop: "1px solid var(--border-light)",
+            },
+            "& .MuiTablePagination-root": {
+              color: "var(--foreground)",
+            },
           }}
           onRowClick={(a) => Navigate("/player/" + a.row.player_id)}
         />

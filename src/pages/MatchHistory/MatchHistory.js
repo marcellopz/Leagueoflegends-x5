@@ -9,6 +9,7 @@ import MatchDisplay from "./MatchDisplay/MatchDisplay";
 import X5pageContentArea from "../../common-components/X5pageContentArea";
 import EditMatchDialog from "./EditMatchDialog";
 import Filters from "./MatchHistoryFilter";
+import "./MatchHistory.css";
 
 const matchHasChampion = (match, champions) => {
   const inMatch = match.participants.map((p) => p.championName);
@@ -35,7 +36,7 @@ export default function MatchHistory() {
     getMatches()
       .then((ms) => setMatches(ms))
       .then(getMatchRoles)
-      .then((rs) => setMatchRoles(rs))
+      .then((rs) => setMatchRoles(rs ?? {}))
       .then(() => setLoading(false));
 
     getPlayer("").then((ps) => setPlayers(ps));
@@ -78,7 +79,7 @@ export default function MatchHistory() {
       );
       setLoading(false);
     } else {
-      setFilteredMatchKeys(Object.keys(matches).reverse());
+      matches && setFilteredMatchKeys(Object.keys(matches).reverse());
     }
   }, [championFilter, playerFilter, matches, players]);
 
@@ -92,23 +93,22 @@ export default function MatchHistory() {
     setDialogData({ blueTeam: [], redTeam: [], matchId: null });
   };
 
+  if (!matches || !players) {
+    return <div className="no-data-message">no data yet</div>;
+  }
+
   return (
-    <>
+    <div className="match-history-container">
       <EditMatchDialog
         open={dialogOpen}
         onClose={handleCloseDialog}
         data={dialogData}
       />
       <X5pageContentArea loading={loading}>
-        <div
-          style={{
-            margin: "20px 20px 20px 20px",
-            display: "flex",
-            justifyContent: "space-between",
-            flexWrap: "wrap",
-          }}
-        >
-          <Typography fontSize={35}>Match history</Typography>
+        <div className="match-history-header">
+          <Typography className="match-history-title" variant="h4">
+            Match history
+          </Typography>
           <Filters
             championFilter={championFilter}
             setChampionFilter={setChampionFilter}
@@ -118,12 +118,7 @@ export default function MatchHistory() {
           />
         </div>
         {filteredMatchKeys.slice(0, numberOfMatches).map((key) => (
-          <div
-            style={{
-              margin: "1%",
-            }}
-            key={key}
-          >
+          <div className="match-item-container" key={key}>
             <MatchDisplay
               match={matches[key]}
               openDialog={handleOpenDialog}
@@ -132,6 +127,6 @@ export default function MatchHistory() {
           </div>
         ))}
       </X5pageContentArea>
-    </>
+    </div>
   );
 }

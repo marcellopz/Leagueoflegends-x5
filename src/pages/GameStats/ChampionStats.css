@@ -1,0 +1,42 @@
+/* Champion Stats component styles */
+.champion-stats-container {
+  background: transparent;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius);
+  margin: 20px;
+  padding: 10px;
+}
+
+.champion-stats-grid-container {
+  width: 95%;
+  max-width: 940px;
+  margin: 10px auto;
+}
+
+/* Custom styles for DataGrid */
+.champion-stats-datagrid {
+  border-color: var(--border-light) !important;
+  color: var(--foreground) !important;
+}
+
+.champion-stats-datagrid .MuiDataGrid-columnHeaders {
+  background: var(--accent);
+  color: var(--accent-foreground);
+  border-bottom: 1px solid var(--border-light);
+}
+
+.champion-stats-datagrid .MuiDataGrid-cell {
+  border-bottom: 1px solid var(--border-light);
+}
+
+.champion-stats-datagrid .MuiDataGrid-row:hover {
+  background-color: var(--accent);
+}
+
+/* Style for champion icons */
+.champion-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+}

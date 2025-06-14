@@ -1,0 +1,16 @@
+/* Match Page Styles */
+.match-page-container {
+  margin: 5px 20px 20px 20px;
+  color: var(--foreground);
+}
+
+.match-details-container {
+  color: var(--muted-foreground);
+}
+
+/* Media queries for responsive design */
+@media (max-width: 768px) {
+  .match-page-container {
+    margin: 5px 10px 10px 10px;
+  }
+}

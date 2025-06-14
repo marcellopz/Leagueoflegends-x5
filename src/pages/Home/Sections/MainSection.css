@@ -4,7 +4,7 @@
   margin: 0 1rem;
 }
 
-.main-section-container .small-item {
+.main-section-container .mainsection-small-panel {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
@@ -18,7 +18,7 @@
   margin: 0 1rem;
 }
 
-.main-section-container .grid-item {
+.main-section-container .mainsection-panel {
   padding: 1.5rem;
   border-radius: 5px;
   text-align: center;
@@ -26,12 +26,44 @@
   border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
-.main-section-container .graph-item {
+/* Legend Cards section */
+.mainsection-cards-container {
+  min-height: 470px;
+  position: relative;
+}
+
+.mainsection-cards-title {
+  position: absolute;
+  top: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+  font-weight: 500;
+}
+
+.mainsection-cards-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  color: #888;
+}
+
+.mainsection-anonymous-message {
+  position: absolute;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #888;
+  width: 100%;
+  text-align: center;
+}
+
+.main-section-container .mainsection-graph-panel {
   display: flex;
   flex-direction: column;
   grid-row: 2 / 4;
   min-height: 300px;
-  max-height: 350px;
 }
 
 /* --- Desktop Layout (Larger Screens) --- */
@@ -43,8 +75,7 @@
     /* Define 3 equal rows */
     grid-template-rows: 1fr 1fr 1fr;
   }
-
-  .main-section-container .big-item {
+  .main-section-container .mainsection-large-panel {
     grid-column: 1 / 3; /* Takes the first column */
     grid-row: 1 / 4; /* Spans from the first row line to the third row line (i.e., 2 rows) */
     /* This makes it as tall as the two small items combined */
@@ -67,19 +98,23 @@
   }
 
   .main-section-container .small-item-divider {
-    width: 100%;
-    border-right: none;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.25);
-    height: 0;
+    width: 0;
+    border-right: 1px solid rgba(255, 255, 255, 0.25);
+    border-bottom: none;
+    height: 100%;
   }
 
   .main-section-container .graph-item {
     grid-row: 2 / 3; /* Adjusted to fit in the second row */
   }
-
-  .main-section-container .big-item {
+  .main-section-container .mainsection-large-panel {
     grid-column: 1 / 2; /* Spans across both columns */
     grid-row: 1 / 3; /* Takes the first row */
+  }
+
+  .main-section-container .mainsection-graph-panel {
+    grid-column: 2 / 3; /* Takes the second column */
+    grid-row: 2 / 3; /* Spans both rows */
   }
 }
 
@@ -97,8 +132,7 @@
     /* Ensure all items take the full width of the single column */
     grid-column: 1 / -1; /* Each item spans the full width of the single column */
   }
-
-  .main-section-container .grid-item {
+  .main-section-container .mainsection-panel {
     padding: 0.5rem;
     border-radius: 5px;
     text-align: center;

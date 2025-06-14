@@ -1,0 +1,71 @@
+/* DamageChart Component Styles */
+
+.tab-container {
+  height: 3rem;
+  display: flex;
+}
+
+.tab {
+  flex: 1;
+  text-align: center;
+  display: flex;
+}
+
+.tab-active {
+  border-top: 1px solid rgba(255, 255, 255, 0.5);
+  border-left: 1px solid rgba(255, 255, 255, 0.5);
+  border-right: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.tab-inactive {
+  background: rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+  border-top: 1px solid rgba(255, 255, 255, 0.3);
+  border-left: 1px solid rgba(255, 255, 255, 0.3);
+  border-right: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.tab-text {
+  margin: auto;
+}
+
+.chart-content {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+  border-left: 1px solid rgba(255, 255, 255, 0.5);
+  border-right: 1px solid rgba(255, 255, 255, 0.5);
+  padding: 10px;
+}
+
+.chart-item {
+  padding: 1rem 1.5rem;
+}
+
+.chart-item-content {
+  display: flex;
+}
+
+.chart-bar-container {
+  flex: 1;
+  padding: 0 1rem;
+  padding-top: 0.875rem;
+  padding-bottom: 0.875rem;
+}
+
+.chart-bar {
+  height: 1.25rem;
+}
+
+.damage-bar {
+  background: rgb(100, 166, 245);
+  height: 100%;
+}
+
+.damage-taken-bar {
+  background: rgb(245, 100, 100);
+  height: 100%;
+}
+
+.gold-bar {
+  background: rgb(240, 245, 100);
+  height: 100%;
+}

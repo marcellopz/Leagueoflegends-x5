@@ -1,0 +1,89 @@
+/* Match Summary Styles */
+.match-summary-container {
+  width: 100%;
+  color: var(--foreground);
+  position: relative;
+}
+
+.ms-admin-edit-button {
+  position: absolute;
+  right: 15px;
+  cursor: pointer;
+}
+
+.ms-date {
+  color: var(--muted-foreground);
+  text-align: center;
+  width: 100%;
+  margin-bottom: 5px;
+}
+
+.ms-team-status-victory {
+  color: var(--victory);
+}
+
+.ms-team-status-defeat {
+  color: var(--defeat);
+}
+
+.ms-team-header {
+  display: flex;
+  padding: 0.25rem;
+  font-size: 1.25rem;
+  justify-content: space-between;
+  padding-right: 1rem;
+}
+
+.ms-team-title {
+  display: flex;
+}
+
+.ms-team-name {
+  margin-right: 0.5rem;
+}
+
+.ms-view-details-button {
+  width: 3%;
+  min-width: 30px;
+  background-color: var(--secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  display: flex;
+}
+
+.ms-view-details-button:hover {
+  cursor: pointer;
+}
+
+/* Reimplementing Tailwind classes that were used */
+.ms-flex {
+  display: flex;
+}
+
+.ms-p-1 {
+  padding: 0.25rem;
+}
+
+.ms-text-xl {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+}
+
+.ms-justify-between {
+  justify-content: space-between;
+}
+
+.ms-pr-4 {
+  padding-right: 1rem;
+}
+
+.ms-mr-2 {
+  margin-right: 0.5rem;
+}
+
+/* Media queries for responsive design */
+@media (max-width: 768px) {
+  .ms-team-header {
+    flex-direction: column;
+  }
+}

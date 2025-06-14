@@ -1,0 +1,39 @@
+/* Match History Filter Styles */
+.filter-container {
+  align-self: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: right;
+}
+
+.filter-icon-button {
+  margin-left: 10px;
+}
+
+.filter-controls {
+  transform-origin: right;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.menu-item-content {
+  display: flex;
+  align-items: center;
+}
+
+.menu-item-text {
+  margin-left: 10px;
+}
+
+/* Media queries for responsive design */
+@media (max-width: 768px) {
+  .filter-container {
+    justify-content: flex-end;
+    width: 100%;
+  }
+
+  .filter-controls {
+    width: 100%;
+  }
+}

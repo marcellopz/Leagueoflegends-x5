@@ -1,0 +1,63 @@
+/* PlayerTabs Component Styles */
+
+.pt-container {
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.pt-tabs-row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.pt-tab {
+  text-align: center;
+  display: flex;
+  height: 3rem;
+}
+
+.pt-tab-active {
+  border-top: 1px solid rgba(255, 255, 255, 0.5);
+  border-left: 1px solid rgba(255, 255, 255, 0.5);
+  border-right: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.pt-tab-inactive {
+  background: rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+  border-top: 1px solid rgba(255, 255, 255, 0.3);
+  border-left: 1px solid rgba(255, 255, 255, 0.3);
+  border-right: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.pt-tab-content {
+  margin: auto;
+  padding: 0 1rem;
+}
+
+.pt-player-name {
+  font-size: 1.5rem;
+  margin-top: 1.25rem;
+  margin-left: 2.5rem;
+}
+
+.pt-stats-container {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 1rem;
+}
+
+.pt-stat-box {
+  width: 20%;
+  height: 6rem;
+  text-align: center;
+  padding: 1rem 0;
+  min-width: 100px;
+}
+
+.pt-stat-number {
+  font-size: 1.5rem;
+}
+
+.pt-stat-text {
+  font-size: 1rem;
+}

@@ -1,0 +1,67 @@
+/* PersonalChampionStats Component Styles */
+
+.pcs-container {
+  border-width: 1px 1px 0px 1px;
+  border-style: solid;
+  border-color: rgba(255, 255, 255, 0.2);
+  padding: 5px 3px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.pcs-champ-section {
+  display: flex;
+}
+
+.pcs-champ-icon-container {
+  width: 40px;
+  height: 40px;
+  overflow: hidden;
+  border-radius: 10px;
+  margin-left: 5px;
+  margin-right: 10px;
+}
+
+.pcs-champ-icon {
+  width: 40px;
+}
+
+.pcs-champ-info {
+  width: 80px;
+}
+
+.pcs-champ-name {
+  font-weight: 500;
+}
+
+.pcs-champ-cs {
+  font-size: 13px;
+}
+
+.pcs-kda-section {
+  text-align: center;
+}
+
+.pcs-kda {
+  font-size: 15px;
+}
+
+.pcs-kda-details {
+  font-size: 13px;
+  text-align: center;
+}
+
+.pcs-win-section {
+  margin-right: 5px;
+}
+
+.pcs-win-rate {
+  text-align: end;
+  font-size: 15px;
+}
+
+.pcs-matches-played {
+  text-align: end;
+  font-size: 13px;
+}

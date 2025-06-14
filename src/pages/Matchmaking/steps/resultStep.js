@@ -1,6 +1,8 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useCallback } from "react";
 import BalanceMatchCheezeV1 from "../algorithms/cheezeV1";
 import BalanceMatchCheezeV2 from "../algorithms/cheezeV2";
+import BalanceMatchClaudeV1 from "../algorithms/claudeV1";
+import BalanceMatchGrilhaV1 from "../algorithms/grilhaV1";
 import { MatchMakingContext } from "../context/matchMakingContext";
 import { Button, IconButton, TextField } from "@mui/material";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
@@ -18,20 +20,205 @@ const getCopyPasteText = (matchups) => {
   let string = "";
   matchups.forEach((match, i) => {
     string += `Match ${i + 1}:\n`;
-    string += `Top: ${buildLine(match.pairingsRoles.Top)}\n`;
-    string += `Jng: ${buildLine(match.pairingsRoles.Jungle)}\n`;
-    string += `Mid: ${buildLine(match.pairingsRoles.Mid)}\n`;
-    string += `Adc: ${buildLine(match.pairingsRoles.Adc)}\n`;
-    string += `Sup: ${buildLine(match.pairingsRoles.Support)}\n`;
-    string += `Score: ${match.matchScore.blue} x ${match.matchScore.red} -> ${
-      match.matchScore.blue + match.matchScore.red
-    }\n\n`;
+
+    // Check if it's claudeV1 algorithm result
+    if (match.teams) {
+      // Sort teams by average rank for better readability
+      const sortedBlueTeam = [...match.teams.blue].sort(
+        (a, b) => b.avgRank - a.avgRank
+      );
+      const sortedRedTeam = [...match.teams.red].sort(
+        (a, b) => b.avgRank - a.avgRank
+      );
+
+      // For claudeV1, show player list with average ranks
+      for (let j = 0; j < 5; j++) {
+        const bluePlayer = sortedBlueTeam[j];
+        const redPlayer = sortedRedTeam[j];
+        string += `${j + 1 + ":"} ${bluePlayer.name.padStart(
+          10,
+          " "
+        )} (${bluePlayer.avgRank.toFixed(1)}) x (${redPlayer.avgRank.toFixed(
+          1
+        )}) ${redPlayer.name}\n`;
+      }
+      string += `Score: ${match.matchScore.blue.toFixed(
+        1
+      )} x ${match.matchScore.red.toFixed(1)} -> ${(
+        match.matchScore.blue + match.matchScore.red
+      ).toFixed(1)}\n`;
+      string += `Difference: ${Math.abs(
+        match.matchScore.blue - match.matchScore.red
+      ).toFixed(1)}\n\n`;
+    } else {
+      // Original format for cheezeV1 and cheezeV2
+      string += `Top: ${buildLine(match.pairingsRoles.Top)}\n`;
+      string += `Jng: ${buildLine(match.pairingsRoles.Jungle)}\n`;
+      string += `Mid: ${buildLine(match.pairingsRoles.Mid)}\n`;
+      string += `Adc: ${buildLine(match.pairingsRoles.Adc)}\n`;
+      string += `Sup: ${buildLine(match.pairingsRoles.Support)}\n`;
+      string += `Score: ${match.matchScore.blue} x ${match.matchScore.red} -> ${
+        match.matchScore.blue + match.matchScore.red
+      }\n\n`;
+    }
   });
 
   return string;
 };
 
 const ResultComponent = ({ match }) => {
+  // Check if the match is using claudeV1 algorithm (has teams property)
+  const isClaudeV1 = match.teams !== undefined;
+
+  if (isClaudeV1) {
+    // For claudeV1, display by average rank rather than roles
+    // Sort blue and red teams by average rank (highest to lowest)
+    const sortedBlueTeam = [...match.teams.blue].sort(
+      (a, b) => b.avgRank - a.avgRank
+    );
+    const sortedRedTeam = [...match.teams.red].sort(
+      (a, b) => b.avgRank - a.avgRank
+    );
+
+    return (
+      <div style={{ height: "fit-content" }}>
+        <ul style={{ margin: "10px", listStyle: "none", padding: 0 }}>
+          {sortedBlueTeam.map((bluePlayer, i) => {
+            const redPlayer = sortedRedTeam[i];
+            return (
+              <li
+                key={i}
+                style={{
+                  display: "flex",
+                  backgroundColor:
+                    i % 2 === 0
+                      ? "rgba(255,255,255,0.1)"
+                      : "rgba(255,255,255,0.3)",
+                  padding: "5px",
+                }}
+              >
+                <div
+                  style={{
+                    width: "50px",
+                    textAlign: "end",
+                    marginRight: "10px",
+                  }}
+                >
+                  {i + 1}
+                </div>
+                <div
+                  style={{
+                    width: "100px",
+                    textAlign: "end",
+                    marginRight: "5px",
+                  }}
+                >
+                  {bluePlayer.name}
+                </div>
+                <div
+                  style={{ marginRight: "10px", width: "32px" }}
+                >{`(${bluePlayer.avgRank.toFixed(1)})`}</div>
+                <div>vs</div>
+                <div
+                  style={{ marginLeft: "10px" }}
+                >{`(${redPlayer.avgRank.toFixed(1)})`}</div>
+                <div style={{ width: "100px", marginLeft: "5px" }}>
+                  {redPlayer.name}
+                </div>
+              </li>
+            );
+          })}
+          <li
+            style={{
+              display: "flex",
+              backgroundColor: theme.palette.secondary.main,
+              padding: "5px 10px",
+              marginTop: "10px",
+            }}
+          >
+            <div
+              style={{
+                width: "50px",
+                textAlign: "end",
+                marginRight: "10px",
+              }}
+            >
+              Scores
+            </div>
+            <div
+              style={{
+                width: "130px",
+                textAlign: "end",
+                marginRight: "10px",
+              }}
+            >
+              {match.matchScore.blue.toFixed(1)}
+            </div>
+            <div>-</div>
+            <div style={{ width: "130px", marginLeft: "10px" }}>
+              {match.matchScore.red.toFixed(1)}
+            </div>
+          </li>
+          <li
+            style={{
+              display: "flex",
+              backgroundColor: theme.palette.secondary.dark,
+              paddingTop: "5px",
+              paddingBottom: "5px",
+            }}
+          >
+            <div
+              style={{
+                width: "50px",
+                textAlign: "end",
+                marginRight: "10px",
+              }}
+            >
+              Total
+            </div>
+            <div
+              style={{
+                width: "290px",
+                textAlign: "center",
+              }}
+            >
+              {(match.matchScore.blue + match.matchScore.red).toFixed(1)}
+            </div>
+          </li>
+          <li
+            style={{
+              display: "flex",
+              backgroundColor: theme.palette.secondary.main,
+              paddingTop: "5px",
+              paddingBottom: "5px",
+            }}
+          >
+            <div
+              style={{
+                width: "50px",
+                textAlign: "end",
+                marginRight: "10px",
+              }}
+            >
+              Diff
+            </div>
+            <div
+              style={{
+                width: "290px",
+                textAlign: "center",
+              }}
+            >
+              {Math.abs(match.matchScore.blue - match.matchScore.red).toFixed(
+                1
+              )}
+            </div>
+          </li>
+        </ul>
+      </div>
+    );
+  }
+
+  // Original layout for cheezeV1 and cheezeV2
   return (
     <div style={{ height: "fit-content" }}>
       <ul style={{ margin: "10px", listStyle: "none", padding: 0 }}>
@@ -83,7 +270,7 @@ const ResultComponent = ({ match }) => {
           style={{
             display: "flex",
             backgroundColor: theme.palette.secondary.main,
-            padding: "5px",
+            padding: "5px 10px",
             marginTop: "10px",
           }}
         >
@@ -142,17 +329,22 @@ const ResultComponent = ({ match }) => {
 };
 
 export default function ResultStep() {
-  const { players, algoOptions, selectedOptions, selectedAlgo } =
-    useContext(MatchMakingContext);
+  const {
+    players,
+    algoOptions,
+    selectedOptions,
+    selectedAlgo,
+    wildcardDetails,
+  } = useContext(MatchMakingContext);
   const [playersToBalance, setPlayersToBalance] = useState(null);
   const [matchups, setMatchups] = useState([]);
   const [copyPastText, setCopyPasteText] = useState("");
 
-  const balance = () => {
+  const balance = useCallback(() => {
     if (!playersToBalance) {
       return;
     }
-    const MAX_TRIES = +algoOptions.options.numberOfMatches * 10;
+    const MAX_TRIES = +algoOptions?.options?.numberOfMatches * 10;
     let matchupsString = [];
     let matchups_ = [];
     let i = 0;
@@ -194,13 +386,38 @@ export default function ResultStep() {
           break;
         }
       }
+      console.log(matchups_);
       setMatchups(matchups_);
     }
-  };
+    if (selectedAlgo === "claudeV1") {
+      // The claudeV1 algorithm now directly returns multiple team compositions
+      const result = BalanceMatchClaudeV1(
+        playersToBalance,
+        +algoOptions.options.numberOfMatches
+      );
+      if (result === null) {
+        alert("Error");
+      } else {
+        setMatchups(result);
+      }
+    }
+    if (selectedAlgo === "grilhaV1") {
+      const result = BalanceMatchGrilhaV1(
+        playersToBalance,
+        +algoOptions.options.numberOfMatches,
+        algoOptions.options.tolerance
+      );
+      if (result === null) {
+        alert("Error");
+      } else {
+        setMatchups(result);
+      }
+    }
+  }, [playersToBalance, algoOptions, selectedAlgo]);
 
   useEffect(() => {
-    setPlayersToBalance(
-      selectedOptions.map((player) => ({
+    setPlayersToBalance([
+      ...selectedOptions.map((player) => ({
         name: players[player].name,
         ranks: [
           players[player].top,
@@ -210,12 +427,26 @@ export default function ResultStep() {
           players[player].support,
         ],
         playerId: player,
-      }))
-    );
+      })),
+      ...wildcardDetails.map((player) => ({
+        name: player.name,
+        ranks: [
+          player.top,
+          player.jungle,
+          player.mid,
+          player.adc,
+          player.support,
+        ],
+        playerId: player.name,
+      })),
+    ]);
+  }, [selectedOptions, players]);
+
+  useEffect(() => {
     if (playersToBalance?.length) {
       balance();
     }
-  }, [selectedOptions]);
+  }, [playersToBalance, balance]);
 
   useEffect(() => {
     setCopyPasteText(getCopyPasteText(matchups));

@@ -89,8 +89,8 @@ solve(bits);
 // pretty print results
 const roles = ["Top", "Jungle", "Mid", "Bot", "Support"];
 const { diff, pairings } = state[bits];
-console.log(`Rank difference: ${diff}`);
+console.info(`Rank difference: ${diff}`);
 for (let i = 0; i < 5; i++) {
   const [p1, p2] = pairings[i];
-  console.log(`${roles[i]}\t${players[p1].name} vs ${players[p2].name}`);
+  console.info(`${roles[i]}\t${players[p1].name} vs ${players[p2].name}`);
 }

@@ -7,6 +7,7 @@ import { theme } from "../../../theme";
 import { AuthContext } from "../../../contexts/authContext";
 import { Link } from "react-router-dom";
 import { KDA } from "../../MatchPage/MatchComponent";
+import "./MatchSummary.css";
 
 export default function MatchSummary({ match, toggleExpanded, openDialog }) {
   const {
@@ -27,23 +28,16 @@ export default function MatchSummary({ match, toggleExpanded, openDialog }) {
   const { isAdmin } = useContext(AuthContext);
 
   return (
-    <div style={{ width: "100%", color: "gainsboro", position: "relative" }}>
+    <div className="match-summary-container">
       {isAdmin && (
         <div
-          style={{ position: "absolute", right: "15px", cursor: "pointer" }}
+          className="ms-admin-edit-button"
           onClick={() => openDialog(blueTeam, redTeam, match.gameId)}
         >
           edit
         </div>
       )}
-      <div
-        style={{
-          color: "rgba(255,255,255,0.5)",
-          textAlign: "center",
-          width: "100%",
-          marginBottom: "5px",
-        }}
-      >
+      <div className="ms-date">
         {`Played on ${gameDate} - Duration: ${gameDurationStr}`}
       </div>
       <Box
@@ -65,13 +59,13 @@ export default function MatchSummary({ match, toggleExpanded, openDialog }) {
             maxWidth: "50%",
           }}
         >
-          <div className="flex p-1 text-xl justify-between pr-4">
-            <div className="flex">
-              <p className="mr-2">Team 1:</p>
+          <div className="ms-team-header">
+            <div className="ms-team-title">
+              <p className="ms-team-name">Team 1:</p>
               <p
-                style={{
-                  color: blueWin ? "rgb(85,255,75)" : "rgb(255,75,75)",
-                }}
+                className={
+                  blueWin ? "ms-team-status-victory" : "ms-team-status-defeat"
+                }
               >
                 {blueWin ? "Victory" : "Defeat"}
               </p>
@@ -104,13 +98,13 @@ export default function MatchSummary({ match, toggleExpanded, openDialog }) {
             maxWidth: "50%",
           }}
         >
-          <div className="flex p-1 text-xl justify-between pr-4">
-            <div className="flex">
-              <p className="mr-2">Team 2:</p>
+          <div className="ms-team-header">
+            <div className="ms-team-title">
+              <p className="ms-team-name">Team 2:</p>
               <p
-                style={{
-                  color: redWin ? "rgb(85,255,75)" : "rgb(255,75,75)",
-                }}
+                className={
+                  redWin ? "ms-team-status-victory" : "ms-team-status-defeat"
+                }
               >
                 {redWin ? "Victory" : "Defeat"}
               </p>
@@ -131,17 +125,7 @@ export default function MatchSummary({ match, toggleExpanded, openDialog }) {
         <Box
           component={Link}
           to={`/match/match${match.gameId}`}
-          sx={{
-            width: "3%",
-            minWidth: "30px",
-            backgroundColor: "rgba(255,255,255,0.05)",
-            border: "1px solid rgba(255,255,255,0.2)",
-            borderRadius: "7px",
-            display: "flex",
-            ":hover": {
-              cursor: "pointer",
-            },
-          }}
+          className="ms-view-details-button"
           onClick={toggleExpanded}
         >
           <KeyboardArrowRight sx={{ margin: "auto" }} />

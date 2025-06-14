@@ -15,6 +15,7 @@ import {
 } from "@mui/material";
 import { motion } from "framer-motion";
 import { memo, useState } from "react";
+import "./MatchHistoryFilter.css";
 
 function Filters({
   playerFilter,
@@ -41,17 +42,10 @@ function Filters({
   };
 
   return (
-    <div
-      style={{
-        alignSelf: "center",
-        display: "flex",
-        flexWrap: "wrap",
-        gap: "10px",
-        justifyContent: "right",
-      }}
-    >
+    <div className="filter-container">
       <IconButton
         onClick={() => setOpen((prev) => !prev)}
+        className="filter-icon-button"
         sx={{ marginLeft: "10px" }}
       >
         <TuneIcon fontSize="large" />
@@ -64,12 +58,7 @@ function Filters({
           display: open ? "flex" : "none",
         }}
         transition={{ duration: 0.2 }}
-        style={{
-          transformOrigin: "right",
-          flexWrap: "wrap",
-          gap: "10px",
-          //   display: "flex",
-        }}
+        className="filter-controls"
       >
         <FormControl sx={{ width: 300 }}>
           <InputLabel>Player Filter</InputLabel>
@@ -98,7 +87,7 @@ function Filters({
           >
             {playerList.map(({ name, name_id }) => (
               <MenuItem key={name} value={name_id} selected>
-                <p style={{ marginLeft: 10 }}>{name}</p>
+                <p className="menu-item-text">{name}</p>
               </MenuItem>
             ))}
           </Select>
@@ -136,13 +125,13 @@ function Filters({
                 return a[1] > b[1] ? 1 : -1;
               })
               .map(([id, name]) => (
-                <MenuItem key={id} value={name} style={{ display: "flex" }}>
+                <MenuItem key={id} value={name} className="menu-item-content">
                   <img
                     src={`${CHAMPIONICONURL}${id}.png`}
                     alt={name}
                     width={25}
                   />
-                  <p style={{ marginLeft: 10 }}>{name}</p>
+                  <p className="menu-item-text">{name}</p>
                 </MenuItem>
               ))}
           </Select>

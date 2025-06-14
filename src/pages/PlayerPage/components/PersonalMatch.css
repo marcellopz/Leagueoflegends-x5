@@ -1,0 +1,369 @@
+/* PersonalMatch Component Styles */
+
+.pm-container {
+  min-height: 140px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+  transition: transform 0.2s, box-shadow 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+
+.pm-win {
+  background: linear-gradient(
+    to right,
+    rgba(12, 20, 40, 0.9),
+    rgba(0, 60, 120, 0.7)
+  );
+  border: 1px solid rgba(59, 130, 246, 0.4);
+}
+
+.pm-win::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background-color: var(--blue-vivid);
+  z-index: 2;
+}
+
+.pm-lose {
+  background: linear-gradient(
+    to right,
+    rgba(30, 10, 10, 0.9),
+    rgba(100, 20, 20, 0.7)
+  );
+  border: 1px solid rgba(220, 38, 38, 0.4);
+}
+
+.pm-lose::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background-color: var(--red-vivid);
+  z-index: 2;
+}
+
+.pm-header {
+  background: rgba(0, 0, 0, 0.5);
+  padding: 0 15px;
+  height: 28px;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: rgba(255, 255, 255, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(4px);
+}
+
+.pm-content {
+  align-items: center;
+  min-height: 116px;
+  flex-wrap: wrap;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 45px 10px 10px;
+  background-color: rgba(0, 0, 0, 0.15);
+}
+
+.pm-champion-section {
+  display: flex;
+}
+
+.pm-champion-icon-container {
+  width: 90px;
+  height: 90px;
+  overflow: hidden;
+  border-radius: 10px;
+  margin-left: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.pm-champion-icon {
+  width: 90px;
+}
+
+.pm-spells-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 10px;
+}
+
+.pm-spell {
+  display: block;
+  width: 40px;
+}
+
+.pm-spell-top {
+  margin-bottom: 10px;
+}
+
+.pm-stats-container {
+  width: 120px;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 8px;
+  border-radius: 6px;
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.pm-kda {
+  font-size: 20px;
+  text-align: center;
+  white-space: nowrap;
+  font-weight: 600;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.pm-kda-ratio {
+  font-size: 15px;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.7);
+  margin-top: 4px;
+}
+
+.pm-multikill-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-top: 5px;
+}
+
+.pm-items-container {
+  display: grid;
+  grid-template-columns: repeat(3, 44px);
+  grid-gap: 4px;
+  width: 148px;
+  justify-content: center;
+  padding: 6px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 6px;
+}
+
+.pm-item-box {
+  background: rgba(0, 0, 0, 0.4);
+  width: 44px;
+  height: 44px;
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: transform 0.2s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pm-item-image {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+}
+
+.pm-teams-container {
+  display: flex;
+  font-size: 10px;
+  margin: 5px;
+}
+
+.pm-team {
+  width: 130px;
+}
+
+.pm-blue-team {
+  margin-right: 5px;
+}
+
+.pm-player-row {
+  display: flex;
+  align-items: center;
+}
+
+.pm-player-champion {
+  width: 22px;
+  margin: 1px;
+}
+
+.pm-player-name {
+  margin-left: 2px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.pm-player-name-red {
+  width: 120px;
+}
+
+.pm-player-highlighted {
+  font-weight: bold;
+}
+
+.pm-details-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  width: 10%;
+  max-width: 40px;
+  color: rgba(255, 255, 255, 0.7);
+  background: rgba(0, 0, 0, 0.3);
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0 4px 4px 0;
+  position: absolute;
+  right: 0;
+  top: 28px; /* Same as header height */
+  z-index: 1;
+  margin: 10px;
+  height: calc(100% - 48px); /* Adjust for header and footer */
+  border-radius: 5px;
+}
+
+/* Media Queries for Mobile Responsiveness */
+@media screen and (max-width: 768px) {
+  .pm-content {
+    padding: 10px 35px 10px 5px;
+    gap: 5px 15px;
+    justify-content: space-evenly;
+  }
+
+  .pm-champion-icon-container {
+    width: 70px;
+    height: 70px;
+    margin-left: 5px;
+  }
+
+  .pm-champion-icon {
+    width: 70px;
+  }
+
+  .pm-spells-container {
+    margin-left: 5px;
+  }
+
+  .pm-spell {
+    width: 32px;
+  }
+
+  .pm-stats-container {
+    width: 120px;
+  }
+
+  .pm-kda {
+    font-size: 16px;
+  }
+
+  .pm-kda-ratio {
+    font-size: 13px;
+  }
+
+  .pm-items-container {
+    width: 130px;
+    grid-template-columns: repeat(3, 40px);
+    grid-gap: 3px;
+  }
+
+  .pm-item-box {
+    width: 40px;
+    height: 40px;
+  }
+
+  .pm-item-image {
+    width: 36px;
+    height: 36px;
+  }
+
+  .pm-team {
+    width: 110px;
+  }
+
+  .pm-player-name-red {
+    width: 100px;
+  }
+
+  .pm-details-link {
+    max-width: 30px;
+    width: 10%;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .pm-content {
+    padding: 8px 30px 8px 3px;
+    gap: 3px;
+  }
+
+  .pm-champion-icon-container {
+    width: 70px;
+    height: 70px;
+    margin-left: 3px;
+  }
+
+  .pm-champion-icon {
+    width: 70px;
+  }
+
+  .pm-spells-container {
+    margin-left: 3px;
+  }
+
+  .pm-spell {
+    width: 28px;
+  }
+
+  .pm-stats-container {
+    width: 120px;
+  }
+
+  .pm-kda {
+    font-size: 14px;
+  }
+
+  .pm-kda-ratio {
+    font-size: 12px;
+  }
+
+  .pm-items-container {
+    width: 120px;
+    grid-template-columns: repeat(3, 36px);
+    grid-gap: 2px;
+    padding: 4px;
+  }
+
+  .pm-item-box {
+    width: 36px;
+    height: 36px;
+  }
+
+  .pm-item-image {
+    width: 32px;
+    height: 32px;
+  }
+
+  .pm-team {
+    width: 90px;
+    font-size: 9px;
+  }
+
+  .pm-player-name-red {
+    width: 80px;
+  }
+
+  .pm-details-link {
+    max-width: 30px;
+    width: 10%;
+    margin: 5px;
+    height: calc(100% - 40px);
+  }
+}

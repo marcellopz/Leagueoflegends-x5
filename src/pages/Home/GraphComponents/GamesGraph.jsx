@@ -39,7 +39,8 @@ const GamesGraph = ({ stats }) => {
         type: "bar",
         data: numbers,
         itemStyle: {
-          color: theme.palette.primary.main,
+          color: theme.palette.primary.light,
+          borderRadius: [20, 20, 0, 0],
         },
       },
     ],
@@ -51,9 +52,8 @@ const GamesGraph = ({ stats }) => {
       left: 5,
     },
   };
-
   return (
-    <Box className="grid-item graph-item">
+    <Box className="mainsection-panel mainsection-graph-panel">
       <Typography variant="h6" fontWeight={500}>
         Games played per month
       </Typography>

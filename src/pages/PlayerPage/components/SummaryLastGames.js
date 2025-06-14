@@ -3,6 +3,7 @@ import { floatToPercentageString } from "../../../utils/utils";
 import CircularProgressWithLabel from "./CircularProgressWithLabel";
 import { Typography } from "@mui/material";
 import { CHAMPIONICONURL } from "../../../common-components/resources";
+import "./SummaryLastGames.css";
 
 export default function SummaryLastGames({ games }) {
   const wins = useMemo(
@@ -65,46 +66,26 @@ export default function SummaryLastGames({ games }) {
   const getAvg = (a) => (a / games.length).toFixed(1);
 
   return (
-    <div
-      style={{
-        borderRadius: "5px",
-        boxShadow: "2px 2px 2px 2px rgba(0, 0, 0, 0.3)",
-        border: "1px solid rgba(255, 255, 255, 0.2)",
-      }}
-    >
-      <div style={{ padding: "10px 20px" }}>
+    <div className="slg-container">
+      <div className="slg-header">
         <Typography>{`Stats of last ${games.length} games:`}</Typography>
       </div>
 
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-evenly",
-          paddingBottom: "15px",
-          width: "100%",
-          flexWrap: "wrap",
-        }}
-      >
-        <div style={{ margin: "auto 0" }}>
-          <div style={{ display: "flex" }}>
+      <div className="slg-content">
+        <div className="slg-stats-section">
+          <div className="slg-stats-row">
             <CircularProgressWithLabel
               value={winRate}
               size={100}
               label={floatToPercentageString(winRate)}
               labelFontSize={20}
             />
-            <div style={{ marginLeft: "15px" }}>
-              <Typography
-                fontSize={15}
-                color="rgba(255,255,255,0.6)"
-              >{`${games.length}G ${wins}W ${losses}L`}</Typography>
-              <Typography
-                fontSize={15}
-                color="rgba(255,255,255,0.6)"
-              >{`${getAvg(kills)} / ${getAvg(deaths)} / ${getAvg(
-                assists
-              )}`}</Typography>
-              <Typography fontSize={25} fontWeight={600} marginTop={"5px"}>{`${(
+            <div className="slg-stats-details">
+              <Typography className="slg-stats-text">{`${games.length}G ${wins}W ${losses}L`}</Typography>
+              <Typography className="slg-stats-text">{`${getAvg(
+                kills
+              )} / ${getAvg(deaths)} / ${getAvg(assists)}`}</Typography>
+              <Typography className="slg-kda-text">{`${(
                 (kills + assists) /
                 deaths
               ).toFixed(2)}:1 KDA`}</Typography>
@@ -112,16 +93,8 @@ export default function SummaryLastGames({ games }) {
           </div>
         </div>
 
-        <div style={{ margin: "auto 0" }}>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              height: "120px",
-              flexWrap: "wrap",
-              width: "300px",
-            }}
-          >
+        <div className="slg-champions-section">
+          <div className="slg-champions-grid">
             {gameGroupsPerChamp.slice(0, 6).map((champ) => {
               const champId = champ[0].championId;
               const n = champ.length;
@@ -136,44 +109,27 @@ export default function SummaryLastGames({ games }) {
                 champWins += match.stats.win;
               });
               return (
-                <div
-                  key={champId}
-                  style={{
-                    alignItems: "center",
-                    display: "flex",
-                    margin: "5px 10px",
-                  }}
-                >
-                  <div
-                    style={{
-                      width: "30px",
-                      height: "30px",
-                      overflow: "hidden",
-                      borderRadius: "15px",
-                    }}
-                  >
+                <div key={champId} className="slg-champion-item">
+                  <div className="slg-champion-icon-container">
                     <img
                       src={`${CHAMPIONICONURL}${champId}.png`}
                       alt={champId}
-                      style={{ maxWidth: "100%" }}
+                      className="slg-champion-icon"
                     />
                   </div>
-                  <div style={{ display: "flex" }}>
+                  <div className="slg-champion-stats">
                     <Typography
-                      width={"50px"}
-                      textAlign="center"
-                      color={
+                      className={`slg-winrate ${
                         champWins / n > 0.6
-                          ? "rgba(255,128,144,0.9)"
-                          : "rgba(255,255,255,0.6)"
-                      }
-                      fontWeight={500}
+                          ? "slg-winrate-high"
+                          : "slg-winrate-normal"
+                      }`}
                     >
                       {floatToPercentageString(champWins / n)}
                     </Typography>
-                    <Typography
-                      color={"rgba(255,255,255,0.6)"}
-                    >{`${champWins}W ${n - champWins}L`}</Typography>
+                    <Typography className="slg-record">{`${champWins}W ${
+                      n - champWins
+                    }L`}</Typography>
                   </div>
                 </div>
               );

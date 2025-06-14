@@ -13,6 +13,7 @@ export default function GameStats() {
       setStats(stats_);
     })();
   }, []);
+
   return (
     <X5pageContentArea title="Stats" loading={isObjEmpty(stats)}>
       <OverallStats stats={stats} />

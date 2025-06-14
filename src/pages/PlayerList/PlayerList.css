@@ -1,0 +1,38 @@
+.player-list-grid-container {
+  width: 95%;
+  max-width: 800px;
+  margin: 20px auto;
+}
+
+/* Custom styles for DataGrid */
+.player-list-datagrid {
+  border-color: var(--border-light) !important;
+  color: var(--foreground) !important;
+}
+
+.player-list-datagrid .MuiDataGrid-columnHeaders {
+  background: var(--accent);
+  color: var(--accent-foreground);
+  border-bottom: 1px solid var(--border-light);
+}
+
+.player-list-datagrid .MuiDataGrid-cell {
+  border-bottom: 1px solid var(--border-light);
+  cursor: pointer;
+}
+
+.player-list-datagrid .MuiDataGrid-cell:focus {
+  outline: none;
+}
+
+.player-list-datagrid .MuiDataGrid-row:hover {
+  background-color: var(--accent);
+}
+
+/* Lane icon styles */
+.lane-icon {
+  width: 40px;
+  height: 40px;
+}
+
+/* Win rate color classes - already defined in utils.js */

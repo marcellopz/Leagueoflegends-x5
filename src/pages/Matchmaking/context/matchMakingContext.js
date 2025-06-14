@@ -1,40 +1,48 @@
-import { createContext, useContext, useEffect, useMemo, useState } from "react";
-import { AuthContext } from "../../../contexts/authContext";
+import { createContext, useEffect, useMemo, useState } from "react";
 import { getPlayer } from "../../../services/firebaseDatabase";
 import CardComponent from "../../../common-components/CardDisplay/CardComponent";
+
+export const isWildcardValid = (wildcardDetails) => {
+  if (!wildcardDetails) {
+    return false;
+  }
+  const { name, top, jungle, mid, adc, support } = wildcardDetails;
+  return name && top > 0 && jungle > 0 && mid > 0 && adc > 0 && support > 0;
+};
 
 export const MatchMakingContext = createContext({});
 
 export const MatchMakingProvider = ({ children }) => {
   const [selectedAlgo, setSelectedAlgo] = useState("");
   const [selectedOptions, setSelectedOptions] = useState([]);
-  const { signed } = useContext(AuthContext);
   const [players, setPlayers] = useState(null);
   const [error, setError] = useState("");
-  // const [playersToBalance, setPlayersToBalance] = useState([]);
   const [algoOptions, setAlgoOptions] = useState({});
   const [cardReadyCounter, setCardReadyCounter] = useState(0);
+  const [numberOfWildcards, setNumberOfWildcards] = useState(0);
+  const [wildcardDetails, setWildcardDetails] = useState([]);
 
   const handleCardLoad = () => {
     setCardReadyCounter((prev) => prev + 1);
   };
 
   useEffect(() => {
-    if (signed) {
-      (async () => {
-        const players_ = await getPlayer("");
-        setPlayers(players_);
-      })();
-    }
-  }, [signed]);
+    (async () => {
+      const players_ = await getPlayer("");
+      setPlayers(players_);
+    })();
+  }, []);
 
   useEffect(() => {
+    const validWildcards = wildcardDetails.filter(isWildcardValid);
     setError(
-      selectedOptions.length === 10
+      selectedOptions.length + validWildcards.length === 10 &&
+        wildcardDetails.length === validWildcards.length &&
+        validWildcards.length === numberOfWildcards
         ? ""
-        : "You need exactly 10 players to balance a game"
+        : "You need exactly 10 valid players to balance a game"
     );
-  }, [selectedOptions]);
+  }, [selectedOptions, numberOfWildcards, wildcardDetails]);
 
   const cards = useMemo(() => {
     return players
@@ -46,7 +54,7 @@ export const MatchMakingProvider = ({ children }) => {
               ranks={players[player]}
               label={players[player].name}
               key={player}
-              sx={{ height: "inherit" }}
+              sx={{ height: "100%" }}
               onLoad={handleCardLoad}
               clickable={false}
             />
@@ -54,25 +62,6 @@ export const MatchMakingProvider = ({ children }) => {
         }))
       : [];
   }, [players]);
-
-  // const balance = (event) => {
-  //   event.preventDefault();
-  //   if (error) {
-  //     return;
-  //   }
-  //   setPlayersToBalance(
-  //     selectedOptions.map((player) => ({
-  //       name: players[player].name,
-  //       ranks: [
-  //         players[player].top,
-  //         players[player].jungle,
-  //         players[player].mid,
-  //         players[player].adc,
-  //         players[player].support,
-  //       ],
-  //     }))
-  //   );
-  // };
 
   const handleOptionChange = (value) => {
     if (selectedOptions.includes(value)) {
@@ -96,6 +85,10 @@ export const MatchMakingProvider = ({ children }) => {
         algoOptions,
         setAlgoOptions,
         cardReadyCounter,
+        numberOfWildcards,
+        setNumberOfWildcards,
+        wildcardDetails,
+        setWildcardDetails,
       }}
     >
       {children}

@@ -50,9 +50,8 @@ const GeneralStatsBox = ({ stats, players }) => {
   if (!stats || !players) {
     return null;
   }
-
   return (
-    <Box className="grid-item small-item">
+    <Box className="mainsection-panel mainsection-small-panel">
       <TitleValueBox title="Number of Games" value={stats.numberOfGames} />
       <div className="small-item-divider" />
       <TitleValueBox

@@ -1,0 +1,23 @@
+/* PlayerPage Component Styles */
+
+.pp-container {
+  width: 100%;
+  color: var(--foreground);
+}
+
+.pp-tabpanel {
+  width: 100%;
+}
+
+.pp-no-data {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  background: var(--card-background);
+  border-radius: var(--radius);
+  color: var(--muted-foreground);
+  font-size: 1.2rem;
+  margin: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}

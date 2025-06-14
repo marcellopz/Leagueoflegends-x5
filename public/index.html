@@ -4,14 +4,32 @@
     <meta charset="utf-8" />
     <link rel="icon" href="%PUBLIC_URL%/grilha_icon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
+    <meta name="theme-color" content="var(--background)" />
     <meta name="description" content="Highest level of gameplay" />
     <meta
       http-equiv="Content-Security-Policy"
       content="upgrade-insecure-requests"
     />
 
+    <!-- Import theme CSS variables -->
+    <link rel="stylesheet" href="%PUBLIC_URL%/theme-vars.css" />
+
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/grilha_icon.png" />
+    <!-- Preload font files for better performance -->
+    <!-- <link
+      rel="preload"
+      href="%PUBLIC_URL%/fonts/Ysabeau-VariableFont_wght.ttf"
+      as="font"
+      type="font/ttf"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="%PUBLIC_URL%/fonts/Ysabeau-Italic-VariableFont_wght.ttf"
+      as="font"
+      type="font/ttf"
+      crossorigin
+    /> -->
     <!--
       manifest.json provides metadata used when your web app is installed on a
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
@@ -23,9 +41,29 @@
     <div id="root"></div>
   </body>
   <style>
+    /* @font-face {
+      font-family: "Ysabeau";
+      src: url("%PUBLIC_URL%/fonts/Ysabeau-VariableFont_wght.ttf")
+        format("truetype");
+      font-weight: 100 900;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: "Ysabeau";
+      src: url("%PUBLIC_URL%/fonts/Ysabeau-Italic-VariableFont_wght.ttf")
+        format("truetype");
+      font-weight: 100 900;
+      font-style: italic;
+      font-display: swap;
+    } */
+
     body {
-      background-color: #05070d;
-      color: whitesmoke;
+      background-color: var(
+        --background
+      ); /* Using semantic background variable */
+      color: var(--foreground); /* Using semantic foreground variable */
       font-family: "Roboto", "Helvetica", "Arial", sans-serif;
       font-weight: 400;
       line-height: 1.5;

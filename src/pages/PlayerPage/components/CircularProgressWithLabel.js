@@ -19,7 +19,7 @@ export default function CircularProgressWithLabel({
         variant="determinate"
         value={value * 100}
         size={size}
-        color="primary"
+        color="info"
         sx={{ position: "absolute", zIndex: 2 }}
       />
       <CircularProgress

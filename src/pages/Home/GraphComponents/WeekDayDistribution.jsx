@@ -48,7 +48,8 @@ const WeekDayDistribution = ({ stats }) => {
         type: "bar",
         data: numbers,
         itemStyle: {
-          color: theme.palette.primary.main,
+          color: theme.palette.primary.light,
+          borderRadius: [20, 20, 0, 0],
         },
       },
     ],

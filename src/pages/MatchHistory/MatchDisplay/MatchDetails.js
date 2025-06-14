@@ -1,3 +1,5 @@
+// This component is not used anymore
+
 import React, { useEffect, useRef, useState } from "react";
 import useMatchData from "./useMatchData";
 import { Paper, Typography } from "@mui/material";

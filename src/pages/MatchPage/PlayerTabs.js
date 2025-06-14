@@ -2,28 +2,14 @@ import React, { useState } from "react";
 import { CHAMPIONICONURL } from "../../common-components/resources";
 import { formatNumber } from "../../utils/utils";
 import { Link } from "react-router-dom";
+import "./PlayerTabs.css";
 
 const Tab = ({ setTabState, tabState, n, champId }) => (
   <div
-    className="text-center flex h-12"
-    style={
-      tabState === n
-        ? {
-            borderTop: "1px solid rgba(255,255,255,0.5)",
-            borderLeft: "1px solid rgba(255,255,255,0.5)",
-            borderRight: "1px solid rgba(255,255,255,0.5)",
-          }
-        : {
-            background: "rgba(255,255,255,0.05)",
-            borderBottom: "1px solid rgba(255,255,255,0.5)",
-            borderTop: "1px solid rgba(255,255,255,0.3)",
-            borderLeft: "1px solid rgba(255,255,255,0.3)",
-            borderRight: "1px solid rgba(255,255,255,0.3)",
-          }
-    }
+    className={`pt-tab ${tabState === n ? "pt-tab-active" : "pt-tab-inactive"}`}
     onClick={() => setTabState(n)}
   >
-    <div className="m-auto px-4">
+    <div className="pt-tab-content">
       <img
         src={`${CHAMPIONICONURL}${champId}.png`}
         width={40}
@@ -35,9 +21,9 @@ const Tab = ({ setTabState, tabState, n, champId }) => (
 );
 
 const StatBox = ({ number, text }) => (
-  <div className="w-1/5 h-24 text-center py-4" style={{ minWidth: "100px" }}>
-    <p style={{ fontSize: "24px" }}>{formatNumber(number)}</p>
-    <p style={{ fontSize: "16px" }}> {text}</p>
+  <div className="pt-stat-box">
+    <p className="pt-stat-number">{formatNumber(number)}</p>
+    <p className="pt-stat-text">{text}</p>
   </div>
 );
 
@@ -46,8 +32,8 @@ export default function PlayerTabs({ matchData }) {
   const curr_p = matchData.participants[tabState];
 
   return (
-    <div style={{ border: "1px solid rgba(255,255,255,0.5)" }}>
-      <div className="flex flex-wrap">
+    <div className="pt-container">
+      <div className="pt-tabs-row">
         {matchData.participants.map((p, i) => (
           <Tab
             champId={p.championId}
@@ -60,12 +46,12 @@ export default function PlayerTabs({ matchData }) {
       </div>
       <div>
         <Link to={`/player/${curr_p.identity.player.summonerId}`}>
-          <p className="text-2xl mt-5 ml-10">
+          <p className="pt-player-name">
             {curr_p.identity.player.summonerName}
           </p>
         </Link>
 
-        <div className="flex flex-wrap p-4">
+        <div className="pt-stats-container">
           <StatBox
             number={(
               (curr_p.stats.kills + curr_p.stats.assists) /

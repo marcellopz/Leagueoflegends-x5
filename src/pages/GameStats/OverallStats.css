@@ -1,0 +1,103 @@
+/* OverallStats component styles */
+.stats-container {
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius);
+  margin: 20px;
+}
+
+.stats-inner-container {
+  padding: 15px;
+}
+
+/* Progress bar styles */
+.progress-bar-container {
+  height: 100%;
+  width: 100%;
+  margin: 8px 0;
+}
+
+.progress-bar-wrapper {
+  width: 100%;
+}
+
+.progress-bar-track {
+  width: 100%;
+  height: 16px;
+  position: relative;
+  background-color: var(--accent);
+  opacity: 0.75;
+  border-radius: calc(var(--radius) * 0.5);
+  overflow: hidden; /* Ensure the indicator doesn't leak outside the track */
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2); /* Inner shadow for depth */
+}
+
+.progress-bar-indicator {
+  transition: width 1s ease-in-out;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  border-radius: calc(var(--radius) * 0.5);
+  box-shadow: 0 0 5px rgba(255, 255, 255, 0.3); /* Subtle glow effect */
+}
+
+/* Team-specific progress bar colors */
+.progress-bar-red {
+  background-color: var(--red-500) !important;
+}
+
+.progress-bar-blue {
+  background-color: var(--blue-500) !important;
+}
+
+/* Side stat box styles */
+.side-stat-box {
+  background: transparent;
+  border: 1px solid var(--border-light);
+  padding: 13px;
+  width: 100%;
+  border-radius: var(--radius);
+}
+
+.side-stat-divider {
+  margin: 5px 0 !important;
+  border-color: var(--border-light);
+}
+
+.side-stat-row {
+  display: flex;
+}
+
+.side-stat-label {
+  align-self: center;
+  width: 80px;
+}
+
+.side-stat-progress {
+  flex-grow: 1;
+}
+
+.side-stat-value {
+  text-align: center;
+  width: 50px;
+  align-self: center;
+}
+
+/* General stats styles */
+.general-stats-paper {
+  background: var(--card);
+  border: 1px solid var(--border-light);
+  padding: 1px 0;
+  margin-bottom: 15px;
+}
+
+.general-stat-item {
+  margin: 15px;
+}
+
+.red-team {
+  color: var(--primary);
+}
+
+.blue-team {
+  color: var(--primary);
+}

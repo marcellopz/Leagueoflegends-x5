@@ -49,7 +49,8 @@ const GameDurationHistogram = ({ stats }) => {
         type: "bar",
         data: counts,
         itemStyle: {
-          color: theme.palette.secondary.main,
+          color: theme.palette.primary.light,
+          borderRadius: [20, 20, 0, 0],
         },
         barWidth: "60%",
       },

@@ -1,0 +1,123 @@
+/* Algorithm Selection Step Styles */
+.algorithm-selection-form {
+  margin: 0 20px;
+  padding: 20px;
+  color: var(--foreground);
+}
+
+.algorithm-selection-title {
+  margin-bottom: 20px;
+  font-size: 1.1rem;
+  color: var(--foreground);
+}
+
+.algorithm-selection-description {
+  margin-top: 15px;
+  margin-bottom: 20px;
+  color: var(--muted-foreground);
+  font-size: 0.9rem;
+}
+
+.algorithm-fields-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.algorithm-field-container {
+  margin-top: 10px;
+  max-width: 150px;
+  flex: 1;
+  min-width: 150px;
+}
+
+.preset-lanes-container {
+  width: 100%;
+  max-width: 450px;
+  margin-top: 10px;
+}
+
+.preset-field-container {
+  margin-top: 30px;
+}
+
+.preset-label {
+  margin-bottom: 15px;
+}
+
+.preset-lane-label {
+  display: flex;
+  margin: auto;
+  justify-content: flex-end;
+  color: var(--foreground);
+}
+
+.lane-vs-label {
+  text-align: center;
+  color: var(--muted-foreground);
+}
+
+.select-container {
+  width: 100%;
+}
+
+.algorithm-select .MuiOutlinedInput-notchedOutline,
+.preset-select .MuiOutlinedInput-notchedOutline {
+  border-color: var(--border-light) !important;
+}
+
+.algorithm-select:hover .MuiOutlinedInput-notchedOutline,
+.preset-select:hover .MuiOutlinedInput-notchedOutline {
+  border-color: var(--primary) !important;
+}
+
+.algorithm-select.Mui-focused .MuiOutlinedInput-notchedOutline,
+.preset-select.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: var(--blue-500) !important;
+  border-width: 1px !important;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2) !important;
+}
+
+.algorithm-text-field {
+  background-color: var(--accent);
+  color: var(--foreground);
+  border-radius: var(--radius);
+}
+
+.algorithm-text-field input {
+  color: var(--foreground);
+  text-align: center;
+  padding: 8px 10px;
+}
+
+.algorithm-text-field .MuiOutlinedInput-notchedOutline {
+  border-color: var(--border-light) !important;
+}
+
+.algorithm-text-field:hover .MuiOutlinedInput-notchedOutline {
+  border-color: var(--primary) !important;
+}
+
+.algorithm-text-field.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: var(--blue-500) !important;
+  border-width: 1px !important;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2) !important;
+}
+
+.algorithm-label {
+  color: var(--foreground);
+  margin-bottom: 8px;
+  font-size: 0.85rem;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.error-message {
+  color: var(--red-500);
+  margin-top: 20px;
+  font-size: 0.9rem;
+}

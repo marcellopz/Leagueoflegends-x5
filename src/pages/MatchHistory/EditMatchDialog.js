@@ -78,6 +78,7 @@ export default function EditMatchDialog({ open, onClose, data }) {
             >
               <img
                 src={lane}
+                alt=""
                 style={{
                   margin: "auto",
                   padding: "2px",
@@ -107,6 +108,7 @@ export default function EditMatchDialog({ open, onClose, data }) {
               }}
             >
               <img
+                alt=""
                 src={lane}
                 style={{
                   margin: "auto",

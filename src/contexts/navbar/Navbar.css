@@ -1,0 +1,85 @@
+/* Navbar Component Styles */
+
+.navbar {
+  background-color: var(--navbar-background);
+  height: 80px;
+  display: flex;
+  z-index: 10;
+  width: 100%;
+  justify-content: space-between;
+  font-size: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  box-sizing: border-box;
+  color: var(--navbar-text);
+}
+
+.navbar-section {
+  height: 100%;
+}
+
+.navbar-list {
+  display: flex;
+  padding-left: 20px;
+  margin: 0;
+  height: 100%;
+}
+
+.navbar-item {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  margin-right: 50px;
+}
+
+.navbar-brand-link {
+  color: inherit;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+}
+
+.navbar-logo {
+  height: 40px;
+  margin-right: 10px;
+  margin-bottom: 15px;
+}
+
+.navbar-brand-text {
+  margin-left: 5px;
+}
+
+.navbar-brand-line {
+  margin: 0;
+  font-weight: 600;
+  line-height: 1.1;
+  font-size: 14px;
+}
+
+.navbar-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.navbar-link-title {
+  font-weight: 400;
+  letter-spacing: 0.02em;
+}
+
+.navbar-right-item {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  padding-right: 20px;
+}
+
+.navbar-mobile-controls {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  padding-right: 20px;
+}
+
+.navbar-mobile-button {
+  margin-left: 10px;
+}

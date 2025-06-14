@@ -1,0 +1,251 @@
+/* Match Component Styles */
+.match-container {
+  margin-top: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.loading-container {
+  display: flex;
+}
+
+.loading-spinner {
+  margin: auto;
+}
+
+/* KDA Component Styles */
+.kda-container {
+  align-self: center;
+  display: flex;
+  gap: 0.5rem;
+  color: var(--muted-foreground);
+  justify-content: center;
+}
+
+.kda-container > p:first-child,
+.kda-container > p:last-child {
+  color: var(--foreground) !important;
+}
+
+.kda-deaths {
+  color: var(--defeat);
+}
+
+.team-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem;
+}
+
+.team-name-container {
+  display: flex;
+}
+
+.team-name {
+  margin-right: 0.5rem;
+}
+
+.team-status-victory {
+  color: var(--victory);
+  align-self: center;
+}
+
+.team-status-defeat {
+  color: var(--defeat);
+  align-self: center;
+}
+
+.team-stats-row {
+  padding: 0.5rem 1rem;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.team-objectives {
+  display: flex;
+  align-items: center;
+}
+
+.objective-item {
+  display: flex;
+  margin-right: 12px;
+}
+
+.objective-icon {
+  margin-right: 8px;
+}
+
+.bans-container {
+  display: flex;
+  gap: 0.25rem;
+  align-self: flex-end;
+}
+
+.bans-label {
+  align-self: center;
+  opacity: 0.3;
+  font-size: 1.125rem;
+  margin-right: 0.5rem;
+}
+
+.champion-ban {
+  background: rgba(255, 255, 255, 0.2);
+  width: 40px;
+  height: 40px;
+  border-radius: 3px;
+  margin-right: 2px;
+}
+
+.champion-ban-img {
+  margin: 2px;
+  width: 36px;
+}
+
+.player-row {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.player-champion-container {
+  display: flex;
+}
+
+.champion-wrapper {
+  position: relative;
+}
+
+.champion-level {
+  position: absolute;
+  bottom: 2px;
+  right: 7px;
+  padding: 2px;
+  border-radius: 5px;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 10;
+}
+
+.champion-level-text {
+  font-size: 0.75rem;
+}
+
+.champion-icon-wrapper {
+  overflow: hidden;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.spells-container {
+  margin-left: 5px;
+}
+
+.spell-icon {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.spell-icon-bottom {
+  display: block;
+}
+
+.player-info {
+  width: 9rem;
+  text-align: center;
+}
+
+.player-name {
+  font-size: 16px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.player-role {
+  opacity: 0.5;
+  font-size: 14px;
+}
+
+.player-stats {
+  width: 10rem;
+  text-align: center;
+  font-size: 14px;
+}
+
+.items-container {
+  display: flex;
+  width: 130px;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 4px;
+}
+
+.item-slot {
+  background: rgba(255, 255, 255, 0.2);
+  width: 35px;
+  height: 35px;
+  border-radius: 3px;
+  margin-right: 2px;
+}
+
+.item-icon {
+  margin: 2px;
+  width: 31px;
+}
+
+/* TeamMatch Component Styles */
+.team-match-container {
+  font-size: 1.25rem;
+}
+
+.team-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem;
+}
+
+.team-id {
+  margin-right: 0.5rem;
+}
+
+.team-status-container {
+  display: flex;
+}
+
+.grid-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.grid-item {
+  width: 100%;
+}
+
+.border-left {
+  border-left: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.border-top {
+  border-top: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+@media (min-width: 1200px) {
+  .grid-item {
+    width: 50%;
+  }
+
+  .grid-item-right {
+    border-left: 1px solid rgba(255, 255, 255, 0.5);
+    border-top: none;
+  }
+}
+
+@media (max-width: 1199px) {
+  .grid-item-right {
+    border-left: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.5);
+  }
+}

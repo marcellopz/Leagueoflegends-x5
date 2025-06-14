@@ -1,9 +1,8 @@
 import { Paper } from "@mui/material";
 import MatchSummary from "./MatchSummary";
-import { useCallback, useMemo, useState } from "react";
+import { useMemo } from "react";
 
 export default function MatchDisplay({ match, openDialog, roles }) {
-  const [expanded, setExpanded] = useState(false);
   const matchMemo = useMemo(() => {
     if (roles) {
       let newParticipants = [];
@@ -13,13 +12,12 @@ export default function MatchDisplay({ match, openDialog, roles }) {
         newParticipants = [...newParticipants, ...a];
       });
       match.participants = newParticipants.map(
+        // eslint-disable-next-line eqeqeq
         (id) => match.participants.filter((part) => part.summonerId == id)[0]
       );
     }
     return match;
   }, [match, roles]);
-
-  const toggleExpand = useCallback(() => setExpanded((prev) => !prev), []);
 
   return (
     <Paper
@@ -39,12 +37,7 @@ export default function MatchDisplay({ match, openDialog, roles }) {
         },
       }}
     >
-      <MatchSummary
-        match={matchMemo}
-        expanded={expanded}
-        toggleExpanded={toggleExpand}
-        openDialog={openDialog}
-      />
+      <MatchSummary match={matchMemo} openDialog={openDialog} />
     </Paper>
   );
 }

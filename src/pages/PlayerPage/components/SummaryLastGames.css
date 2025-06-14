@@ -1,0 +1,93 @@
+/* SummaryLastGames Component Styles */
+
+.slg-container {
+  border-radius: 5px;
+  box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.slg-header {
+  padding: 10px 20px;
+}
+
+.slg-content {
+  display: flex;
+  justify-content: space-evenly;
+  padding-bottom: 15px;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.slg-stats-section {
+  margin: auto 0;
+}
+
+.slg-stats-row {
+  display: flex;
+}
+
+.slg-stats-details {
+  margin-left: 15px;
+}
+
+.slg-stats-text {
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.slg-kda-text {
+  font-size: 25px;
+  font-weight: 600;
+  margin-top: 5px;
+}
+
+.slg-champions-section {
+  margin: auto 0;
+}
+
+.slg-champions-grid {
+  display: flex;
+  flex-direction: column;
+  height: 120px;
+  flex-wrap: wrap;
+  width: 300px;
+}
+
+.slg-champion-item {
+  align-items: center;
+  display: flex;
+  margin: 5px 10px;
+}
+
+.slg-champion-icon-container {
+  width: 30px;
+  height: 30px;
+  overflow: hidden;
+  border-radius: 15px;
+}
+
+.slg-champion-icon {
+  max-width: 100%;
+}
+
+.slg-champion-stats {
+  display: flex;
+}
+
+.slg-winrate {
+  width: 50px;
+  text-align: center;
+  font-weight: 500;
+}
+
+.slg-winrate-high {
+  color: rgba(255, 128, 144, 0.9);
+}
+
+.slg-winrate-normal {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.slg-record {
+  color: rgba(255, 255, 255, 0.6);
+}

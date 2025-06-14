@@ -7,7 +7,9 @@ import {
   MenuItem,
   Select,
   TextField,
+  Typography,
 } from "@mui/material";
+import "./algorithmSelectionStep.css";
 
 const formAlgos = {
   cheezeV1: {
@@ -17,8 +19,9 @@ const formAlgos = {
     fields: [
       {
         id: "numberOfMatches",
-        label: "Number of matches desired",
+        label: "Number of options",
         type: "number",
+        initialValue: 5,
       },
     ],
   },
@@ -44,6 +47,35 @@ const formAlgos = {
       },
     ],
   },
+  claudeV1: {
+    label: "Claude-v1",
+    description:
+      "Balances teams based on players' average ranks, creating teams with similar total strength",
+    fields: [
+      {
+        id: "numberOfMatches",
+        label: "Number of options",
+        type: "number",
+      },
+    ],
+  },
+  grilhaV1: {
+    label: "Grilha-v1",
+    description:
+      "Generates match options that assign players to a broader range of roles, promoting diversity in lane assignments while ensuring fair matches within the specified tolerance.",
+    fields: [
+      {
+        id: "numberOfMatches",
+        label: "Number of options",
+        type: "number",
+      },
+      {
+        id: "tolerance",
+        label: "Tolerance",
+        type: "number",
+      },
+    ],
+  },
 };
 
 const algos = ["", ...Object.keys(formAlgos)];
@@ -58,14 +90,18 @@ const getField = (
 ) => {
   if (field.type === "number") {
     return (
-      <div style={{ marginTop: "20px" }}>
-        <InputLabel>{field.label}</InputLabel>
+      <div className="algorithm-field-container">
+        <InputLabel className="algorithm-label">{field.label}</InputLabel>
         <TextField
           type="number"
           value={values[field.id] ?? ""}
           onChange={(e) =>
             setValues((prev) => ({ ...prev, [field.id]: e.target.value }))
           }
+          className="algorithm-text-field"
+          inputProps={{ min: 0 }}
+          size="small"
+          fullWidth
         />
       </div>
     );
@@ -73,25 +109,24 @@ const getField = (
   if (field.type === "preset") {
     let options = ["", ...players];
     return (
-      <>
-        <InputLabel sx={{ marginY: "20px" }}>Pre-set lanes</InputLabel>
+      <div className="preset-field-container">
+        <InputLabel className="algorithm-label preset-label">
+          Pre-set lanes
+        </InputLabel>
         <Grid
-          sx={{ width: "100%", maxWidth: "450px" }}
+          className="preset-lanes-container"
           container
           rowSpacing={1}
           columnSpacing={{ xs: 1, sm: 2, md: 3 }}
         >
           {["Top", "Jungle", "Mid", "Adc", "Support"].map((lane) => (
             <React.Fragment key={lane}>
-              <Grid
-                item
-                xs={3}
-                sx={{ display: "flex", margin: "auto", justifyContent: "end" }}
-              >
+              <Grid item xs={3} className="preset-lane-label">
                 <p>{lane}</p>
               </Grid>
               <Grid item xs={4}>
                 <Select
+                  className="preset-select"
                   fullWidth
                   value={presetPositions[lane][0]}
                   onChange={(e) => handlePresetChange(e.target.value, lane, 0)}
@@ -103,11 +138,12 @@ const getField = (
                   ))}
                 </Select>
               </Grid>
-              <Grid item xs={1}>
+              <Grid item xs={1} className="lane-vs-label">
                 <p>vs</p>
               </Grid>
               <Grid item xs={4}>
                 <Select
+                  className="preset-select"
                   fullWidth
                   value={presetPositions[lane][1]}
                   onChange={(e) => handlePresetChange(e.target.value, lane, 1)}
@@ -122,7 +158,7 @@ const getField = (
             </React.Fragment>
           ))}
         </Grid>
-      </>
+      </div>
     );
   }
 };
@@ -131,7 +167,7 @@ export default function AlgorithmSelectionStep({ setIsOk }) {
   const [error, setError] = useState(
     "Choose an algorithm for balancing the match"
   );
-  const [values, setValues] = useState({});
+  const [values, setValues] = useState({ numberOfMatches: 5, tolerance: 1 });
   const { selectedOptions, selectedAlgo, setSelectedAlgo, setAlgoOptions } =
     useContext(MatchMakingContext);
   const [presetPositions, setPresetPositions] = useState({
@@ -200,52 +236,120 @@ export default function AlgorithmSelectionStep({ setIsOk }) {
         }
         setError(false);
         break;
+      case "claudeV1":
+        if (!(values.numberOfMatches > 0)) {
+          setError("Choose how many matches to generate");
+          break;
+        }
+        if (values.numberOfMatches > MAX_NUMBER_OF_MATCHES) {
+          setError(
+            `Too many matches! The maximum is ${MAX_NUMBER_OF_MATCHES}.`
+          );
+          break;
+        }
+        setError(false);
+        break;
+      case "grilhaV1":
+        if (!(values.numberOfMatches > 0)) {
+          setError("Choose how many matches to generate");
+          break;
+        }
+        if (values.numberOfMatches > MAX_NUMBER_OF_MATCHES) {
+          setError(
+            `Too many matches! The maximum is ${MAX_NUMBER_OF_MATCHES}.`
+          );
+          break;
+        }
+        if (!(values.tolerance >= 0)) {
+          setError("Choose a value for the tolerance");
+          break;
+        }
+        setError(false);
+        break;
       case "":
         setError("Choose an algorithm for balancing the match");
+        break;
+      default:
+        setError("Unknown algorithm selected");
+        break;
     }
-  }, [selectedAlgo, presetPositions, values]);
+  }, [
+    selectedAlgo,
+    presetPositions,
+    values,
+    setAlgoOptions,
+    MAX_NUMBER_OF_MATCHES,
+  ]);
 
   useEffect(() => {
     setIsOk(!error);
-  }, [error, values]);
+  }, [error, setIsOk]);
 
   return (
-    <div style={{ margin: "20px" }}>
-      <p>Select the matchmaking algorithm</p>
-      <InputLabel id="algo-select">Algorithm</InputLabel>
+    <div className="algorithm-selection-form">
+      <Typography className="algorithm-selection-title">
+        Select the matchmaking algorithm
+      </Typography>
+      <InputLabel id="algo-select" className="algorithm-label">
+        Algorithm
+      </InputLabel>
       <Select
         labelId="algo-select"
         value={selectedAlgo}
         label="Algorithm"
         onChange={handleAlgoSelect}
         placeholder="Algorithm"
+        className="algorithm-select"
         fullWidth
       >
         {algos.map((algo) => (
           <MenuItem value={algo} key={algo}>
             <ListItemText
-              //   sx={{overflowWrap}}
               primary={formAlgos[algo]?.label ?? "-"}
               secondary={formAlgos[algo]?.description ?? ""}
             />
           </MenuItem>
         ))}
       </Select>
-      {selectedAlgo && <p>{formAlgos[selectedAlgo].description}</p>}
+      {selectedAlgo && (
+        <Typography className="algorithm-selection-description">
+          {formAlgos[selectedAlgo].description}
+        </Typography>
+      )}
+      {selectedAlgo && (
+        <div className="algorithm-fields-wrapper">
+          {formAlgos[selectedAlgo].fields
+            .filter((field) => field.type === "number")
+            .map((selected) => (
+              <React.Fragment key={selected.label ?? selected.id}>
+                {getField(
+                  selected,
+                  selectedOptions,
+                  values,
+                  setValues,
+                  presetPositions,
+                  handlePresetChange
+                )}
+              </React.Fragment>
+            ))}
+        </div>
+      )}
       {selectedAlgo &&
-        formAlgos[selectedAlgo].fields.map((selected) => (
-          <React.Fragment key={selected.label ?? 0}>
-            {getField(
-              selected,
-              selectedOptions,
-              values,
-              setValues,
-              presetPositions,
-              handlePresetChange
-            )}
-          </React.Fragment>
-        ))}
-      {error && <p style={{ color: "red" }}>{error}</p>}
+        formAlgos[selectedAlgo].fields
+          .filter((field) => field.type === "preset")
+          .map((selected) => (
+            <React.Fragment key={selected.label ?? selected.id}>
+              {getField(
+                selected,
+                selectedOptions,
+                values,
+                setValues,
+                presetPositions,
+                handlePresetChange
+              )}
+            </React.Fragment>
+          ))}
+      {error && <Typography className="error-message">{error}</Typography>}
     </div>
   );
 }

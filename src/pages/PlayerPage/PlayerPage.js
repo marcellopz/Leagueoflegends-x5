@@ -12,10 +12,11 @@ import PlayerSummaryTab from "./PlayerSummaryTab";
 import PlayerChampionsTab from "./PlayerChampionsTab";
 import PlayerStatsTab from "./PlayerStatsTab";
 import PlayerRecordsTab from "./PlayerRecordsTab";
+import "./PlayerPage.css";
 
 function TabPanel({ children, value, index }) {
   return (
-    <div role="tabpanel" hidden={value !== index}>
+    <div role="tabpanel" hidden={value !== index} className="pp-tabpanel">
       {children}
     </div>
   );
@@ -81,35 +82,45 @@ export default function PlayerPage() {
       });
   }, [playerKey]);
 
+  if (playerInfo === null) {
+    return (
+      <div className="pp-container">
+        <div className="pp-no-data">No player data</div>
+      </div>
+    );
+  }
+
   return (
     <X5pageContentArea loading={loading} removeMarginTop>
-      <PlayerBanner
-        champs={champs}
-        playerInfo={playerInfo}
-        playerKey={playerKey}
-        selectedPlayerCardStats={selectedPlayerCardStats}
-        setSelectedTab={setSelectedTab}
-        selectedTab={selectedTab}
-      />
-      <TabPanel index={0} value={selectedTab}>
-        <PlayerSummaryTab champs={champs} playerInfo={playerInfo} />
-      </TabPanel>
-
-      <TabPanel index={1} value={selectedTab}>
-        <PlayerChampionsTab champs={champs} />
-      </TabPanel>
-
-      <TabPanel index={2} value={selectedTab}>
-        <PlayerStatsTab
+      <div className="pp-container">
+        <PlayerBanner
+          champs={champs}
           playerInfo={playerInfo}
-          playerPairs={playerPairs}
-          playerSummary={playerSummary}
+          playerKey={playerKey}
+          selectedPlayerCardStats={selectedPlayerCardStats}
+          setSelectedTab={setSelectedTab}
+          selectedTab={selectedTab}
         />
-      </TabPanel>
+        <TabPanel index={0} value={selectedTab}>
+          <PlayerSummaryTab champs={champs} playerInfo={playerInfo} />
+        </TabPanel>
 
-      <TabPanel index={3} value={selectedTab}>
-        <PlayerRecordsTab records={playerInfo.records} />
-      </TabPanel>
+        <TabPanel index={1} value={selectedTab}>
+          <PlayerChampionsTab champs={champs} />
+        </TabPanel>
+
+        <TabPanel index={2} value={selectedTab}>
+          <PlayerStatsTab
+            playerInfo={playerInfo}
+            playerPairs={playerPairs}
+            playerSummary={playerSummary}
+          />
+        </TabPanel>
+
+        <TabPanel index={3} value={selectedTab}>
+          <PlayerRecordsTab records={playerInfo.records} />
+        </TabPanel>
+      </div>
     </X5pageContentArea>
   );
 }
