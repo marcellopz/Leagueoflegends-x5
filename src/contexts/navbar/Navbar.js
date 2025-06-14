@@ -99,9 +99,10 @@ function Navbar({ children }) {
                 variant="contained"
                 sx={{
                   marginLeft: "16px",
+                  whiteSpace: "nowrap",
                 }}
               >
-                Go to season 2
+                Season 2
               </Button>
             </li>
             {windowSize.width > 1200 &&
