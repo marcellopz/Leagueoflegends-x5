@@ -86,7 +86,7 @@ function CardComponent({ name, ranks, sx, label, onLoad, clickable = true }) {
   return (
     <motion.div
       className="player-card"
-      onClick={() => {
+      onDoubleClick={() => {
         if (clickable) {
           navigate("/player/" + name);
         }

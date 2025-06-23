@@ -86,7 +86,6 @@ function Navbar({ children }) {
                     Season 1
                   </Typography>
                 </div>
-
                 <div className="navbar-brand-text">
                   <h3 className="navbar-brand-line">x5</h3>
                   <h3 className="navbar-brand-line">dos</h3>
