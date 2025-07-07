@@ -141,7 +141,7 @@ const PlayerRow = ({ player, role, totalKills }) => (
     {/* Name, KDA, Position */}
     <div className="player-info">
       <Link to={`/player/${player.identity.player.summonerId}`}>
-        <p className="player-name">{player.identity.player.gameName}</p>
+        <p className="player-name">{player.identity.player.summonerName}</p>
       </Link>
 
       <KDA
